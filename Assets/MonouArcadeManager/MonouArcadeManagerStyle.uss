@@ -1,0 +1,134 @@
+#content {
+    background-color: rgb(0, 0, 0);
+    background-image: url("project://database/Assets/MonouArcadeManager/background.png?fileID=2800000&guid=b8ca07c4eb63846a7a0100f816e60483&type=3#background");
+    font-size: 18px;
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-image-tint-color: rgb(173, 173, 173);
+}
+
+#unity-content-container {
+    flex-grow: 1;
+}
+
+#logo {
+    padding-top: 30%;
+    padding-right: 30%;
+    padding-bottom: 30%;
+    padding-left: 30%;
+    margin-top: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    background-image: url("project://database/Assets/MonouArcadeManager/logo.png?fileID=2800000&guid=4460a6b50c8624de798e4a6b78596b82&type=3#logo");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.container {
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.unity-label {
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.unity-button {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(137, 137, 137);
+    border-right-color: rgb(137, 137, 137);
+    border-top-color: rgb(137, 137, 137);
+    border-bottom-color: rgb(137, 137, 137);
+    background-color: rgb(34, 128, 197);
+    -unity-font-style: bold;
+    width: 200px;
+}
+
+#tutorial {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.reward {
+    padding-top: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+    padding-left: 24px;
+    margin-top: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    background-color: rgb(227, 0, 71);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    align-items: flex-start;
+}
+
+.reward_description {
+    color: rgb(111, 231, 193);
+    -unity-font-style: bold;
+    font-size: 24px;
+    width: 100%;
+    -unity-text-align: upper-left;
+    white-space: normal;
+    padding-right: 100px;
+}
+
+Scroller #unity-low-button {
+    display: none;
+}
+
+Scroller #unity-high-button {
+    display: none;
+}
+
+Scroller #unity-slider {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+Scroller #unity-drag-container {
+}
+
+Scroller #unity-dragger {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+Scroller #unity-tracker {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+Scroller {
+    width: 16px;
+}
+
+MultiColumnCollectionHeader > VisualElement Label {
+    color: rgb(255, 255, 255);
+}
+
+MultiColumnCollectionHeader > VisualElement VisualElement {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
