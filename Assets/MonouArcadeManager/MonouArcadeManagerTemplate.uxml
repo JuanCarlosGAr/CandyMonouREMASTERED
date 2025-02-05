@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/MonouArcadeManager/MonouArcadeManagerStyle.uss?fileID=7433441132597879392&amp;guid=1f74a485e4847466c8f8416e291e7b03&amp;type=3#MonouArcadeManagerStyle" />
-    <engine:ScrollView name="content" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MonouArcadeManager/background.png?fileID=2800000&amp;guid=b8ca07c4eb63846a7a0100f816e60483&amp;type=3#background&quot;);">
+    <engine:ScrollView name="content" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Monou/wallpapper_jungle.jpg?fileID=2800000&amp;guid=304aaa701295ff546be37137604350d2&amp;type=3#wallpapper_jungle&quot;);">
         <engine:VisualElement name="logo" />
         <engine:VisualElement name="notReady" class="container" style="display: none;">
             <engine:Label text="El torneio inica en" />
@@ -88,8 +88,8 @@
             <engine:Button text="Listo" name="finishButton" style="width: auto;" />
         </engine:VisualElement>
     </engine:VisualElement>
-    <engine:VisualElement name="modal" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; display: flex;">
-        <engine:VisualElement name="modalContainer" style="width: 280px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-color: rgb(0, 0, 0); border-left-color: rgb(128, 128, 128); border-right-color: rgb(128, 128, 128); border-top-color: rgb(128, 128, 128); border-bottom-color: rgb(128, 128, 128); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; align-items: center;">
+    <engine:VisualElement name="modal" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; display: flex; opacity: 1;">
+        <engine:VisualElement name="modalContainer" style="width: 280px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-color: rgb(0, 0, 0); border-left-color: rgb(128, 128, 128); border-right-color: rgb(128, 128, 128); border-top-color: rgb(128, 128, 128); border-bottom-color: rgb(128, 128, 128); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; align-items: center; background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=-2979456362638295911&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_31&quot;);">
             <engine:Label text="¿Estas seguro que quieres salir del juego?" name="modalTitle" />
             <engine:Button text="De acuerdo" name="modalConfirm" />
             <engine:Button text="Cancelar" name="modalCancel" />

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5ba94b35fff1f904f904d2c28f9fcece
+guid: 2a56a83d811acdd4c90a6e66cf0c5d46
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1483665779731714255
-    second: Bomb_0
+      213: -2574867843758935715
+    second: LogoJungleMission_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bomb_0
+      name: LogoJungleMission_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 1
-        width: 82
-        height: 108
+        x: 0
+        y: 0
+        width: 304
+        height: 229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 13f20b985d5f86be0800000000000000
-      internalID: -1483665779731714255
+      spriteID: d513c2d965b344cd0800000000000000
+      internalID: -2574867843758935715
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Bomb_0: -1483665779731714255
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

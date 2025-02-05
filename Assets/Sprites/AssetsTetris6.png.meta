@@ -1,0 +1,956 @@
+fileFormatVersion: 2
+guid: fe6e7a40223226c44aa1467b3141d5d2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8605284258142578145
+    second: AssetsTetris6_0
+  - first:
+      213: -426740259749696891
+    second: AssetsTetris6_1
+  - first:
+      213: -852926440063769509
+    second: AssetsTetris6_2
+  - first:
+      213: 226408880259815438
+    second: AssetsTetris6_3
+  - first:
+      213: -6452810755997955662
+    second: AssetsTetris6_4
+  - first:
+      213: -6869216242712022062
+    second: AssetsTetris6_5
+  - first:
+      213: 4907788839838681577
+    second: AssetsTetris6_6
+  - first:
+      213: 8312744525486104203
+    second: AssetsTetris6_7
+  - first:
+      213: 2573452075846301525
+    second: AssetsTetris6_8
+  - first:
+      213: 3341395947126810998
+    second: AssetsTetris6_9
+  - first:
+      213: -5113296040454806732
+    second: AssetsTetris6_10
+  - first:
+      213: 2144328271783262487
+    second: AssetsTetris6_11
+  - first:
+      213: 1274524979199520798
+    second: AssetsTetris6_12
+  - first:
+      213: 1884859478681980150
+    second: AssetsTetris6_13
+  - first:
+      213: -3178394085697689770
+    second: AssetsTetris6_14
+  - first:
+      213: 932912217104796882
+    second: AssetsTetris6_15
+  - first:
+      213: 984095439318575949
+    second: AssetsTetris6_16
+  - first:
+      213: 1149995914792566095
+    second: AssetsTetris6_17
+  - first:
+      213: -799252271836667159
+    second: AssetsTetris6_18
+  - first:
+      213: -7778956622894068662
+    second: AssetsTetris6_19
+  - first:
+      213: 4029097420661752718
+    second: AssetsTetris6_20
+  - first:
+      213: 7698572489238523372
+    second: AssetsTetris6_21
+  - first:
+      213: 3825238948321671257
+    second: AssetsTetris6_22
+  - first:
+      213: -7780987477550019954
+    second: AssetsTetris6_23
+  - first:
+      213: 8225247615021306882
+    second: AssetsTetris6_24
+  - first:
+      213: 800934655184149784
+    second: AssetsTetris6_25
+  - first:
+      213: -1792670913655335863
+    second: AssetsTetris6_26
+  - first:
+      213: 3968481251013841365
+    second: AssetsTetris6_27
+  - first:
+      213: 4088588503330366683
+    second: AssetsTetris6_28
+  - first:
+      213: -7678946386169407045
+    second: AssetsTetris6_29
+  - first:
+      213: -8541876805524283872
+    second: AssetsTetris6_30
+  - first:
+      213: -2979456362638295911
+    second: AssetsTetris6_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AssetsTetris6_0
+      rect:
+        serializedVersion: 2
+        x: 2258
+        y: 3592
+        width: 347
+        height: 311
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1a962a5f83e39880800000000000000
+      internalID: -8605284258142578145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_1
+      rect:
+        serializedVersion: 2
+        x: 2723
+        y: 3751
+        width: 226
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58ae246aef9e31af0800000000000000
+      internalID: -426740259749696891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_2
+      rect:
+        serializedVersion: 2
+        x: 3048
+        y: 3835
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54e578fbebc924f0800000000000000
+      internalID: -852926440063769509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_3
+      rect:
+        serializedVersion: 2
+        x: 3192
+        y: 3835
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0851e15dad542300800000000000000
+      internalID: 226408880259815438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_4
+      rect:
+        serializedVersion: 2
+        x: 3546
+        y: 3725
+        width: 181
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b90ced4ec20376a0800000000000000
+      internalID: -6452810755997955662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_5
+      rect:
+        serializedVersion: 2
+        x: 3794
+        y: 3724
+        width: 195
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d37ecfc834aba0a0800000000000000
+      internalID: -6869216242712022062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_6
+      rect:
+        serializedVersion: 2
+        x: 3048
+        y: 3696
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e9063f72f7fb1440800000000000000
+      internalID: 4907788839838681577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_7
+      rect:
+        serializedVersion: 2
+        x: 3191
+        y: 3704
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8e1c266a1dcc5370800000000000000
+      internalID: 8312744525486104203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_8
+      rect:
+        serializedVersion: 2
+        x: 3546
+        y: 3539
+        width: 181
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5577f4b370db6b320800000000000000
+      internalID: 2573452075846301525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_9
+      rect:
+        serializedVersion: 2
+        x: 2768
+        y: 3592
+        width: 114
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6796c6219e50f5e20800000000000000
+      internalID: 3341395947126810998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_10
+      rect:
+        serializedVersion: 2
+        x: 3044
+        y: 3555
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 433a745b75ce909b0800000000000000
+      internalID: -5113296040454806732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_11
+      rect:
+        serializedVersion: 2
+        x: 3199
+        y: 3556
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 719f779b33f22cd10800000000000000
+      internalID: 2144328271783262487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_12
+      rect:
+        serializedVersion: 2
+        x: 3360
+        y: 3563
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e10bc8247b500b110800000000000000
+      internalID: 1274524979199520798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_13
+      rect:
+        serializedVersion: 2
+        x: 3794
+        y: 3487
+        width: 195
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fc0e5e95bd582a10800000000000000
+      internalID: 1884859478681980150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_14
+      rect:
+        serializedVersion: 2
+        x: 3174
+        y: 3319
+        width: 114
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65769cd3b6314e3d0800000000000000
+      internalID: -3178394085697689770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_15
+      rect:
+        serializedVersion: 2
+        x: 3339
+        y: 3348
+        width: 55
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dc472bf7be52fc00800000000000000
+      internalID: 932912217104796882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_16
+      rect:
+        serializedVersion: 2
+        x: 3839
+        y: 3298
+        width: 98
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b6aad869538ad00800000000000000
+      internalID: 984095439318575949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_17
+      rect:
+        serializedVersion: 2
+        x: 2754
+        y: 3032
+        width: 389
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d7c5a013b95ff00800000000000000
+      internalID: 1149995914792566095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_18
+      rect:
+        serializedVersion: 2
+        x: 3229
+        y: 3032
+        width: 389
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e2604b1b4c78e4f0800000000000000
+      internalID: -799252271836667159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_19
+      rect:
+        serializedVersion: 2
+        x: 3849
+        y: 3103
+        width: 98
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4c0a398a289b0490800000000000000
+      internalID: -7778956622894068662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_20
+      rect:
+        serializedVersion: 2
+        x: 2783
+        y: 2943
+        width: 193
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e838cfbc1ca3ae730800000000000000
+      internalID: 4029097420661752718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_21
+      rect:
+        serializedVersion: 2
+        x: 3258
+        y: 2941
+        width: 194
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ced28a2e3e2d6da60800000000000000
+      internalID: 7698572489238523372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_22
+      rect:
+        serializedVersion: 2
+        x: 3827
+        y: 2918
+        width: 128
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958b3b77e8af51530800000000000000
+      internalID: 3825238948321671257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_23
+      rect:
+        serializedVersion: 2
+        x: 3828
+        y: 2764
+        width: 128
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8a4ed65d11640490800000000000000
+      internalID: -7780987477550019954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_24
+      rect:
+        serializedVersion: 2
+        x: 3828
+        y: 2721
+        width: 128
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20459fa6023f52270800000000000000
+      internalID: 8225247615021306882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_25
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 1845
+        width: 504
+        height: 891
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d1d8a43dd7d1b00800000000000000
+      internalID: 800934655184149784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_26
+      rect:
+        serializedVersion: 2
+        x: 2103
+        y: 1082
+        width: 925
+        height: 1651
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94416605d472f17e0800000000000000
+      internalID: -1792670913655335863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_27
+      rect:
+        serializedVersion: 2
+        x: 3831
+        y: 2502
+        width: 122
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d15a700ca0e21730800000000000000
+      internalID: 3968481251013841365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_28
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 2168
+        width: 205
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4a0cdd4959db830800000000000000
+      internalID: 4088588503330366683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_29
+      rect:
+        serializedVersion: 2
+        x: 2189
+        y: 631
+        width: 753
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb95a1352f6ee6590800000000000000
+      internalID: -7678946386169407045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_30
+      rect:
+        serializedVersion: 2
+        x: 3157
+        y: 583
+        width: 828
+        height: 764
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e939b5d48257980800000000000000
+      internalID: -8541876805524283872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsTetris6_31
+      rect:
+        serializedVersion: 2
+        x: 2189
+        y: 378
+        width: 753
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99cba295938d6a6d0800000000000000
+      internalID: -2979456362638295911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
