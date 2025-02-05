@@ -10,6 +10,9 @@ public class Potion : MonoBehaviour
     public int xIndex;
     public int yIndex;
 
+    public Color color;
+    public Vector2Int position;
+
     public bool isMatched;
     private Vector2 currentPos;
     private Vector2 targetPos;

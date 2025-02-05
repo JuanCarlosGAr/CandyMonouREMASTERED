@@ -24,6 +24,8 @@ public class PotionBoard : MonoBehaviour
     public List<GameObject> potionsToDestroy = new();
     public GameObject potionParent;
 
+    private List<Potion> _potionsOnBoard = new List<Potion>();
+
     [SerializeField]
     private Potion selectedPotion;
     private SoundManager soundManager; // Referencia al SoundManager
@@ -51,6 +53,17 @@ public class PotionBoard : MonoBehaviour
         InitializeBoard();
                 // Encuentra el objeto SoundManager en la escena
         soundManager = FindObjectOfType<SoundManager>();
+    }
+    
+    public void UpdatePotions(List<Potion> potions)
+    {
+        _potionsOnBoard = potions;
+        
+        // Llama al método de MatchCalculator para calcular coincidencias
+        if (MatchCalculator.Instance != null)
+        {
+            MatchCalculator.Instance.CalculateMatches(_potionsOnBoard);
+        }
     }
 
     private void Update()
