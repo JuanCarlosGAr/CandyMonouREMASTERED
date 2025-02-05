@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
         movesTxt.text = "Moves: " + moves.ToString();
         goalTxt.text = "Goal: " + goal.ToString();
     }
-    
+
     public void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool isPowerUpActivation = false)
     {
-        Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
+         Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
         points += _pointsToGain;
         if (_subtractMoves)
             moves--;
@@ -62,51 +62,19 @@ public class GameManager : MonoBehaviour
             isGameEnded = true;
             backgroundPanel.SetActive(true);
             victoryPanel.SetActive(true);
-
-            // actualizamos los textos
-            var congratulationsTxt = GameObject.FindGameObjectWithTag("congratulationsTxt");
-   
-            string winMessage = $"fELICIDADES! You won in {moves} moves and scored {points} points!";
-            try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
-
-            if (congratulationsTxt != null)
-            {
-                TMP_Text textComp = congratulationsTxt.GetComponent<TMP_Text>();
-                if (textComp != null)
-                {
-                    textComp.text = winMessage;
-                }
-            }
-
             PotionBoard.Instance.potionParent.SetActive(false);
+            return;
         }
-        
-        // Verificamos si el jugador pierde porque no hay más movimientos
-        if (moves <= 0 && points < goal)
-        {
-            isGameEnded = true;
-            print ("perdiste");
-            backgroundPanel.SetActive(true);
-            losePanel.SetActive(true);
+    } // <-- Aquí termina ProcessTurn
 
-            string loseMessage = $"Ya no tienes más movimientos. lograste {points} puntos! sigue partisipando.";
-            try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
-            
-            var loseTxt = GameObject.FindGameObjectWithTag("loseText");
-            if (loseTxt != null)
-            {
-                TMP_Text textComp = loseTxt.GetComponent<TMP_Text>();
-                if (textComp != null)
-                {
-                    textComp.text = loseMessage;
-                }
-            }
-
-            PotionBoard.Instance.potionParent.SetActive(false);
-        }
+    // Métodos dentro de la clase
+    public void WinGame()
+    {
+        SceneManager.LoadScene(0);
     }
-    public void RestartGame()
-{
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-}
+
+    public void LoseGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
