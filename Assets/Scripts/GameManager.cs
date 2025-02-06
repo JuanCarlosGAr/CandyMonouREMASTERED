@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
         goal = _goal;
     }
 
+    public void AddMoves(int movesToAdd) 
+    {
+        moves += movesToAdd;
+        Debug.Log("Movimientos adicionales otorgados: " + movesToAdd);
+        // Aquí puedes llamar a la función para reproducir sonido
+       // SoundManager.Instance.PlayExtraMoveSound();
+    }
+
     void Update()
     {
         pointsTxt.text = "Points: " + points.ToString();

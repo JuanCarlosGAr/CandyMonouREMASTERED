@@ -257,6 +257,7 @@ void InitializeBoard()
         {
             StartCoroutine(ProcessTurnOnMatchedBoard(false, isPowerUpActivation));
         }
+        
     }
     
     private void Explode(int x, int y, List<Potion> potionsList)
@@ -729,6 +730,7 @@ private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion) 
         // Eliminar el power-up y las fichas afectadas
         powerUpEffects.Add(movedPowerUp);
         RemoveAndRefill(powerUpEffects);
+        GameManager.Instance.ProcessTurn(powerUpEffects.Count, true, true);
         GameManager.Instance.ProcessTurn(powerUpEffects.Count, true, true); // Restar un movimiento
         yield return new WaitForSeconds(0.4f);
 
@@ -745,6 +747,7 @@ private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion) 
         else {
             DoSwap(_currentPotion, _targetPotion);
             soundManager.PlayNoMatchSound();
+                GameManager.Instance.ProcessTurn(1, false, true);
         }
     }
 
