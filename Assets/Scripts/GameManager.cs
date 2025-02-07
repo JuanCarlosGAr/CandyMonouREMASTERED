@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         goal = _goal;
     }
 
+<<<<<<< Updated upstream
     public void AddMoves(int movesToAdd) 
     {
         moves += movesToAdd;
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
        // SoundManager.Instance.PlayExtraMoveSound();
     }
 
+=======
+        public void AddMoves(int extraMoves)
+    {
+        moves += extraMoves;
+    }
+>>>>>>> Stashed changes
     void Update()
     {
         pointsTxt.text = "Points: " + points.ToString();
