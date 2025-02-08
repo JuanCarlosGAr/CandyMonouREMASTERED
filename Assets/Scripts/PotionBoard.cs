@@ -200,8 +200,30 @@ void InitializeBoard()
 
                         if (matchedPotions.connectedPotions.Count >= 3)
                         {
-                            MatchResult superMatchedPotions = SuperMatch(matchedPotions);
+                            MatchResult superMatchedPotions = Combo(matchedPotions);
+                            Debug.Log("NormalMatch");
+                            potionsToRemove.AddRange(superMatchedPotions.connectedPotions);
 
+                            foreach (Potion pot in superMatchedPotions.connectedPotions)
+                                pot.isMatched = true;
+
+                            hasMatched = true;
+                        }
+                         if (matchedPotions.connectedPotions.Count >= 4)
+                        {
+                            MatchResult superMatchedPotions = Combo(matchedPotions);
+                            Debug.Log("MoveMatch");
+                            potionsToRemove.AddRange(superMatchedPotions.connectedPotions);
+
+                            foreach (Potion pot in superMatchedPotions.connectedPotions)
+                                pot.isMatched = true;
+
+                            hasMatched = true;
+                        }
+                         if (matchedPotions.connectedPotions.Count >= 5)
+                        {
+                            MatchResult superMatchedPotions = Combo(matchedPotions);
+                            Debug.Log("SuperMoveMatch");
                             potionsToRemove.AddRange(superMatchedPotions.connectedPotions);
 
                             foreach (Potion pot in superMatchedPotions.connectedPotions)
@@ -443,7 +465,7 @@ void InitializeBoard()
     #endregion
 
     #region MatchingLogic
-    private MatchResult SuperMatch(MatchResult _matchedResults)
+    private MatchResult Combo(MatchResult _matchedResults)
     {
         //if we have a horizontal or long horizontal match
         if (_matchedResults.direction == MatchDirection.Horizontal || _matchedResults.direction == MatchDirection.LongHorizontal)
@@ -458,9 +480,9 @@ void InitializeBoard()
                 CheckDirection(pot, new Vector2Int(0, -1), extraConnectedPotions);
 
                 //do we have 2 or more potions that have been matched against this current potion.
-                if (extraConnectedPotions.Count >= 2)
+                if (extraConnectedPotions.Count >= 1)
                 {
-                    Debug.Log("I have a super Horizontal Match");
+                    Debug.Log("Combo Horizontal x 1");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
 
                     //return our super match
@@ -490,9 +512,9 @@ void InitializeBoard()
                 CheckDirection(pot, new Vector2Int(-1, 0), extraConnectedPotions);
 
                 //do we have 2 or more potions that have been matched against this current potion.
-                if (extraConnectedPotions.Count >= 2)
+                if (extraConnectedPotions.Count >= 1)
                 {
-                    Debug.Log("I have a super Vertical Match");
+                    Debug.Log("Combo Vertical x 1");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
                     //return our super match
                     return new MatchResult
