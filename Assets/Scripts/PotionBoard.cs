@@ -12,7 +12,7 @@ public class PotionBoard : MonoBehaviour
     //define the size of the board
     public int width = 6;
     public int height = 8;
-    //define some spacing for the board
+    //define some spacing for the boardaja y como 
     public float spacingX;
     public float spacingY;
     //get a reference to our potion prefabs
@@ -78,8 +78,8 @@ void InitializeBoard()
     currentPowerUps = 0;
     DestroyPotions();
     potionBoard = new Node[width, height];
-    spacingX = (float)(width - 1) / 2;
-    spacingY = (float)((height - 1) / 2) + 1;
+    spacingX = (float)(width) / 2.6f;
+    spacingY = (float)((height) / 2) + 1;
 
     List<Vector2Int> powerUpPositions = new List<Vector2Int>();
 
@@ -120,7 +120,7 @@ void InitializeBoard()
                 bool canSpawnPowerUp = currentPowerUps < maxPowerUps 
                                       && !isNearPowerUp 
                                       && Random.value < powerUpChance 
-                                      && potionPrefabs.Length > 5;
+                                      && potionPrefabs.Length > 6;
 
                 if (canSpawnPowerUp)
                 {
@@ -524,6 +524,7 @@ void InitializeBoard()
         CheckDirection(potion, new Vector2Int(1, 0), connectedPotions);
         //check left
         CheckDirection(potion, new Vector2Int(-1, 0), connectedPotions);
+        
         //have we made a 3 match? (Horizontal Match)
         if (connectedPotions.Count == 3)
         {
@@ -538,8 +539,10 @@ void InitializeBoard()
         //checking for more than 3 (Long horizontal Match)
         else if (connectedPotions.Count > 3)
         {
+            bool _addMoves = true;
             Debug.Log("I have a Long horizontal match, the color of my match is: " + connectedPotions[0].potionType);
-
+        if (_addMoves)
+         GameManager.Instance.moves += 5;
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
@@ -570,8 +573,10 @@ void InitializeBoard()
         //checking for more than 3 (Long Vertical Match)
         else if (connectedPotions.Count > 3)
         {
-            Debug.Log("I have a Long vertical match, the color of my match is: " + connectedPotions[0].potionType);
-
+        bool _addMoves = true;
+         Debug.Log("I have a Long vertical match, the color of my match is: " + connectedPotions[0].potionType);
+        if (_addMoves)
+         GameManager.Instance.moves += 5;
             return new MatchResult
             {
                 connectedPotions = connectedPotions,

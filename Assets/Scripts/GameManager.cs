@@ -40,12 +40,15 @@ public class GameManager : MonoBehaviour
         goalTxt.text = "Goal: " + goal.ToString();
     }
     
-    public void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool isPowerUpActivation = false)
+    public void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool _addMoves, bool isPowerUpActivation = false)
     {
         Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
         points += _pointsToGain;
         if (_subtractMoves)
             moves--;
+
+        if (_addMoves)
+            moves++;
 
         // Sonido de destrucción
         if (_pointsToGain > 0 && !isPowerUpActivation)

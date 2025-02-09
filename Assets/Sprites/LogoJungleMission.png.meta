@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LogoJungleMission_0: -2574867843758935715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

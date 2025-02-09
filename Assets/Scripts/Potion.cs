@@ -28,7 +28,7 @@ public class Potion : MonoBehaviour
     public void Select()
     {
         // Aumentar la escala de la poción
-        transform.localScale = originalScale * 1.1f; // Aumenta el tamaño al 110%
+        transform.localScale = originalScale * 1.2f; // Aumenta el tamaño al 110%
     }
 
     public void Deselect()
@@ -82,6 +82,7 @@ public class Potion : MonoBehaviour
 public enum PotionType
 {
     Red,
+    Yellow,
     Blue,
     Purple,
     Green,
