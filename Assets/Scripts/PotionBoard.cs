@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PotionBoard : MonoBehaviour
 {
+    public GameObject comboGraphicObject;
     public GameObject bombExplosionEffect;  // Efecto para bombas
     public GameObject lightningExplosionEffect; // Efecto para rayos
     [SerializeField] private int maxPowerUps = 4;
@@ -85,6 +86,22 @@ public class PotionBoard : MonoBehaviour
             }
         }
     }
+
+private void ShowComboGraphic(Vector3 position)
+{
+    // Mueve el objeto del gráfico de combo a la posición especificada y actívalo
+    comboGraphicObject.transform.position = position;
+    comboGraphicObject.SetActive(true);
+
+    // Desactiva el objeto después de 1 segundo
+    StartCoroutine(DeactivateComboGraphicAfterDelay(1f));
+}
+
+private IEnumerator DeactivateComboGraphicAfterDelay(float delay)
+{
+    yield return new WaitForSeconds(delay);
+    comboGraphicObject.SetActive(false);
+}
 
 void InitializeBoard()
 {
@@ -472,10 +489,13 @@ void InitializeBoard()
                 CheckDirection(pot, new Vector2Int(0, -1), extraConnectedPotions);
 
                 //do we have 2 or more potions that have been matched against this current potion.
-                if (extraConnectedPotions.Count >= 2)
+                if (extraConnectedPotions.Count >= 1)
                 {
                     Debug.Log("I have a super Horizontal Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
+
+                                    // Mostrar gráfico de combo
+                ShowComboGraphic(pot.transform.position);
 
                     //return our super match
                     return new MatchResult
@@ -504,10 +524,14 @@ void InitializeBoard()
                 CheckDirection(pot, new Vector2Int(-1, 0), extraConnectedPotions);
 
                 //do we have 2 or more potions that have been matched against this current potion.
-                if (extraConnectedPotions.Count >= 2)
+                if (extraConnectedPotions.Count >= 1)
                 {
                     Debug.Log("I have a super Vertical Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
+
+                                    // Mostrar gráfico de combo
+                ShowComboGraphic(pot.transform.position);
+
                     //return our super match
                     return new MatchResult
                     {
