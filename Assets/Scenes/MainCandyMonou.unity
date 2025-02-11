@@ -150,11 +150,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   api: https://e6e6j0v1xah51y9eec0p2f12h.monou.gg/api/
-  userId: 5747
-  slug: mi-torneo-de-prueba-para-jugan-carlos
+  userId: 26721
+  slug: brick-gratis-2
   gamePrefab: {fileID: 2338745100768701638, guid: bbf24faef74f0cc4aa7417719b2c83d7, type: 3}
   termsUrl: 
   maxRankingRows: 5
+  timeZoneOffset: 5
 --- !u!114 &1868813322
 MonoBehaviour:
   m_ObjectHideFlags: 0

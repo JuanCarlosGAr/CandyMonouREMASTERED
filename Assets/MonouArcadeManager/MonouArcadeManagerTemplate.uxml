@@ -1,99 +1,126 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/MonouArcadeManager/MonouArcadeManagerStyle.uss?fileID=7433441132597879392&amp;guid=1f74a485e4847466c8f8416e291e7b03&amp;type=3#MonouArcadeManagerStyle" />
-    <engine:ScrollView name="content" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Monou/wallpapper_jungle.jpg?fileID=2800000&amp;guid=304aaa701295ff546be37137604350d2&amp;type=3#wallpapper_jungle&quot;);">
-        <engine:VisualElement name="logo" />
-        <engine:VisualElement name="notReady" class="container" style="display: none;">
-            <engine:Label text="El torneio inica en" />
-            <engine:Label text="OO:OO:OO:OO" name="notReady_timerText" />
-            <engine:Button text="Tutorial" name="notReady_tutorialButton" />
-            <engine:Button text="Practica" name="notReady_demoButton" />
-            <engine:Button text="Inscribete" name="notReady_registerButton" />
-            <engine:Label text="Inscrito" name="notReady_registredText" />
-        </engine:VisualElement>
-        <engine:VisualElement name="alReady" class="container" style="flex-grow: 1; display: none;">
-            <engine:Label text="El torneo termina en" />
-            <engine:Label text="00:00:00:00" name="alReady_timerText" />
-            <engine:Button text="Jugar" name="alReady_playButton" />
-            <engine:Label text="Recuerda que gana quien haga&#10;el mejor score durante las 48 hrs&#10;de vigencia del torneo" />
-            <engine:Label text="Ranking" />
-            <engine:MultiColumnListView name="alReady_ranking" fixed-item-height="48" allow-remove="false" allow-add="false" reorder-mode="Animated" style="width: 100%; flex-shrink: 0;">
-                <engine:Columns primary-column-name="place" reorderable="false" resizable="false">
-                    <engine:Column name="place" title="Pos" resizable="false" optional="false" width="80px" />
-                    <engine:Column name="name" title="Nombre" optional="false" resizable="false" width="100%" />
-                    <engine:Column name="points" title="Puntos" optional="false" resizable="false" width="120px" />
-                </engine:Columns>
-            </engine:MultiColumnListView>
-            <engine:Label text="Bolsa de Premios" />
-            <engine:VisualElement name="alReady_rewards" style="width: 100%; flex-direction: column; justify-content: center; flex-shrink: 0;">
-                <engine:VisualElement name="firstReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_oro.png?fileID=2800000&amp;guid=e16a22c7b49e84644801ddc392c7e850&amp;type=3#icn_cup_oro&quot;); background-size: 85px 114px; background-position-x: right 16px;">
-                    <engine:Label text="1er Lugar" />
-                    <engine:Label text="Descripción" name="firstReward_description" />
-                </engine:VisualElement>
-                <engine:VisualElement name="secondReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_plata.png?fileID=2800000&amp;guid=d52fd3f5fb1804c82b5cd7beb0665ea2&amp;type=3#icn_cup_plata&quot;); background-size: 85px 114px; background-position-x: right 16px;">
-                    <engine:Label text="1er Lugar" />
-                    <engine:Label text="Descripción" name="secondReward_description" />
-                </engine:VisualElement>
-                <engine:VisualElement name="thirdReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_bronce.png?fileID=2800000&amp;guid=28e9849c2ef8c41c388e60064ed985c9&amp;type=3#icn_cup_bronce&quot;); background-size: 85px 114px; background-position-x: right 16px;">
-                    <engine:Label text="1er Lugar" />
-                    <engine:Label text="Descripción" name="thirdReward_description" />
-                </engine:VisualElement>
-            </engine:VisualElement>
-        </engine:VisualElement>
-        <engine:VisualElement name="finished" class="container" style="flex-grow: 1; display: none;">
-            <engine:Label text="EL TORNEO HA TERMINADO&#10;&#10;Los ganadores en breve&#10;serán contactados por mail&#10;Esten atentos" />
-            <engine:Button text="Términos y&#10;Condiciones" name="finished_termsButton" />
-            <engine:Label text="Ranking" />
-            <engine:MultiColumnListView name="finished_ranking" fixed-item-height="48" allow-remove="false" allow-add="false" reorder-mode="Animated" style="width: 100%; flex-shrink: 0;">
-                <engine:Columns primary-column-name="place" reorderable="false" resizable="false">
-                    <engine:Column name="place" title="Pos" resizable="false" optional="false" width="80px" />
-                    <engine:Column name="name" title="Nombre" optional="false" resizable="false" width="100%" />
-                    <engine:Column name="points" title="Puntos" optional="false" resizable="false" width="120px" />
-                </engine:Columns>
-            </engine:MultiColumnListView>
-        </engine:VisualElement>
-        <engine:VisualElement name="gameoverDemo" class="container" style="flex-grow: 1; display: none;">
-            <engine:Label text="GAMEOVER&#10;&#10;Tu Score:" />
-            <engine:Label text="000 pts" name="gameoverDemo_scoreText" />
-            <engine:Button text="Volver a jugar" name="gameoverDemo_playAgainButton" />
-            <engine:Button text="Inscribete" name="gameoverDemo_registerButton" />
-            <engine:Label text="Inscrito" name="gameoverDemo_registredText" />
-            <engine:Button text="Más Juegos" name="gameoverDemo_moreGamesButton" />
-        </engine:VisualElement>
-        <engine:VisualElement name="gameover" class="container" style="flex-grow: 1; display: none;">
-            <engine:Label text="GAME OVER&#10;&#10;Tu escore de esta&#10;partida es:" />
-            <engine:Label text="000 pts" name="gameover_scoreText" />
-            <engine:Label text="Estas en la posición:" />
-            <engine:Label text="1er" name="gameover_placeText" />
-            <engine:Button text="Volver a Jugar" name="gameover_playAgainButton" />
-            <engine:Label text="Ranking" />
-            <engine:MultiColumnListView name="gameover_ranking" fixed-item-height="48" allow-remove="false" allow-add="false" reorder-mode="Animated" style="width: 100%; flex-shrink: 0;">
-                <engine:Columns primary-column-name="place" reorderable="false" resizable="false">
-                    <engine:Column name="place" title="Pos" resizable="false" optional="false" width="80px" />
-                    <engine:Column name="name" title="Nombre" optional="false" resizable="false" width="100%" />
-                    <engine:Column name="points" title="Puntos" optional="false" resizable="false" width="120px" />
-                </engine:Columns>
-            </engine:MultiColumnListView>
-        </engine:VisualElement>
-    </engine:ScrollView>
-    <engine:VisualElement name="splash" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); display: none;" />
-    <engine:Button name="closeButton" style="position: absolute; top: 8px; right: 8px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(34, 128, 197, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 48px; height: 48px; background-image: url(&quot;project://database/Assets/MonouArcadeManager/close.png?fileID=2800000&amp;guid=757f17e009e16461681760ca929ac31b&amp;type=3#close&quot;);" />
+    <engine:Button name="closeButton" style="position: absolute; top: 8px; right: 8px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(34, 128, 197, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 48px; height: 48px; background-image: url(&quot;project://database/Assets/MonouArcadeManager/close.png?fileID=2800000&amp;guid=757f17e009e16461681760ca929ac31b&amp;type=3#close&quot;); display: none;" />
+    <engine:VisualElement name="splash" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); display: none; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Sprites/LogoJungleMission.png?fileID=2800000&amp;guid=2a56a83d811acdd4c90a6e66cf0c5d46&amp;type=3#LogoJungleMission&quot;); -unity-background-scale-mode: scale-to-fit;" />
     <engine:VisualElement name="tutorialViewer" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgb(0, 0, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; display: none;">
         <engine:VisualElement name="tutorialContent" style="flex-grow: 1; margin-bottom: 12px; width: 100%;">
             <engine:VisualElement name="tutorial" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MonouArcadeManager/tutorial1.png?fileID=2800000&amp;guid=6ee3f7e38e4c3491995a8597359d69a7&amp;type=3#tutorial1&quot;);" />
             <engine:VisualElement name="tutorial" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MonouArcadeManager/tutorial2.png?fileID=2800000&amp;guid=e9b1511d9b639483cb2ef780e83f5989&amp;type=3#tutorial2&quot;);" />
         </engine:VisualElement>
         <engine:VisualElement name="tutorialControls" style="flex-direction: row; justify-content: flex-start;">
-            <engine:Button text="Anterior" name="prevButton" style="width: auto;" />
-            <engine:Button text="Siguiente" name="nextButton" style="width: auto;" />
-            <engine:Button text="Listo" name="finishButton" style="width: auto;" />
+            <engine:Button text="Anterior" name="prevButton" />
+            <engine:Button text="Siguiente" name="nextButton" />
+            <engine:Button text="Listo" name="finishButton" />
         </engine:VisualElement>
     </engine:VisualElement>
-    <engine:VisualElement name="modal" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; display: flex; opacity: 1;">
-        <engine:VisualElement name="modalContainer" style="width: 280px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-color: rgb(0, 0, 0); border-left-color: rgb(128, 128, 128); border-right-color: rgb(128, 128, 128); border-top-color: rgb(128, 128, 128); border-bottom-color: rgb(128, 128, 128); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; align-items: center; background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=-2979456362638295911&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_31&quot;);">
+    <engine:VisualElement name="modal" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; display: none;">
+        <engine:VisualElement name="modalContainer" style="width: 280px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-color: rgb(0, 0, 0); border-left-color: rgb(128, 128, 128); border-right-color: rgb(128, 128, 128); border-top-color: rgb(128, 128, 128); border-bottom-color: rgb(128, 128, 128); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; align-items: center;">
             <engine:Label text="¿Estas seguro que quieres salir del juego?" name="modalTitle" />
             <engine:Button text="De acuerdo" name="modalConfirm" />
             <engine:Button text="Cancelar" name="modalCancel" />
         </engine:VisualElement>
     </engine:VisualElement>
     <engine:Label text="Juego de práctica" name="demoHint" style="position: absolute; display: none;" />
+    <engine:VisualElement name="splashMonou" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 16, 36); display: none; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/MonouArcadeManager/splashMonou.png?fileID=2800000&amp;guid=8afc59332f7f448b0835d59d8bbabf5e&amp;type=3#splashMonou&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    <engine:ScrollView name="content" horizontal-scroller-visibility="Hidden" style="width: 603px; height: 1101px;">
+        <engine:VisualElement name="mainContent" style="align-self: center; flex-grow: 1; max-width: 480px; min-width: 200px; width: 100%; justify-content: flex-start; padding-top: 84px;">
+            <engine:VisualElement name="logo" enabled="true" style="background-image: url(&quot;project://database/Assets/Sprites/LogoJungleMission.png?fileID=2800000&amp;guid=2a56a83d811acdd4c90a6e66cf0c5d46&amp;type=3#LogoJungleMission&quot;);" />
+            <engine:VisualElement name="notReady" class="container" style="display: none;">
+                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;);" />
+                <engine:Label text="OOd OOh OOm" name="notReady_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 24px; padding-bottom: 20px;" />
+                <engine:Button text="Tutorial" name="notReady_tutorialButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
+                <engine:Button text="Práctica" name="notReady_demoButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
+                <engine:Button text="Inscríbete" name="notReady_registerButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
+                <engine:Label text="Inscrito" name="notReady_registredText" style="font-size: 24px;" />
+            </engine:VisualElement>
+            <engine:VisualElement name="alReady" class="container" style="display: none;">
+                <engine:Label text="El torneo termina en" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="00d 00h 00m" name="alReady_timerText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px; padding-bottom: 20px;" />
+                <engine:Button text="Jugar" name="alReady_playButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
+                <engine:Label text="Recuerda que gana quien haga&#10;el mejor score durante las 48 hrs&#10;de vigencia del torneo" />
+                <engine:Label text="Ranking" style="padding-bottom: 20px; padding-top: 24px; font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:VisualElement name="alReady_ranking" class="ranking">
+                    <engine:VisualElement class="column" style="width: 100px;">
+                        <engine:Label text="Pos" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="flex-grow: 1;">
+                        <engine:Label text="Name" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="width: 150px;">
+                        <engine:Label text="Points" class="columnhead" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:Label text="Aún no hay registros" name="alReady_ranking_empty" />
+                <engine:Label text="Bolsa de Premios" style="font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); padding-top: 24px; padding-bottom: 16px;" />
+                <engine:VisualElement name="alReady_rewards" style="width: 100%; flex-direction: column; justify-content: center; flex-shrink: 0;">
+                    <engine:VisualElement name="firstReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_oro.png?fileID=2800000&amp;guid=e16a22c7b49e84644801ddc392c7e850&amp;type=3#icn_cup_oro&quot;); background-size: 85px 114px; background-position-x: right 16px;">
+                        <engine:Label text="1er Lugar" />
+                        <engine:Label text="Descripción de lo que el jugador con premio número 1 ganó" name="firstReward_description" class="reward_description" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="secondReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_plata.png?fileID=2800000&amp;guid=d52fd3f5fb1804c82b5cd7beb0665ea2&amp;type=3#icn_cup_plata&quot;); background-size: 85px 114px; background-position-x: right 16px;">
+                        <engine:Label text="1er Lugar" />
+                        <engine:Label text="Descripción" name="secondReward_description" class="reward_description" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="thirdReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_bronce.png?fileID=2800000&amp;guid=28e9849c2ef8c41c388e60064ed985c9&amp;type=3#icn_cup_bronce&quot;); background-size: 85px 114px; background-position-x: right 16px;">
+                        <engine:Label text="1er Lugar" />
+                        <engine:Label text="Descripción" name="thirdReward_description" class="reward_description" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="finished" class="container" style="flex-grow: 1; display: none;">
+                <engine:Label text="EL TORNEO HA TERMINADO" style="font-size: 28px; padding-top: 16px; padding-bottom: 16px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="Los ganadores en breve&#10;serán contactados por mail&#10;Estén atentos" />
+                <engine:Button text="Términos y&#10;Condiciones" name="finished_termsButton" style="width: 240px; height: 100px;" />
+                <engine:Label text="Ranking" style="padding-bottom: 16px; padding-top: 16px; font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:VisualElement name="finished_ranking" class="ranking">
+                    <engine:VisualElement class="column" style="width: 100px;">
+                        <engine:Label text="Pos" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="flex-grow: 1;">
+                        <engine:Label text="Name" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="width: 150px;">
+                        <engine:Label text="Points" class="columnhead" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:Label text="Aún no hay registros" name="finished_ranking_empty" />
+            </engine:VisualElement>
+            <engine:VisualElement name="gameoverDemo" class="container" style="flex-grow: 1; display: none;">
+                <engine:Label text="GAMEOVER" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 28px; padding-top: 16px; padding-bottom: 16px;" />
+                <engine:Label text="Tu Score:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="000 pts" name="gameoverDemo_scoreText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px;" />
+                <engine:VisualElement name="hr" />
+                <engine:Button text="Volver a jugar" name="gameoverDemo_playAgainButton" />
+                <engine:Button text="Inscribete" name="gameoverDemo_registerButton" />
+                <engine:Label text="Inscrito" name="gameoverDemo_registredText" style="font-size: 24px;" />
+                <engine:Button text="Más Juegos" name="gameoverDemo_moreGamesButton" style="display: none;" />
+                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;);" />
+                <engine:Label text="OOd OOh OOm" name="gameoverDemo_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 24px; padding-bottom: 20px;" />
+            </engine:VisualElement>
+            <engine:VisualElement name="gameover" class="container" style="flex-grow: 1; display: flex;">
+                <engine:Label text="GAME OVER" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); padding-top: 16px; padding-bottom: 16px; font-size: 28px;" />
+                <engine:Label text="Tu escore de esta&#10;partida es:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="000 pts" name="gameover_scoreText" style="font-size: 36px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="Estas en la posición:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); display: none;" />
+                <engine:Label text="1er" name="gameover_placeText" style="display: none;" />
+                <engine:VisualElement name="hr" />
+                <engine:Button text="Volver a Jugar" name="gameover_playAgainButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=1149995914792566095&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_17&quot;);" />
+                <engine:Label text="El torneo termina en" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+                <engine:Label text="00d 00h 00m" name="gameover_timerText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px; padding-bottom: 20px;" />
+                <engine:Label text="Ranking" style="font-size: 28px; padding-top: 16px; padding-bottom: 16px;" />
+                <engine:VisualElement name="gameover_ranking" class="ranking">
+                    <engine:VisualElement class="column" style="width: 100px;">
+                        <engine:Label text="Pos" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="flex-grow: 1;">
+                        <engine:Label text="Name" class="columnhead" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="column" style="width: 150px;">
+                        <engine:Label text="Points" class="columnhead" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:Label text="Aún no hay registros" name="gameover_ranking_empty" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:ScrollView>
 </engine:UXML>

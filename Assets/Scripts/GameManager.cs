@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             var congratulationsTxt = GameObject.FindGameObjectWithTag("congratulationsTxt");
    
             string winMessage = $"fELICIDADES! You won in {moves} moves and scored {points} points!";
-            try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
+           // try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
 
             if (congratulationsTxt != null)
             {

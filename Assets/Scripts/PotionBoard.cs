@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PotionBoard : MonoBehaviour
 {
+    private GameObject comboTxt;
     public GameObject bombExplosionEffect;  // Efecto para bombas
     public GameObject lightningExplosionEffect; // Efecto para rayos
     [SerializeField] private int maxPowerUps = 4;
@@ -51,6 +52,41 @@ public class PotionBoard : MonoBehaviour
         InitializeBoard();
                 // Encuentra el objeto SoundManager en la escena
         soundManager = FindObjectOfType<SoundManager>();
+                // Encuentra el objeto combo_txt en la jerarquía
+        comboTxt = GameObject.Find("combo_txt");
+
+        // Verifica si el objeto fue encontrado
+        if (comboTxt != null)
+        {
+            // Desactiva el objeto al inicio
+            comboTxt.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el objeto combo_txt en la jerarquía.");
+        }
+    }
+        public void ActivateComboText()
+    {
+        if (comboTxt != null)
+        {
+            comboTxt.SetActive(true);
+        }
+    }
+        public void DeactivateComboText()
+    {
+        if (comboTxt != null)
+        {
+            comboTxt.SetActive(false);
+        }
+    }
+
+
+    private IEnumerator ActivateAndDeactivateCoroutine(float delay)
+    {
+        comboTxt.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        comboTxt.SetActive(false);
     }
 
     private void Update()
@@ -78,8 +114,8 @@ void InitializeBoard()
     currentPowerUps = 0;
     DestroyPotions();
     potionBoard = new Node[width, height];
-    spacingX = (float)(width) / 2.6f;
-    spacingY = (float)((height) / 2) + 1;
+    spacingX = (float)((width) / 2.4);
+    spacingY = (float)((height) / 2.1);
 
     List<Vector2Int> powerUpPositions = new List<Vector2Int>();
 
@@ -149,6 +185,7 @@ void InitializeBoard()
     }
     else
     {
+        GameManager.Instance.moves = 10;
         Debug.Log("Board is valid. Starting game!");
     }
 }
@@ -373,7 +410,7 @@ void InitializeBoard()
             Debug.Log("I've found a potion when refilling the board and it was in the location: [" + x + "," + (y + yOffset) + "] we have moved it to the location: [" + x + "," + y + "]");
             //Move to location
             potionAbove.MoveToTarget(targetPos);
-            //update incidices
+            //update indicies
             potionAbove.SetIndicies(x, y);
             //update our potionBoard
             potionBoard[x, y] = potionBoard[x, y + yOffset];
@@ -463,6 +500,8 @@ void InitializeBoard()
                     Debug.Log("I have a super Horizontal Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
 
+                    StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
+
                     //return our super match
                     return new MatchResult
                     {
@@ -494,6 +533,9 @@ void InitializeBoard()
                 {
                     Debug.Log("I have a super Vertical Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
+
+                    StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
+
                     //return our super match
                     return new MatchResult
                     {
@@ -542,7 +584,10 @@ void InitializeBoard()
             bool _addMoves = true;
             Debug.Log("I have a Long horizontal match, the color of my match is: " + connectedPotions[0].potionType);
         if (_addMoves)
-         GameManager.Instance.moves += 5;
+         GameManager.Instance.moves += 1;
+
+                 // Activar y desactivar el texto combo_txt
+        StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
@@ -576,7 +621,11 @@ void InitializeBoard()
         bool _addMoves = true;
          Debug.Log("I have a Long vertical match, the color of my match is: " + connectedPotions[0].potionType);
         if (_addMoves)
-         GameManager.Instance.moves += 5;
+         GameManager.Instance.moves += 1;
+
+            // Activar y desactivar el texto combo_txt
+            StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
+
             return new MatchResult
             {
                 connectedPotions = connectedPotions,

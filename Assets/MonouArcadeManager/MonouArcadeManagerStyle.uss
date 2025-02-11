@@ -1,9 +1,10 @@
 #content {
     background-color: rgb(0, 0, 0);
-    background-image: url("project://database/Assets/MonouArcadeManager/background.png?fileID=2800000&guid=b8ca07c4eb63846a7a0100f816e60483&type=3#background");
+    background-image: url("project://database/Assets/MonouArcadeManager/BG.png?fileID=2800000&guid=01b9673d3c8e4496c8bb97a754dc1d2b&type=3#BG");
     font-size: 18px;
     -unity-background-scale-mode: scale-and-crop;
     -unity-background-image-tint-color: rgb(173, 173, 173);
+    flex-grow: 1;
 }
 
 #unity-content-container {
@@ -11,22 +12,19 @@
 }
 
 #logo {
-    padding-top: 30%;
-    padding-right: 30%;
-    padding-bottom: 30%;
-    padding-left: 30%;
     margin-top: 12px;
     margin-right: 12px;
     margin-bottom: 12px;
     margin-left: 12px;
-    background-image: url("project://database/Assets/Sprites/LogoJungleMission.png?fileID=2800000&guid=2a56a83d811acdd4c90a6e66cf0c5d46&type=3#LogoJungleMission");
+    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=-246002292&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_1");
     -unity-background-scale-mode: scale-to-fit;
+    padding-top: 60%;
 }
 
 .container {
     align-items: center;
     justify-content: flex-start;
-    background-image: none;
+    flex-grow: 1;
 }
 
 .unity-label {
@@ -34,26 +32,35 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     white-space: normal;
+    -unity-font-definition: resource('Fonts & Materials/Poppins-Regular');
 }
 
 .unity-button {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     border-left-color: rgb(137, 137, 137);
     border-right-color: rgb(137, 137, 137);
     border-top-color: rgb(137, 137, 137);
     border-bottom-color: rgb(137, 137, 137);
-    background-color: rgb(253, 62, 187);
+    background-color: rgba(34, 128, 197, 0);
     -unity-font-style: bold;
-    width: 200px;
-    background-image: url("project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&guid=fe6e7a40223226c44aa1467b3141d5d2&type=3#AssetsTetris6_20");
+    width: 240px;
+    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=453323658&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_17");
+    -unity-background-scale-mode: scale-to-fit;
+    height: 80px;
     color: rgb(255, 255, 255);
+    -unity-font-definition: resource('Fonts & Materials/Poppins-SemiBold');
+    font-size: 20px;
+}
+
+.unity-button:focus {
+    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=130557100&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_21");
 }
 
 #tutorial {
@@ -127,11 +134,46 @@ Scroller {
     width: 16px;
 }
 
-MultiColumnCollectionHeader > VisualElement Label {
-    color: rgb(255, 255, 255);
+#hr {
+    padding-top: 24px;
 }
 
-MultiColumnCollectionHeader > VisualElement VisualElement {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
+.ranking {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: stretch;
+    flex-shrink: 0;
+}
+
+.column {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    align-items: flex-start;
+}
+
+.column Label {
+    align-self: stretch;
+    -unity-text-align: upper-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-right: 16px;
+    padding-left: 16px;
+    white-space: nowrap;
+}
+
+.columnhead {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }

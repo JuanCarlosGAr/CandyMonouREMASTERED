@@ -45,10 +45,12 @@ namespace Monou
         public GameObject gamePrefab;
         public string termsUrl;
         public int maxRankingRows = 5;
+        public int timeZoneOffset = 5;
 
         private UIDocument ui;
         private VisualElement root;
         private ScrollView content;
+        private VisualElement splashMonou;
         private VisualElement splash;
         private VisualElement notReady;
         private Label notReady_timerText;
@@ -59,21 +61,26 @@ namespace Monou
         private VisualElement alReady;
         private Label alReady_timerText;
         private Button alReady_playButton;
-        private MultiColumnListView alReady_ranking;
+        private VisualElement alReady_ranking;
+        private Label alReady_ranking_empty;
         private VisualElement finished;
         private Button finished_termsButton;
-        private MultiColumnListView finished_ranking;
+        private VisualElement finished_ranking;
+        private Label finished_ranking_empty;
         private VisualElement gameoverDemo;
         private Label gameoverDemo_scoreText;
         private Button gameoverDemo_playAgainButton;
         private Button gameoverDemo_registerButton;
         private Label gameoverDemo_registredText;
         private Button gameoverDemo_moreGamesButton;
+        private Label gameoverDemo_timerText;
         private VisualElement gameover;
         private Label gameover_scoreText;
         private Label gameover_placeText;
         private Button gameover_playAgainButton;
-        private MultiColumnListView gameover_ranking;
+        private Label gameover_timerText;
+        private VisualElement gameover_ranking;
+        private Label gameover_ranking_empty;
 
         private Button closeButton;
         private VisualElement tutorialViewer;
@@ -94,6 +101,9 @@ namespace Monou
         private string teamId = "";
         private bool isDemo = false;
         private GameObject gameInstance;
+        private string logId;
+
+        private string[] HEADTITLES = new string[3]{"Pos", "Name", "Points"};
 
         public static MonouArcadeManager inst;
         void Awake(){
@@ -107,6 +117,7 @@ namespace Monou
             ui = GetComponent<UIDocument>();
             root = ui.rootVisualElement;
             content = root.Query<ScrollView>("content").First();
+            splashMonou = root.Query<VisualElement>("splashMonou").First();
             splash = root.Query<VisualElement>("splash").First();
             notReady = root.Query<VisualElement>("notReady").First();
             notReady_timerText = root.Query<Label>("notReady_timerText").First();
@@ -121,11 +132,13 @@ namespace Monou
             alReady_timerText = root.Query<Label>("alReady_timerText").First();
             alReady_playButton = root.Query<Button>("alReady_playButton").First();
             alReady_playButton.RegisterCallback<MouseUpEvent>(ev => Play());
-            alReady_ranking = root.Query<MultiColumnListView>("alReady_ranking").First();
+            alReady_ranking = root.Query<VisualElement>("alReady_ranking").First();
+            alReady_ranking_empty = root.Query<Label>("alReady_ranking_empty").First();
             finished = root.Query<VisualElement>("finished").First();
             finished_termsButton = root.Query<Button>("finished_termsButton").First();
             finished_termsButton.RegisterCallback<MouseUpEvent>(ev => ShowTerms());
-            finished_ranking = root.Query<MultiColumnListView>("finished_ranking").First();
+            finished_ranking = root.Query<VisualElement>("finished_ranking").First();
+            finished_ranking_empty = root.Query<Label>("finished_ranking_empty").First();
             gameoverDemo = root.Query<VisualElement>("gameoverDemo").First();
             gameoverDemo_scoreText = root.Query<Label>("gameoverDemo_scoreText").First();
             gameoverDemo_playAgainButton = root.Query<Button>("gameoverDemo_playAgainButton").First();
@@ -135,12 +148,15 @@ namespace Monou
             gameoverDemo_registredText = root.Query<Label>("gameoverDemo_registredText").First();
             gameoverDemo_moreGamesButton = root.Query<Button>("gameoverDemo_moreGamesButton").First();
             gameoverDemo_moreGamesButton.RegisterCallback<MouseUpEvent>(ev => { Debug.Log("MoreGames"); });
+            gameoverDemo_timerText = root.Query<Label>("gameoverDemo_timerText").First();
             gameover = root.Query<VisualElement>("gameover").First();
             gameover_scoreText = root.Query<Label>("gameover_scoreText").First();
             gameover_placeText = root.Query<Label>("gameover_placeText").First();
             gameover_playAgainButton = root.Query<Button>("gameover_playAgainButton").First();
             gameover_playAgainButton.RegisterCallback<MouseUpEvent>(ev => Play());
-            gameover_ranking = root.Query<MultiColumnListView>("gameover_ranking").First();
+            gameover_timerText = root.Query<Label>("gameover_timerText").First();
+            gameover_ranking = root.Query<VisualElement>("gameover_ranking").First();
+            gameover_ranking_empty = root.Query<Label>("gameover_ranking_empty").First();
             closeButton = root.Query<Button>("closeButton").First();
             closeButton.RegisterCallback<MouseUpEvent>(ev => CloseGame());
             tutorialViewer = root.Query<VisualElement>("tutorialViewer").First();
@@ -162,13 +178,22 @@ namespace Monou
             content.schedule.Execute(() => {
                 if(timestandStart!=0){
                     timestandStart--;
-                    notReady_timerText.text = _GetTimer(timestandStart);
+                    string timeleft = _GetTimer(timestandStart);
+                    notReady_timerText.text = timeleft;
+                    gameoverDemo_timerText.text = timeleft;
+                }else{
+
                 }
                 if(timestandFinish!=0){
                     timestandFinish--;
-                    alReady_timerText.text = _GetTimer(timestandFinish);
+                    string timetoend = _GetTimer(timestandFinish);
+                    alReady_timerText.text = timetoend;
+                    gameover_timerText.text = timetoend;
+                }else{
+
                 }
             }).Every(1000);
+            ForceUpdate(content);
 
             // if(splashTexture != null) splash.style.backgroundImage = new StyleBackground((Texture2D)splashTexture);
             // if(bgTexture != null) content.style.backgroundImage = new StyleBackground((Texture2D)bgTexture);
@@ -195,24 +220,38 @@ namespace Monou
             // gameoverDemo_moreGamesButton.style.color = textButtonColor;
             // gameover_playAgainButton.style.color = textButtonColor;
 
+            ShowSplash();
             ExtractDataFromWebGL();
             CheckStatus();
             HideButtonsForWebGL();
         }
-
+        void Update(){
+            if(gameInstance == null && tournametId != ""){
+                if(
+                    (gameoverDemo.style.display == DisplayStyle.Flex ||
+                    notReady.style.display == DisplayStyle.Flex) &&
+                    timestandStart<=0
+                ) ShowAlReady();
+                if(
+                    (alReady.style.display == DisplayStyle.Flex ||
+                    gameover.style.display == DisplayStyle.Flex) && 
+                    timestandFinish<=0
+                ) ShowFinished();
+            }
+        }
 
         public void Success(int theScore){
-            demoHint.style.display = DisplayStyle.None;
+            //demoHint.style.display = DisplayStyle.None;
             if(gameInstance != null) Destroy(gameInstance);
             content.style.display = DisplayStyle.Flex;
-            closeButton.style.display = DisplayStyle.Flex;
+            //closeButton.style.display = DisplayStyle.Flex;
             score = theScore;
             if(isDemo){
                 ShowGameoverDemo();
             }else{
-                SaveScore();
-                ShowGameover();
+                SaveScore(()=>ShowGameover());
             }
+            FinishLog();
         }
         public void Goto(string target){
 #if UNITY_EDITOR
@@ -224,8 +263,8 @@ namespace Monou
 #endif
         }
 
+
         private void HideAll(){
-            splash.style.display = DisplayStyle.None;
             notReady.style.display = DisplayStyle.None;
             alReady.style.display = DisplayStyle.None;
             finished.style.display = DisplayStyle.None;
@@ -234,32 +273,59 @@ namespace Monou
         }
         private void ShowSplash(){
             HideAll();
-            splash.style.display = DisplayStyle.Flex;
+            splashMonou.style.display = DisplayStyle.Flex;
+            SetTimeout(()=>{
+                splash.style.display = DisplayStyle.Flex;
+                splashMonou.style.display = DisplayStyle.None;
+                SetTimeout(()=>{
+                    splash.style.display = DisplayStyle.None;
+                },1);
+            },1);
         }
         private void ShowNotReady(){
             HideAll();
             notReady.style.display = DisplayStyle.Flex;
+
         }
         private void ShowAlReady(){
             HideAll();
             alReady.style.display = DisplayStyle.Flex;
-            GetRanking( alReady_ranking );
+            GetRanking( alReady_ranking, alReady_ranking_empty );
+
         }
         private void ShowGameoverDemo(){
             HideAll();
             gameoverDemo.style.display = DisplayStyle.Flex;
             gameoverDemo_scoreText.text = score.ToString();
+
         }
         private void ShowGameover(){
             HideAll();
             gameover.style.display = DisplayStyle.Flex;
             gameover_scoreText.text = score.ToString();
-            GetRanking( gameover_ranking );
+            GetRanking( gameover_ranking, gameover_ranking_empty );
+
         }
         private void ShowFinished(){
             HideAll();
             finished.style.display = DisplayStyle.Flex;
-            GetRanking( finished_ranking );
+            GetRanking( finished_ranking, finished_ranking_empty );
+
+        }
+
+        private void UpdatePrizes(JSONNode prizes){
+            var list = alReady.Query<VisualElement>(className: "reward").ToList();
+            foreach (var item in list) item.style.display = DisplayStyle.None;
+            List<string> rewardsText = new List<string>();
+            int x = 0;
+            foreach (JSONNode prize in prizes){
+                    if(prize["place"] == 1){x = 0;}
+                else if(prize["place"] == 2){x = 1;}
+                else if(prize["place"] == 3){x = 2;}
+                else continue;
+                list[x].style.display = DisplayStyle.Flex;
+                list[x].Query<Label>(className: "reward_description").First().text = prize["prize_name"];
+            }
         }
 
         List<VisualElement> tutorialList;
@@ -289,7 +355,7 @@ namespace Monou
         }
         private void PlayDemo(){
             ShowModal("Entiendo que ésta es una partida de práctica, que no representa ningún tipo de premio", "¡A Jugar!", "", ()=>{
-                demoHint.style.display = DisplayStyle.Flex;
+                //demoHint.style.display = DisplayStyle.Flex;
                 isDemo= true; StartGame();
             });
         }
@@ -305,6 +371,7 @@ namespace Monou
                     gameoverDemo_registredText.style.display = DisplayStyle.Flex;
                     notReady_registerButton.style.display = DisplayStyle.None;
                     gameoverDemo_registerButton.style.display = DisplayStyle.None;
+                    HideButtonsForWebGL();
                 }, err=>{
                     ShowModal(
                         "Ups! Parece que no tienes mounedas suficientes para participar. Pero no te preocupes, puedes adquirir más.",
@@ -323,10 +390,24 @@ namespace Monou
             content.style.display = DisplayStyle.None;
             closeButton.style.display = DisplayStyle.None;
             gameInstance = Instantiate(gamePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            StartLog();
         }
 
         private void CloseGame(){
             ShowModal("¿Estas seguro que quieres salir?", "Salir", "Cancelar", ()=>Goto("MonouArcade")); 
+        }
+
+        private void ForceUpdate(ScrollView view){
+            view.schedule.Execute(() =>
+            {
+                var fakeOldRect = Rect.zero;
+                var fakeNewRect = view.layout;
+             
+                using var evt = GeometryChangedEvent.GetPooled(fakeOldRect, fakeNewRect);
+                evt.target = view.contentContainer;
+                view.contentContainer.SendEvent(evt);
+                //Debug.Log("success ScrollView: "+fakeOldRect.ToString()+"; "+fakeNewRect.ToString());
+            }).Every(1000);
         }
 
         private Action modalSuccess;
@@ -344,19 +425,20 @@ namespace Monou
         }
 
         private void CheckStatus(){
-            ShowSplash();
             Get(api + "tournamentBySlug/" + slug, success=>{
                 JSONNode td = JSON.Parse(success);
                 string m_statusTornament = td["data"][0][0][0]["tournament"]["tournament_status"];
                 string m_start = td["data"][0][0][0]["tournament"]["date_start"]+" "+td["data"][0][0][0]["tournament"]["time_start"];
                 string m_finish = td["data"][0][0][0]["tournament"]["date_end"]+" "+td["data"][0][0][0]["tournament"]["time_end"];
                 tournametId = td["data"][0][0][0]["tournament"]["id"];
-                timestandStart = (int)(DateTime.ParseExact(m_start, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) - DateTime.UtcNow).TotalSeconds + 21600;
-                timestandFinish = (int)(DateTime.ParseExact(m_finish, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) - DateTime.UtcNow).TotalSeconds + 21600;
-                Debug.Log(">>>t "+tournametId);
-                Debug.Log(">>>t "+m_statusTornament);
-                Debug.Log(">>>s "+m_start);
-                Debug.Log(">>>f "+timestandStart);
+                DateTime startDateTime = DateTime.ParseExact(m_start, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                timestandStart = (int)(startDateTime - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
+                //timestandFinish = (int)(DateTime.ParseExact(m_finish, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) - DateTime.UtcNow).TotalSeconds + 21600;
+                timestandFinish = (int)(startDateTime.AddDays(2) - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
+                // Debug.Log(">>>t "+tournametId);
+                // Debug.Log(">>>t "+m_statusTornament);
+                // Debug.Log(">>>s "+m_start);
+                // Debug.Log(">>>f "+timestandStart);
                 switch (m_statusTornament){
                     case "0": ShowNotReady(); break; // no ha iniciado
                     case "1": ShowAlReady(); break; // en curso
@@ -364,6 +446,7 @@ namespace Monou
                     case "3": ShowNotReady(); break; // en pausa
                     case "4": ShowNotReady(); break; // esta en preparacion
                 }
+                UpdatePrizes( td["data"][0][0][0]["tournament"]["prizes"] );
                 CheckRegistered();
             }, err=>{ Debug.Log("err ArcadeGame CheckStatus"); });
         }
@@ -389,33 +472,34 @@ namespace Monou
                     notReady_registerButton.style.display = DisplayStyle.Flex;
                     gameoverDemo_registerButton.style.display = DisplayStyle.Flex;
                 }
+                HideButtonsForWebGL();
             }, err=>{ Debug.Log("err ArcadeGame CheckRegistered"); });
         }
 
-        private void GetRanking(MultiColumnListView rank){
-            Get(api + "api/tournament/royale/positions/" + tournametId, success=>{
+        private void GetRanking(VisualElement rank, Label emptyText){
+            Get(api + "tournament/royale/positions/" + tournametId + "/?orderby=kills", success=>{
                 JSONNode data = JSON.Parse(success);
-                var list = new List<ArcadeRankElement>();
-                foreach (JSONNode player in data["data"]){
-                    list.Add(new ArcadeRankElement(
-                        player["place"],
-                        player["name"],
-                        player["points"]
-                    ));
-                    if(list.Count >= maxRankingRows) break;
+                var cols = rank.Query<VisualElement>(className: "column").ToList();
+                Debug.Log(cols.Count);
+                for(int i=0; i<cols.Count; i++){
+                    cols[i].Clear();
+                    Label head = new Label();
+                    head.AddToClassList("columnhead");
+                    head.text = HEADTITLES[i];
+                    cols[i].Add(head);
                 }
-                rank.Clear();
-                rank.itemsSource = list;
-                rank.columns["place"].makeCell = ()=>new Label();
-                rank.columns["name"].makeCell = ()=>new Label();
-                rank.columns["points"].makeCell = ()=>new Label();
-                rank.columns["place"].bindCell = (VisualElement element, int index) => (element as Label).text = list[index].place;
-                rank.columns["name"].bindCell = (VisualElement element, int index) => (element as Label).text = list[index].name;
-                rank.columns["points"].bindCell = (VisualElement element, int index) => (element as Label).text = list[index].points;
+                int counter=0;
+                foreach (JSONNode player in data["data"]){
+                    Label pos = new Label(); pos.text = player["place"]; cols[0].Add(pos);
+                    Label name = new Label(); name.text = player["name"]; cols[1].Add(name);
+                    Label points = new Label(); points.text = player["kills"]; cols[2].Add(points);
+                    counter++; if(counter>=maxRankingRows) break;
+                }
+                emptyText.style.display = counter>0? DisplayStyle.None: DisplayStyle.Flex;
             }, err=>{ Debug.Log("err ArcadeGame GetRanking"); });
         }
 
-        private void SaveScore(){
+        private void SaveScore(Action onSuccess){
             ArcadeScore data = new ArcadeScore();
             data.place = 99;
             data.team_id = teamId;
@@ -424,24 +508,45 @@ namespace Monou
             data.kills = score;
             data.deaths = 0;
             data.assistence = 0;
-            Post(api + ".monou.gg/api/tournament/match/decision/round-robin/", JsonUtility.ToJson(data), success=>{
+            Post(api + "tournament/match/decision/round-robin/", JsonUtility.ToJson(data), success=>{
                 Debug.Log("Arcade Save Score "+score.ToString());
+                onSuccess();
             }, err=>{ Debug.Log("err ArcadeGame SaveData"); });
+        }
+        private void StartLog(){
+            var data = new GameArcadeLog();
+            data.type = "start";
+            data.table = "tetrix_monou";
+            data.slug = slug;
+            data.user_id = userId;
+            data.tipo = isDemo? "practica": "juego";
+            Post("https://umff6h7j5duoakqcxvhyypvsja0pguqz.lambda-url.us-east-2.on.aws/", JsonUtility.ToJson(data),
+            success=>{ logId = success; }, err=>{ Debug.Log("err ArcadeGame Log start"); });
+        }
+        private void FinishLog(){
+            var data = new GameArcadeLog();
+            data.type = "finish";
+            data.table = "tetrix_monou";
+            data.id = logId;
+            data.points = score;
+            data.data = "";
+            Post("https://umff6h7j5duoakqcxvhyypvsja0pguqz.lambda-url.us-east-2.on.aws/", JsonUtility.ToJson(data),
+            success=>{  }, err=>{ Debug.Log("err ArcadeGame Log finish"); });
         }
 
         private int SECONDS_IN_ONE_MINUTE = 60;
         private int SECONDS_IN_ONE_HOUR = 60 * 60;
         private int SECONDS_IN_ONE_DAY = 24 * 60 * 60;
         private string _GetTimer(int diff){
-            if(diff<=0) return "00:00:00:00";
+            if(diff<=0) return "00d 00h 00m";
             int days = diff/SECONDS_IN_ONE_DAY; diff -= days*SECONDS_IN_ONE_DAY;
             int hours = diff/SECONDS_IN_ONE_HOUR; diff -= hours*SECONDS_IN_ONE_HOUR;
             int minutes = diff/SECONDS_IN_ONE_MINUTE; diff -= minutes*SECONDS_IN_ONE_MINUTE;
             string result =
-                (days<10? "0": "")+days.ToString()+":"+
-                (hours<10? "0": "")+hours.ToString()+":"+
-                (minutes<10? "0": "")+minutes.ToString()+":"+
-                (diff<10? "0": "")+diff.ToString();
+                (days<10? "0": "")+days.ToString()+"d "+
+                (hours<10? "0": "")+hours.ToString()+"h "+
+                (minutes<10? "0": "")+minutes.ToString()+"m";
+                //(diff<10? "0": "")+diff.ToString();
             return result;
         }
 
@@ -451,17 +556,31 @@ namespace Monou
             userId = SearchParameters(url, "userId");
             slug = SearchParameters(url, "tournamentId");
             api = SearchParameters(url, "ambiente");
+            switch (api){
+                case "https://dev-torneos-fe.monou.gg/":
+                    api = "https://pwpawoqa3p63hwi9un57qb2wz.monou.gg/api/";
+                    break;
+                case "https://stg-torneos-fe.monou.gg/":
+                    api = "https://e6e6j0v1xah51y9eec0p2f12h.monou.gg/api/";
+                    break;
+                case "https://rel-torneos-fe.monou.gg/":
+                    api = "https://keyu65uwekgf21rjs23fgjkds.monou.gg/api/";
+                    break;
+                case "https://monou.gg/":
+                    api = "https://dgu2evhs9qmnap4nqu9dhmcw1.monou.gg/api/";
+                    break;
+            }
 #endif
         }
         private void HideButtonsForWebGL(){
-#if UNITY_WEBGL && !UNITY_EDITOR
+//#if UNITY_WEBGL && !UNITY_EDITOR
             //hide register button
             notReady_registerButton.style.display = DisplayStyle.None;
             notReady_registredText.style.display = DisplayStyle.None;
             gameoverDemo_registerButton.style.display = DisplayStyle.None;
             gameoverDemo_registredText.style.display = DisplayStyle.None;
             //hide exit button
-#endif
+//#endif
         }
         private string SearchParameters(string url, string key){
             string[] prev = url.Split(key + "=");
@@ -480,6 +599,11 @@ namespace Monou
         //         elm.style.backgroundImage = new StyleBackground(bg);
         //     }
         // }
+        void SetTimeout(Action fn, float s){ StartCoroutine(_SetTimeout(fn, s)); }
+        IEnumerator _SetTimeout(Action fn, float s){
+            yield return new WaitForSeconds(s);
+            fn.Invoke();
+        }
 
         // =========================== WEBREQUEST =============================
         public void Post(string url, string json, System.Action<string> success, System.Action<string> error){
@@ -560,7 +684,17 @@ namespace Monou
         }
     }
 
-
+    [Serializable]
+    public class GameArcadeLog {
+        public string type;
+        public string table;
+        public string id;
+        public string slug;
+        public string user_id;
+        public int points;
+        public string tipo;
+        public string data;
+    }
 
 #if UNITY_EDITOR
     // *********************** Bundles *************************
