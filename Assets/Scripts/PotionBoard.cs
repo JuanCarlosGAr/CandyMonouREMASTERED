@@ -69,9 +69,16 @@ public class PotionBoard : MonoBehaviour
 
     private IEnumerator ActivateAndDeactivateCoroutine(float delay)
     {
-        comboTxt.SetActive(true);
-        yield return new WaitForSeconds(delay);
-        comboTxt.SetActive(false);
+        if (comboTxt != null)
+        {
+            comboTxt.SetActive(true);
+            yield return new WaitForSeconds(delay);
+            comboTxt.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("comboTxt is null. Cannot activate or deactivate.");
+        }
     }
     private void Update()
     {
@@ -169,7 +176,7 @@ void InitializeBoard()
     }
     else
     {
-        GameManager.Instance.moves = 5;
+        GameManager.Instance.moves = 50;
         Debug.Log("Board is valid. Starting game!");
     }
 }
@@ -246,19 +253,19 @@ void InitializeBoard()
         {
             potionToRemove.isMatched = false;
 
-            if (potionToRemove.potionType == PotionType.Bomb)
-            {
-                Explode(potionToRemove.xIndex, potionToRemove.yIndex, extraPotionsToRemove);
-            }
+           if (potionToRemove.potionType == PotionType.Bomb)
+              {
+                Explode(potionToRemove.xIndex, potionToRemove.yIndex, extraPotionsToRemove); 
+               }
             else if (potionToRemove.potionType == PotionType.Lightning)
-            {
+              {
                 DestroyRowOrColumn(potionToRemove.xIndex, potionToRemove.yIndex, extraPotionsToRemove);
-            }
+              }
         }
-        potionsToRemove.AddRange(extraPotionsToRemove);
-        yield return new WaitForSeconds(0.1f);
+         potionsToRemove.AddRange(extraPotionsToRemove);
+             yield return new WaitForSeconds(0.1f);
 
-        yield return StartCoroutine(RemoveAndRefill(potionsToRemove));
+        RemoveAndRefill(potionsToRemove);
         GameManager.Instance.ProcessTurn(potionsToRemove.Count, _subtractMoves, false);
         yield return new WaitForSeconds(0.5f);
 
@@ -324,84 +331,50 @@ void InitializeBoard()
             }
         }
     }
-
-private IEnumerator ShakeAndDestroy(Potion potion, GameObject effectPrefab)
-{
-    Vector3 originalPosition = potion.transform.position;
-    float shakeDuration = 0.5f;
-    float shakeMagnitude = 0.1f;
-    float elapsed = 0.0f;
-
-    while (elapsed < shakeDuration)
+    private void RemoveAndRefill(List<Potion> _potionsToRemove)
     {
-        float offsetX = Random.Range(-1f, 1f) * shakeMagnitude;
-        float offsetY = Random.Range(-1f, 1f) * shakeMagnitude;
-        potion.transform.position = new Vector3(originalPosition.x + offsetX, originalPosition.y + offsetY, originalPosition.z);
-
-        elapsed += Time.deltaTime;
-        yield return null;
-    }
-
-    potion.transform.position = originalPosition;
-
-    // Usar efecto personalizado si existe
-    GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
-    Destroy(effect, 0.5f);
-
-    // Limpiar efecto personalizado para futuras instancias
-    potion.customExplosionEffect = null;
-
-    if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
-    {
-        currentPowerUps--;
-    }
-
-    Destroy(potion.gameObject);
-}
-
-private IEnumerator RemoveAndRefill(List<Potion> _potionsToRemove)
-{
-    List<Coroutine> shakeAndDestroyCoroutines = new List<Coroutine>();
-
-    // Removing the potion and clearing the board at that location
-    foreach (Potion potion in _potionsToRemove)
-    {
-        // Usar efecto personalizado si existe
-        GameObject effectPrefab = potion.customExplosionEffect != null ? 
-                                  potion.customExplosionEffect : 
-                                  explosionEffect;
-
-        // Iniciar la corrutina de agitación y destrucción y almacenarla en la lista
-        Coroutine coroutine = StartCoroutine(ShakeAndDestroy(potion, effectPrefab));
-        shakeAndDestroyCoroutines.Add(coroutine);
-
-        // Getting its x and y indices and storing them
-        int _xIndex = potion.xIndex;
-        int _yIndex = potion.yIndex;
-
-        // Create a blank node on the potion board
-        potionBoard[_xIndex, _yIndex] = new Node(true, null);
-    }
-
-    // Esperar a que todas las corrutinas de agitación y destrucción terminen
-    foreach (Coroutine coroutine in shakeAndDestroyCoroutines)
-    {
-        yield return coroutine;
-    }
-
-    // Proceder con el relleno del tablero
-    for (int x = 0; x < width; x++)
-    {
-        for (int y = 0; y < height; y++)
+        //Removing the potion and clearing the board at that location
+        foreach (Potion potion in _potionsToRemove)
         {
-            if (potionBoard[x, y].potion == null)
+                    // Usar efecto personalizado si existe
+              GameObject effectPrefab = potion.customExplosionEffect != null ? 
+                                 potion.customExplosionEffect : 
+                                 explosionEffect;
+
+                 GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
+                  Destroy(effect, 0.5f);
+
+                // Limpiar efecto personalizado para futuras instancias
+                 potion.customExplosionEffect = null;
+            if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
             {
-                Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
-                RefillPotion(x, y);
+            currentPowerUps--;
+            }
+            Destroy(effect, 0.5f);
+            Destroy(potion.gameObject);
+            //getting it's x and y indicies and storing them
+            int _xIndex = potion.xIndex;
+            int _yIndex = potion.yIndex;
+
+            //Destroy the potion
+            Destroy(potion.gameObject);
+
+            //Create a blank node on the potion board.
+            potionBoard[_xIndex, _yIndex] = new Node(true, null);
+        }
+
+        for (int x=0; x < width; x++)
+        {
+            for (int y=0; y <height; y++)
+            {
+                if (potionBoard[x, y].potion == null)
+                {
+                    Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
+                    RefillPotion(x, y);
+                }
             }
         }
     }
-}
 
     private void RefillPotion(int x, int y)
     {
@@ -763,8 +736,7 @@ private IEnumerator RemoveAndRefill(List<Potion> _potionsToRemove)
         _targetPotion.MoveToTarget(potionBoard[_currentPotion.xIndex, _currentPotion.yIndex].potion.transform.position);
     }
 
-private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion)
-{
+private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion) {
     yield return new WaitForSeconds(0.2f);
 
     bool isPowerUpMoved = _currentPotion.potionType == PotionType.Bomb || 
@@ -773,46 +745,39 @@ private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion)
                           _targetPotion.potionType == PotionType.Lightning;
 
     // Si se movió un power-up, activarlo directamente
-    if (isPowerUpMoved)
-    {
+    if (isPowerUpMoved) {
         List<Potion> powerUpEffects = new List<Potion>();
         Potion movedPowerUp = _currentPotion.potionType == PotionType.Bomb || 
                               _currentPotion.potionType == PotionType.Lightning ? 
                               _currentPotion : _targetPotion;
 
         // Aplicar efecto según el tipo
-        if (movedPowerUp.potionType == PotionType.Bomb)
-        {
+        if (movedPowerUp.potionType == PotionType.Bomb) {
             yield return new WaitForSeconds(0.1f);
             Explode(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
-        }
-        else if (movedPowerUp.potionType == PotionType.Lightning)
-        {
-            yield return new WaitForSeconds(0.1f);
+        } 
+        else if (movedPowerUp.potionType == PotionType.Lightning) {
+       yield return new WaitForSeconds(0.1f);
             DestroyRowOrColumn(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
         }
 
         // Eliminar el power-up y las fichas afectadas
         powerUpEffects.Add(movedPowerUp);
-        yield return StartCoroutine(RemoveAndRefill(powerUpEffects));
+        RemoveAndRefill(powerUpEffects);
         GameManager.Instance.ProcessTurn(powerUpEffects.Count, true, true); // Restar un movimiento
         yield return new WaitForSeconds(0.4f);
 
         // Verificar matches después de la explosión (opcional)
-        if (CheckBoard())
-        {
+        if (CheckBoard()) {
             StartCoroutine(ProcessTurnOnMatchedBoard(false));
         }
-    }
-    else
-    {
+    } 
+    else {
         // Lógica original para matches normales
-        if (CheckBoard())
-        {
+        if (CheckBoard()) {
             StartCoroutine(ProcessTurnOnMatchedBoard(true));
-        }
-        else
-        {
+        } 
+        else {
             DoSwap(_currentPotion, _targetPotion);
             soundManager.PlayNoMatchSound();
         }
@@ -820,6 +785,7 @@ private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion)
 
     isProcessingMove = false;
 }
+
 
     //IsAdjacent
     private bool IsAdjacent(Potion _currentPotion, Potion _targetPotion)

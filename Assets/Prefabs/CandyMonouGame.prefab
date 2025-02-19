@@ -2143,7 +2143,7 @@ MonoBehaviour:
   victoryPanel: {fileID: 2623891764486235298}
   losePanel: {fileID: 7586367447935277879}
   goal: 100000000
-  moves: 10
+  moves: 100
   points: 0
   isGameEnded: 0
   pointsTxt: {fileID: 5574275759374021074}
