@@ -16,7 +16,7 @@
     margin-right: 12px;
     margin-bottom: 12px;
     margin-left: 12px;
-    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=-246002292&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_1");
+    background-image: url('project://database/Assets/Sprites/assets%20tetris.png?fileID=-246002292&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_1');
     -unity-background-scale-mode: scale-to-fit;
     padding-top: 60%;
 }
@@ -32,7 +32,15 @@
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
     white-space: normal;
-    -unity-font-definition: resource('Fonts & Materials/Poppins-Regular');
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    padding-top: 20px;
+    padding-right: 0;
+    padding-bottom: 20px;
+    padding-left: 0;
 }
 
 .unity-button {
@@ -49,18 +57,32 @@
     border-top-color: rgb(137, 137, 137);
     border-bottom-color: rgb(137, 137, 137);
     background-color: rgba(34, 128, 197, 0);
-    -unity-font-style: bold;
-    width: 240px;
-    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=453323658&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_17");
+    -unity-font-style: normal;
+    background-image: url("project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-1808107437953314924&guid=b4a1c8e0f69d54c498d5fdac224af5c6&type=3#AssetsJungleMission_2");
     -unity-background-scale-mode: scale-to-fit;
-    height: 80px;
     color: rgb(255, 255, 255);
-    -unity-font-definition: resource('Fonts & Materials/Poppins-SemiBold');
-    font-size: 20px;
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
+    -unity-text-align: middle-center;
+    width: auto;
+    height: auto;
+    background-size: 85% 85%;
+    min-width: 60%;
+    min-height: 20%;
+    max-height: none;
+    max-width: none;
+    font-size: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 0;
 }
 
 .unity-button:focus {
-    background-image: url("project://database/Assets/Sprites/assets%20tetris.png?fileID=130557100&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_21");
+    background-image: url('project://database/Assets/Sprites/assets%20tetris.png?fileID=130557100&guid=8c45e381fac0d344288e55847067dfa9&type=3#assets tetris_21');
+    width: 100%;
+    height: 20%;
+    font-size: 36px;
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
 }
 
 #tutorial {
@@ -143,6 +165,10 @@ Scroller {
     justify-content: space-evenly;
     align-self: stretch;
     flex-shrink: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 .column {
@@ -158,12 +184,11 @@ Scroller {
     -unity-text-align: upper-center;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 0;
+    padding-left: 0;
     white-space: nowrap;
 }
 
@@ -176,4 +201,70 @@ Scroller {
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
+}
+
+.pos {
+    background-position-x: left 30px;
+    -unity-text-align: upper-right;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
+    border-left-width: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+.name {
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    -unity-text-align: upper-left;
+    padding-right: 0;
+    border-right-width: 0;
+}
+
+.points {
+    background-position-x: right 30px;
+    -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-right-width: 40px;
+    border-left-width: 0;
+    margin-right: 0;
+    padding-right: 0;
+    font-size: 15px;
+}
+
+.row {
+    background-image: url("project://database/Assets/Sprites/AssetsJungleMission.png?fileID=7411209919622785181&guid=b4a1c8e0f69d54c498d5fdac224af5c6&type=3#AssetsJungleMission_8");
+    background-size: 200% 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -unity-text-align: upper-center;
+}
+
+.row0 {
+    background-image: url("project://database/Assets/Sprites/AssetsJungleMission.png?fileID=4149220060453684154&guid=b4a1c8e0f69d54c498d5fdac224af5c6&type=3#AssetsJungleMission_10");
+    background-size: 200% 100%;
+    margin-top: 10px;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+
+.row1 {
+    background-size: 200% 100%;
+    background-image: url("project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-470989066068876683&guid=b4a1c8e0f69d54c498d5fdac224af5c6&type=3#AssetsJungleMission_11");
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row2 {
+    background-size: 200% 100%;
+    background-image: url("project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-2972813531958190798&guid=b4a1c8e0f69d54c498d5fdac224af5c6&type=3#AssetsJungleMission_20");
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 0;
+    margin-left: 0;
 }

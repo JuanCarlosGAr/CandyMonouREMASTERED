@@ -1,0 +1,781 @@
+fileFormatVersion: 2
+guid: b4a1c8e0f69d54c498d5fdac224af5c6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5077222473624568360
+    second: AssetsJungleMission_0
+  - first:
+      213: -6346624642946160642
+    second: AssetsJungleMission_1
+  - first:
+      213: -1808107437953314924
+    second: AssetsJungleMission_2
+  - first:
+      213: -2802281494249029300
+    second: AssetsJungleMission_3
+  - first:
+      213: -6732547576105049182
+    second: AssetsJungleMission_4
+  - first:
+      213: -4996040406991691181
+    second: AssetsJungleMission_5
+  - first:
+      213: -2672579707960746765
+    second: AssetsJungleMission_6
+  - first:
+      213: 8402897865190498904
+    second: AssetsJungleMission_7
+  - first:
+      213: 7411209919622785181
+    second: AssetsJungleMission_8
+  - first:
+      213: -4746810112206747960
+    second: AssetsJungleMission_9
+  - first:
+      213: 4149220060453684154
+    second: AssetsJungleMission_10
+  - first:
+      213: -470989066068876683
+    second: AssetsJungleMission_11
+  - first:
+      213: 183175907159651613
+    second: AssetsJungleMission_12
+  - first:
+      213: -1304463641517283569
+    second: AssetsJungleMission_13
+  - first:
+      213: 1186460350966168710
+    second: AssetsJungleMission_14
+  - first:
+      213: -7337662166732280065
+    second: AssetsJungleMission_15
+  - first:
+      213: 8541838149233152576
+    second: AssetsJungleMission_16
+  - first:
+      213: 6190161492837254902
+    second: AssetsJungleMission_17
+  - first:
+      213: 2612736126571475039
+    second: AssetsJungleMission_18
+  - first:
+      213: 3085094838001635689
+    second: AssetsJungleMission_19
+  - first:
+      213: -2972813531958190798
+    second: AssetsJungleMission_20
+  - first:
+      213: -5171883728468096734
+    second: AssetsJungleMission_21
+  - first:
+      213: -5578350543362469286
+    second: AssetsJungleMission_22
+  - first:
+      213: 6316850266847647224
+    second: AssetsJungleMission_23
+  - first:
+      213: -6935275656382341664
+    second: AssetsJungleMission_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AssetsJungleMission_0
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 3697
+        width: 132
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 822c50280fae57640800000000000000
+      internalID: 5077222473624568360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_1
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 3654
+        width: 752
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef7247a53824ce7a0800000000000000
+      internalID: -6346624642946160642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_2
+      rect:
+        serializedVersion: 2
+        x: 2269
+        y: 3929
+        width: 519
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49f0d0d6ddf48e6e0800000000000000
+      internalID: -1808107437953314924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_3
+      rect:
+        serializedVersion: 2
+        x: 3309
+        y: 2307
+        width: 1082
+        height: 1922
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c41c2aef3db4c19d0800000000000000
+      internalID: -2802281494249029300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_4
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 3643
+        width: 461
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a367dc66af2192a0800000000000000
+      internalID: -6732547576105049182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_5
+      rect:
+        serializedVersion: 2
+        x: 2197
+        y: 3610
+        width: 664
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35223c158bf7aaab0800000000000000
+      internalID: -4996040406991691181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_6
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 2365
+        width: 937
+        height: 1250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc15116ae619ead0800000000000000
+      internalID: -2672579707960746765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_7
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 2959
+        width: 512
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852619286171d9470800000000000000
+      internalID: 8402897865190498904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_8
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 3352
+        width: 807
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98a7f6d728e9d660800000000000000
+      internalID: 7411209919622785181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_9
+      rect:
+        serializedVersion: 2
+        x: 2999
+        y: 3386
+        width: 55
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c64fa54a51ff1eb0800000000000000
+      internalID: -4746810112206747960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_10
+      rect:
+        serializedVersion: 2
+        x: 2138
+        y: 3152
+        width: 807
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab3444659adf49930800000000000000
+      internalID: 4149220060453684154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_11
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 2952
+        width: 807
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5722fd790f5b679f0800000000000000
+      internalID: -470989066068876683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_12
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 2828
+        width: 86
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1539ad5485ca8200800000000000000
+      internalID: 183175907159651613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_13
+      rect:
+        serializedVersion: 2
+        x: 1405
+        y: 2826
+        width: 61
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0723f8ba3d95ede0800000000000000
+      internalID: -1304463641517283569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_14
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 2828
+        width: 55
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c7c6f2767277010800000000000000
+      internalID: 1186460350966168710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_15
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 2826
+        width: 61
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffe691ec2236b2a90800000000000000
+      internalID: -7337662166732280065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_16
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 2826
+        width: 55
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0421ce54a84ba8670800000000000000
+      internalID: 8541838149233152576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_17
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 2809
+        width: 61
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f6cdd2b41fd7e550800000000000000
+      internalID: 6190161492837254902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_18
+      rect:
+        serializedVersion: 2
+        x: 1751
+        y: 2809
+        width: 61
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f507f1c0aad424420800000000000000
+      internalID: 2612736126571475039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_19
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 2866
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9619a7dd86570da20800000000000000
+      internalID: 3085094838001635689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_20
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 2752
+        width: 807
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d5824e7d17eb6d0800000000000000
+      internalID: -2972813531958190798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_21
+      rect:
+        serializedVersion: 2
+        x: 1655
+        y: 2827
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22949099627c938b0800000000000000
+      internalID: -5171883728468096734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_22
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 2275
+        width: 602
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a52d5467cb7b592b0800000000000000
+      internalID: -5578350543362469286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_23
+      rect:
+        serializedVersion: 2
+        x: 2349
+        y: 2432
+        width: 395
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f519ce79d5f9a750800000000000000
+      internalID: 6316850266847647224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AssetsJungleMission_24
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 33
+        width: 3857
+        height: 2171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ed9ae10983f0cf90800000000000000
+      internalID: -6935275656382341664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

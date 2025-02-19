@@ -50,4 +50,8 @@ mergeInto(LibraryManager.library, {
     GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
   },
 
+  WebGL_IsMobile: function(){
+    return Module.SystemInfo.mobile;
+  },
+
 });

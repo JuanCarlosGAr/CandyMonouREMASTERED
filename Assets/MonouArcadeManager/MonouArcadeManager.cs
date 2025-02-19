@@ -34,6 +34,10 @@ namespace Monou
 #endif
         }
 
+        private const string TANGANANICANANA = "lHPqoraAUINGvLyQWmObcjFSzhkYiCwRnXMuBpZKtxdgETDeVJsf";
+        private const string TANGANANICA = "bqkcgomgha";
+        private const string TANGANANA = "mvsdftbwrt";
+
         public string api;
         public string userId;
         public string slug;
@@ -240,6 +244,26 @@ namespace Monou
             }
         }
 
+        public string advanceInterval = "";
+        public int tangananicaOffset = 0;
+        private void ResetAdvanceLog(){
+            tangananicaOffset = (int)((Time.time *100)%48);
+            advanceInterval = "" + TANGANANICANANA[tangananicaOffset];
+        }
+        public void Advance(int deltaScore){ //de 16 bits, no mayor a 32768, no menor a -32767
+            //Debug.Log("deltaScore"+deltaScore);
+            // trabaja el log de puntaje avanzado, componiendo el número en una string desordenada y agregando al azar números
+            var cc = new List<int>();
+            cc.Add(deltaScore & 0xf);
+            cc.Add((deltaScore>>4) & 0xf);
+            cc.Add((deltaScore>>8) & 0xf);
+            cc.Add((deltaScore>>12) & 0xf);
+            int _time = (int)(Time.time * 100);
+            foreach(int i in cc) if(i>0){
+                advanceInterval += TANGANANICANANA[(i + tangananicaOffset)%TANGANANICANANA.Length];
+            }else advanceInterval += ((_time%advanceInterval.Length)%10).ToString();
+            tangananicaOffset += (int)TANGANANICANANA[tangananicaOffset%TANGANANICANANA.Length]; 
+        }
         public void Success(int theScore){
             //demoHint.style.display = DisplayStyle.None;
             if(gameInstance != null) Destroy(gameInstance);
@@ -386,6 +410,7 @@ namespace Monou
         private void ShowTerms(){ Application.OpenURL(termsUrl); }
 
         private void StartGame(){
+            ResetAdvanceLog();
             HideAll();
             content.style.display = DisplayStyle.None;
             closeButton.style.display = DisplayStyle.None;
@@ -483,16 +508,16 @@ namespace Monou
                 Debug.Log(cols.Count);
                 for(int i=0; i<cols.Count; i++){
                     cols[i].Clear();
-                    Label head = new Label();
-                    head.AddToClassList("columnhead");
-                    head.text = HEADTITLES[i];
-                    cols[i].Add(head);
+                   // Label head = new Label();
+                   // head.AddToClassList("columnhead");
+                  //  head.text = HEADTITLES[i];
+                   // cols[i].Add(head);
                 }
                 int counter=0;
                 foreach (JSONNode player in data["data"]){
-                    Label pos = new Label(); pos.text = player["place"]; cols[0].Add(pos);
-                    Label name = new Label(); name.text = player["name"]; cols[1].Add(name);
-                    Label points = new Label(); points.text = player["kills"]; cols[2].Add(points);
+                    Label pos = new Label(); pos.text = player["place"]; cols[0].Add(pos);pos.AddToClassList("pos"); pos.AddToClassList("row"+counter.ToString());pos.AddToClassList("row");
+                    Label name = new Label(); name.text = player["name"]; cols[1].Add(name);name.AddToClassList("name"); name.AddToClassList("row"+counter.ToString());name.AddToClassList("row");
+                    Label points = new Label(); points.text = player["kills"]; cols[2].Add(points);points.AddToClassList("points"); points.AddToClassList("row"+counter.ToString());points.AddToClassList("row");
                     counter++; if(counter>=maxRankingRows) break;
                 }
                 emptyText.style.display = counter>0? DisplayStyle.None: DisplayStyle.Flex;
@@ -508,11 +533,27 @@ namespace Monou
             data.kills = score;
             data.deaths = 0;
             data.assistence = 0;
+            data.confirm = Md5Sum(TANGANANICA+userId.ToString()+score.ToString()+TANGANANA);
+            data.log = advanceInterval;
             Post(api + "tournament/match/decision/round-robin/", JsonUtility.ToJson(data), success=>{
                 Debug.Log("Arcade Save Score "+score.ToString());
                 onSuccess();
             }, err=>{ Debug.Log("err ArcadeGame SaveData"); });
         }
+
+        private static string Md5Sum(string strToEncrypt){
+            System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
+            byte[] bytes = ue.GetBytes(strToEncrypt);
+            // encrypt bytes
+            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] hashBytes = md5.ComputeHash(bytes);
+            // Convert the encrypted bytes back to a string (base 16)
+            string hashString = "";
+            for (int i = 0; i < hashBytes.Length; i++)
+                hashString += System.Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
+            return hashString.PadLeft(32, '0');
+        }
+
         private void StartLog(){
             var data = new GameArcadeLog();
             data.type = "start";
@@ -528,8 +569,10 @@ namespace Monou
             data.type = "finish";
             data.table = "tetrix_monou";
             data.id = logId;
+            data.user_id = userId;
             data.points = score;
-            data.data = "";
+            data.confirm = Md5Sum(TANGANANICA+userId.ToString()+score.ToString()+TANGANANA);
+            data.data = advanceInterval;
             Post("https://umff6h7j5duoakqcxvhyypvsja0pguqz.lambda-url.us-east-2.on.aws/", JsonUtility.ToJson(data),
             success=>{  }, err=>{ Debug.Log("err ArcadeGame Log finish"); });
         }
@@ -667,6 +710,8 @@ namespace Monou
         public int kills;
         public int deaths;
         public int assistence;
+        public string confirm;
+        public string log;
     }
 
 
@@ -694,6 +739,7 @@ namespace Monou
         public int points;
         public string tipo;
         public string data;
+        public string confirm;
     }
 
 #if UNITY_EDITOR

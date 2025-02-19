@@ -65,9 +65,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   api: https://e6e6j0v1xah51y9eec0p2f12h.monou.gg/api/
-  userId: 5747
-  slug: tetris-brick-monou
-  gamePrefab: {fileID: 6125802426154223334, guid: 5671bca4e1d698d46a3e7c189b7ef513, type: 3}
+  userId: 143998
+  slug: prueba-del-jueves-30-numero-3
+  gamePrefab: {fileID: 0}
   termsUrl: https://monou.gg/terminos
-  maxRankingRows: 5
+  maxRankingRows: 3
   timeZoneOffset: 5
+  advanceInterval: 
+  tangananicaOffset: 0

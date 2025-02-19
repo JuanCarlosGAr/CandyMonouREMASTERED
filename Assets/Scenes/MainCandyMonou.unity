@@ -154,8 +154,10 @@ MonoBehaviour:
   slug: brick-gratis-2
   gamePrefab: {fileID: 2338745100768701638, guid: bbf24faef74f0cc4aa7417719b2c83d7, type: 3}
   termsUrl: 
-  maxRankingRows: 5
+  maxRankingRows: 8
   timeZoneOffset: 5
+  advanceInterval: 
+  tangananicaOffset: 0
 --- !u!114 &1868813322
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; 
 
+    private GameObject OverTxt;
+
     public GameObject backgroundPanel; 
     public GameObject victoryPanel;
     public GameObject losePanel;
@@ -25,6 +27,16 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        OverTxt = GameObject.Find("GameOver_txt");
+                if (OverTxt != null)
+        {
+            // Desactiva el objeto al inicio
+            OverTxt.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el objeto GameOver_txt en la jerarquía.");
+        }
     }
 
     public void Initialize(int _moves, int _goal)
@@ -39,11 +51,18 @@ public class GameManager : MonoBehaviour
         movesTxt.text = "Moves: " + moves.ToString();
         goalTxt.text = "Goal: " + goal.ToString();
     }
+        private IEnumerator ActivateAndDeactivateOverCoroutine(float delay)
+    {
+        OverTxt.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        OverTxt.SetActive(false);
+    }
     
     public void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool _addMoves, bool isPowerUpActivation = false)
     {
         Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
         points += _pointsToGain;
+        try{ Monou.MonouArcadeManager.inst.Advance(_pointsToGain); } catch {}
         if (_subtractMoves)
             moves--;
 
@@ -70,7 +89,7 @@ public class GameManager : MonoBehaviour
             var congratulationsTxt = GameObject.FindGameObjectWithTag("congratulationsTxt");
    
             string winMessage = $"fELICIDADES! You won in {moves} moves and scored {points} points!";
-           // try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
+           try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
 
             if (congratulationsTxt != null)
             {
@@ -87,29 +106,38 @@ public class GameManager : MonoBehaviour
         // Verificamos si el jugador pierde porque no hay más movimientos
         if (moves <= 0 && points < goal)
         {
-            isGameEnded = true;
-            print ("perdiste");
-            backgroundPanel.SetActive(true);
-            losePanel.SetActive(true);
-
-            string loseMessage = $"Ya no tienes más movimientos. lograste {points} puntos! sigue partisipando.";
-            try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
-            
-            var loseTxt = GameObject.FindGameObjectWithTag("loseText");
-            if (loseTxt != null)
-            {
-                TMP_Text textComp = loseTxt.GetComponent<TMP_Text>();
-                if (textComp != null)
-                {
-                    textComp.text = loseMessage;
-                }
-            }
-
-            PotionBoard.Instance.potionParent.SetActive(false);
+            StartCoroutine(ActivateAndDeactivateOverCoroutine(1.0f));
+            StartCoroutine(ShowGameOverAfterDelay());
         }
     }
+
+    private IEnumerator ShowGameOverAfterDelay()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        isGameEnded = true;
+        print("perdiste");
+        backgroundPanel.SetActive(true);
+        losePanel.SetActive(true);
+
+        string loseMessage = $"Ya no tienes más movimientos. lograste {points} puntos! sigue partisipando.";
+        try { Monou.MonouArcadeManager.inst.Success(points); } catch { }
+
+        var loseTxt = GameObject.FindGameObjectWithTag("loseText");
+        if (loseTxt != null)
+        {
+            TMP_Text textComp = loseTxt.GetComponent<TMP_Text>();
+            if (textComp != null)
+            {
+                textComp.text = loseMessage;
+            }
+        }
+
+        PotionBoard.Instance.potionParent.SetActive(false);
+    }
+
     public void RestartGame()
-{
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-}
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/MonouArcadeManager/MonouArcadeManagerStyle.uss?fileID=7433441132597879392&amp;guid=1f74a485e4847466c8f8416e291e7b03&amp;type=3#MonouArcadeManagerStyle" />
     <engine:Button name="closeButton" style="position: absolute; top: 8px; right: 8px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(34, 128, 197, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 48px; height: 48px; background-image: url(&quot;project://database/Assets/MonouArcadeManager/close.png?fileID=2800000&amp;guid=757f17e009e16461681760ca929ac31b&amp;type=3#close&quot;); display: none;" />
-    <engine:VisualElement name="splash" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); display: none; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Sprites/LogoJungleMission.png?fileID=2800000&amp;guid=2a56a83d811acdd4c90a6e66cf0c5d46&amp;type=3#LogoJungleMission&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    <engine:VisualElement name="splash" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); display: none; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Sprites/Mesa_de_trabajo_2.png?fileID=2800000&amp;guid=c241e3bbe9a1fd941a4f365da9df6769&amp;type=3#Mesa_de_trabajo_2&quot;); -unity-background-scale-mode: scale-to-fit;" />
     <engine:VisualElement name="tutorialViewer" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; justify-content: center; align-items: center; background-color: rgb(0, 0, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; display: none;">
         <engine:VisualElement name="tutorialContent" style="flex-grow: 1; margin-bottom: 12px; width: 100%;">
             <engine:VisualElement name="tutorial" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MonouArcadeManager/tutorial1.png?fileID=2800000&amp;guid=6ee3f7e38e4c3491995a8597359d69a7&amp;type=3#tutorial1&quot;);" />
@@ -22,38 +22,58 @@
     </engine:VisualElement>
     <engine:Label text="Juego de práctica" name="demoHint" style="position: absolute; display: none;" />
     <engine:VisualElement name="splashMonou" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 16, 36); display: none; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/MonouArcadeManager/splashMonou.png?fileID=2800000&amp;guid=8afc59332f7f448b0835d59d8bbabf5e&amp;type=3#splashMonou&quot;); -unity-background-scale-mode: scale-to-fit;" />
-    <engine:ScrollView name="content" horizontal-scroller-visibility="Hidden" style="width: 603px; height: 1101px;">
+    <engine:ScrollView name="content" horizontal-scroller-visibility="Hidden" style="justify-content: space-between; align-self: stretch; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-2802281494249029300&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_3&quot;);">
         <engine:VisualElement name="mainContent" style="align-self: center; flex-grow: 1; max-width: 480px; min-width: 200px; width: 100%; justify-content: flex-start; padding-top: 84px;">
-            <engine:VisualElement name="logo" enabled="true" style="background-image: url(&quot;project://database/Assets/Sprites/LogoJungleMission.png?fileID=2800000&amp;guid=2a56a83d811acdd4c90a6e66cf0c5d46&amp;type=3#LogoJungleMission&quot;);" />
+            <engine:VisualElement name="logo" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-6346624642946160642&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_1&quot;); width: auto; height: auto; align-self: stretch; align-items: stretch; justify-content: space-between; align-content: stretch; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 50%; display: flex;" />
             <engine:VisualElement name="notReady" class="container" style="display: none;">
-                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;);" />
-                <engine:Label text="OOd OOh OOm" name="notReady_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 24px; padding-bottom: 20px;" />
-                <engine:Button text="Tutorial" name="notReady_tutorialButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
-                <engine:Button text="Práctica" name="notReady_demoButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
-                <engine:Button text="Inscríbete" name="notReady_registerButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
-                <engine:Label text="Inscrito" name="notReady_registredText" style="font-size: 24px;" />
+                <engine:Button text="Práctica" name="notReady_demoButton" style="font-size: 20px;" />
+                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;); font-size: 14px; color: rgb(185, 185, 185); margin-bottom: 0; margin-top: 0;" />
+                <engine:Label text="OOd OOh OOm" name="notReady_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 35px; padding-bottom: 20px; width: 415px; margin-top: 0; margin-bottom: 0; display: flex;" />
+                <engine:Button text="Inscríbete" name="notReady_registerButton" style="font-size: 15px; background-size: 70% 70%; margin-top: 0; display: flex; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=6316850266847647224&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_23&quot;); -unity-background-image-tint-color: rgb(255, 255, 255); color: rgb(255, 255, 255); flex-direction: row; padding-right: 12px; justify-content: flex-start; align-items: stretch; align-self: center;">
+                    <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Alert.png?fileID=2800000&amp;guid=f08e156ad16aa26478d023fce63dcb95&amp;type=3#Alert&quot;); width: 30px; height: 30px; margin-right: 0; flex-direction: column; align-self: center; background-size: 150% 150%; padding-right: 0; left: auto; right: 10px;" />
+                </engine:Button>
+                <engine:Label text="Inscrito" name="notReady_registredText" style="font-size: 24px; margin-top: 0; display: none; margin-bottom: 0; color: rgb(226, 161, 8);" />
+                <engine:Button text="Tutorial" name="notReady_tutorialButton" style="font-size: 15px; margin-top: 0; background-size: 70% 70%; padding-top: 50px; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=6316850266847647224&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_23&quot;);" />
             </engine:VisualElement>
-            <engine:VisualElement name="alReady" class="container" style="display: none;">
-                <engine:Label text="El torneo termina en" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:Label text="00d 00h 00m" name="alReady_timerText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px; padding-bottom: 20px;" />
-                <engine:Button text="Jugar" name="alReady_playButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=4029097420661752718&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_20&quot;);" />
-                <engine:Label text="Recuerda que gana quien haga&#10;el mejor score durante las 48 hrs&#10;de vigencia del torneo" />
-                <engine:Label text="Ranking" style="padding-bottom: 20px; padding-top: 24px; font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:VisualElement name="alReady_ranking" class="ranking">
+            <engine:VisualElement name="alReady" class="container" style="display: none; justify-content: space-between;">
+                <engine:Button text="Jugar" name="alReady_playButton" style="margin-top: 50px; margin-bottom: 30px; padding-bottom: 50px;" />
+                <engine:Label text="EL TORNEO TERMINA EN:" style="color: rgb(185, 185, 185); margin-top: 5px; font-size: 12px; -unity-font-style: normal; padding-bottom: 10px; width: 244px;" />
+                <engine:Label text="00d 00h 00m" name="alReady_timerText" style="padding-bottom: 20px; background-position-y: center 0; -unity-text-align: lower-center; font-size: 28px; justify-content: flex-start; align-content: stretch; margin-top: 10px; margin-bottom: 0; width: 386px;" />
+                <engine:Label text="Recuerda que gana quien haga el mejor score durante las 48 hrs.de vigencia del torneo" style="-unity-font-style: normal; font-size: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 20px; margin-right: 0; margin-bottom: 30px; margin-left: 0; width: 319px;" />
+                <engine:VisualElement name="alReady_ranking" class="ranking" style="translate: 0 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-2672579707960746765&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_6&quot;); padding-top: 60px; padding-bottom: 30px; margin-right: 20px; margin-left: 20px;">
+                    <engine:Label text="RANKING" style="margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 10px; padding-bottom: 0; padding-left: 10px; translate: 0 0; -unity-text-align: middle-center; height: 62px; position: absolute; top: 0; width: 100%; left: auto; align-content: center; align-self: stretch; justify-content: space-around; flex-direction: row; align-items: center;">
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; margin-right: 30px;" />
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; align-items: auto; align-content: auto; justify-content: flex-start; flex-direction: row; margin-left: 30px;" />
+                    </engine:Label>
                     <engine:VisualElement class="column" style="width: 100px;">
-                        <engine:Label text="Pos" class="columnhead" />
+                        <engine:Label text="Pos" class="pos row0 row" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
+                        <engine:Label text="Pos" class="pos row1 row" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
+                        <engine:Label text="Pos" class="pos row row2" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
+                        <engine:Label text="Pos" class="pos row" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
+                        <engine:Label text="Pos" class="pos row" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
+                        <engine:Label text="Pos" class="pos row" style="padding-right: 0; padding-left: 50px; -unity-text-align: upper-right;" />
                     </engine:VisualElement>
                     <engine:VisualElement class="column" style="flex-grow: 1;">
-                        <engine:Label text="Name" class="columnhead" />
+                        <engine:Label text="Name" class="name row0 row" />
+                        <engine:Label text="Name" class="name row row1" />
+                        <engine:Label text="Name" class="name row row2" />
+                        <engine:Label text="Name" class="name row" />
+                        <engine:Label text="Name" class="name row" />
+                        <engine:Label text="Name" class="name row" />
                     </engine:VisualElement>
-                    <engine:VisualElement class="column" style="width: 150px;">
-                        <engine:Label text="Points" class="columnhead" />
+                    <engine:VisualElement class="column" style="width: 189px;">
+                        <engine:Label text="Points" class="points row0 row" />
+                        <engine:Label text="Points" class="points row row1" />
+                        <engine:Label text="Points" class="points row row2" />
+                        <engine:Label text="Points" class="points row" />
+                        <engine:Label text="Points" class="points row" />
+                        <engine:Label text="Points" class="points row" />
                     </engine:VisualElement>
+                    <engine:Label text="Aún no hay registros" name="alReady_ranking_empty" style="display: none;" />
                 </engine:VisualElement>
-                <engine:Label text="Aún no hay registros" name="alReady_ranking_empty" />
-                <engine:Label text="Bolsa de Premios" style="font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); padding-top: 24px; padding-bottom: 16px;" />
+                <engine:Label text="Bolsa de Premios" style="font-size: 24px; padding-top: 24px; padding-bottom: 16px; margin-bottom: 50px;" />
                 <engine:VisualElement name="alReady_rewards" style="width: 100%; flex-direction: column; justify-content: center; flex-shrink: 0;">
-                    <engine:VisualElement name="firstReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_oro.png?fileID=2800000&amp;guid=e16a22c7b49e84644801ddc392c7e850&amp;type=3#icn_cup_oro&quot;); background-size: 85px 114px; background-position-x: right 16px;">
+                    <engine:VisualElement name="firstReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_oro.png?fileID=2800000&amp;guid=e16a22c7b49e84644801ddc392c7e850&amp;type=3#icn_cup_oro&quot;); background-size: 85px 114px; background-position-x: right 16px; margin-top: 20px;">
                         <engine:Label text="1er Lugar" />
                         <engine:Label text="Descripción de lo que el jugador con premio número 1 ganó" name="firstReward_description" class="reward_description" />
                     </engine:VisualElement>
@@ -67,56 +87,75 @@
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
-            <engine:VisualElement name="finished" class="container" style="flex-grow: 1; display: none;">
-                <engine:Label text="EL TORNEO HA TERMINADO" style="font-size: 28px; padding-top: 16px; padding-bottom: 16px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:Label text="Los ganadores en breve&#10;serán contactados por mail&#10;Estén atentos" />
-                <engine:Button text="Términos y&#10;Condiciones" name="finished_termsButton" style="width: 240px; height: 100px;" />
-                <engine:Label text="Ranking" style="padding-bottom: 16px; padding-top: 16px; font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:VisualElement name="finished_ranking" class="ranking">
+            <engine:VisualElement name="finished" class="container" style="flex-grow: 1; display: flex;">
+                <engine:Label text="EL TORNEO HA" style="font-size: 32px; padding-top: 16px; padding-bottom: 16px; width: 414px;" />
+                <engine:Label text="TERMINADO" style="font-size: 32px; padding-top: 16px; padding-bottom: 16px; width: 414px; color: rgb(226, 161, 8); margin-top: 0;" />
+                <engine:Label text="Los ganadores en breve&#10;serán contactados por mail&#10;Estén atentos" style="font-size: 14px; margin-top: 40px;" />
+                <engine:Button text="Términos y&#10;Condiciones" name="finished_termsButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-1808107437953314924&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_2&quot;); -unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-SemiBold&apos;); -unity-font-style: bold; font-size: 16px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 0; padding-bottom: 0; padding-top: 0; -unity-text-outline-color: rgba(255, 255, 255, 0);" />
+                <engine:VisualElement name="finished_ranking" class="ranking" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-2672579707960746765&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_6&quot;); margin-left: 20px; margin-right: 20px; padding-top: 60px; padding-bottom: 30px;">
+                    <engine:Label text="Ranking" style="margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 10px; padding-bottom: 0; padding-left: 10px; translate: 0 0; -unity-text-align: middle-center; height: 62px; position: absolute; top: 0; width: 100%; left: auto; align-content: center; align-self: stretch; justify-content: space-around; flex-direction: row; align-items: center;">
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; margin-right: 30px;" />
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; align-items: auto; align-content: auto; justify-content: flex-start; flex-direction: row; margin-left: 30px;" />
+                    </engine:Label>
                     <engine:VisualElement class="column" style="width: 100px;">
-                        <engine:Label text="Pos" class="columnhead" />
+                        <engine:Label text="Pos" class="pos row row0" />
                     </engine:VisualElement>
                     <engine:VisualElement class="column" style="flex-grow: 1;">
-                        <engine:Label text="Name" class="columnhead" />
+                        <engine:Label text="Name" class="name row row0" />
                     </engine:VisualElement>
                     <engine:VisualElement class="column" style="width: 150px;">
-                        <engine:Label text="Points" class="columnhead" />
+                        <engine:Label text="Points" class="points row row0" />
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:Label text="Aún no hay registros" name="finished_ranking_empty" />
             </engine:VisualElement>
             <engine:VisualElement name="gameoverDemo" class="container" style="flex-grow: 1; display: none;">
-                <engine:Label text="GAMEOVER" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 28px; padding-top: 16px; padding-bottom: 16px;" />
-                <engine:Label text="Tu Score:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:Label text="000 pts" name="gameoverDemo_scoreText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px;" />
+                <engine:Label text="GAME OVER" style="font-size: 36px; padding-top: 16px; padding-bottom: 16px; margin-bottom: 0; width: 385px; margin-top: 30px;" />
+                <engine:Label text="PUNTUACIÓN:" parse-escape-sequences="true" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&amp;guid=b99a6d68e0abb3a43a95e78d530c07c8&amp;type=3#fonnts.com-New_Nord_Wide_Heavy&quot;); color: rgb(185, 185, 185); margin-bottom: 0; font-size: 16px; margin-top: 50px;" />
+                <engine:Label text="0000" name="gameoverDemo_scoreText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&amp;guid=b99a6d68e0abb3a43a95e78d530c07c8&amp;type=3#fonnts.com-New_Nord_Wide_Heavy&quot;); font-size: 45px; margin-top: 0; margin-bottom: 20px; width: 349px; color: rgb(226, 161, 8);" />
                 <engine:VisualElement name="hr" />
-                <engine:Button text="Volver a jugar" name="gameoverDemo_playAgainButton" />
-                <engine:Button text="Inscribete" name="gameoverDemo_registerButton" />
-                <engine:Label text="Inscrito" name="gameoverDemo_registredText" style="font-size: 24px;" />
+                <engine:Button text="Volver a jugar" name="gameoverDemo_playAgainButton" style="font-size: 15px; white-space: pre-wrap; margin-top: 30px;" />
+                <engine:Button text="Inscribete" name="gameoverDemo_registerButton" style="font-size: 18px; margin-top: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=6316850266847647224&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_23&quot;);" />
+                <engine:Label text="Inscrito" name="gameoverDemo_registredText" style="font-size: 24px; display: none;" />
                 <engine:Button text="Más Juegos" name="gameoverDemo_moreGamesButton" style="display: none;" />
-                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;);" />
-                <engine:Label text="OOd OOh OOm" name="gameoverDemo_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 24px; padding-bottom: 20px;" />
+                <engine:Label text="El Torneo inicia en:" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-Bold&apos;); margin-top: 0; margin-bottom: 0;" />
+                <engine:Label text="OOd OOh OOm" name="gameoverDemo_timerText" double-click-selects-word="false" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Poppins-ExtraBold&apos;); font-size: 28px; padding-bottom: 20px; margin-top: 0; width: 412px;" />
             </engine:VisualElement>
-            <engine:VisualElement name="gameover" class="container" style="flex-grow: 1; display: flex;">
-                <engine:Label text="GAME OVER" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); padding-top: 16px; padding-bottom: 16px; font-size: 28px;" />
-                <engine:Label text="Tu escore de esta&#10;partida es:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:Label text="000 pts" name="gameover_scoreText" style="font-size: 36px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
+            <engine:VisualElement name="gameover" class="container" style="flex-grow: 1; display: none; justify-content: space-between;">
+                <engine:Label text="GAME OVER" style="padding-top: 16px; padding-bottom: 16px; font-size: 36px; margin-top: 30px;" />
+                <engine:Label text="TU PUNTUACIÓN ES:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&amp;guid=b99a6d68e0abb3a43a95e78d530c07c8&amp;type=3#fonnts.com-New_Nord_Wide_Heavy&quot;); font-size: 16px; color: rgb(185, 185, 185); margin-bottom: 0; margin-top: 30px;" />
+                <engine:Label text="000 pts" name="gameover_scoreText" style="font-size: 45px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); width: 399px; color: rgb(226, 161, 8); margin-top: -5px; padding-bottom: 40px;" />
                 <engine:Label text="Estas en la posición:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); display: none;" />
                 <engine:Label text="1er" name="gameover_placeText" style="display: none;" />
                 <engine:VisualElement name="hr" />
-                <engine:Button text="Volver a Jugar" name="gameover_playAgainButton" style="background-image: url(&quot;project://database/Assets/Sprites/AssetsTetris6.png?fileID=1149995914792566095&amp;guid=fe6e7a40223226c44aa1467b3141d5d2&amp;type=3#AssetsTetris6_17&quot;);" />
-                <engine:Label text="El torneo termina en" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;);" />
-                <engine:Label text="00d 00h 00m" name="gameover_timerText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 36px; padding-bottom: 20px;" />
-                <engine:Label text="Ranking" style="font-size: 28px; padding-top: 16px; padding-bottom: 16px;" />
-                <engine:VisualElement name="gameover_ranking" class="ranking">
+                <engine:Button text="Volver a Jugar" name="gameover_playAgainButton" style="font-size: 15px; white-space: normal; -unity-font-style: normal; margin-top: 0;" />
+                <engine:Label text="EL TORNEO TERMINA EN:" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); margin-bottom: 0; margin-top: 10px; color: rgb(185, 185, 185); font-size: 12px; padding-top: 25px;" />
+                <engine:Label text="00d 00h 00m" name="gameover_timerText" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Inter-Bold.ttf?fileID=12800000&amp;guid=6fe31a36abe4fca40a66b5f019988a50&amp;type=3#Inter-Bold&quot;); font-size: 28px; padding-bottom: 20px; margin-top: 0; width: 306px; padding-top: 10px;" />
+                <engine:VisualElement name="gameover_ranking" class="ranking" style="padding-top: 60px; padding-bottom: 30px; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-2672579707960746765&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_6&quot;); margin-top: 20px;">
+                    <engine:Label text="Ranking" style="margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 10px; padding-bottom: 0; padding-left: 10px; translate: 0 0; -unity-text-align: middle-center; height: 62px; position: absolute; top: 0; width: 100%; left: auto; align-content: center; align-self: stretch; justify-content: space-around; flex-direction: row; align-items: center;">
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; margin-right: 30px;" />
+                        <engine:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/AssetsJungleMission.png?fileID=-4746810112206747960&amp;guid=b4a1c8e0f69d54c498d5fdac224af5c6&amp;type=3#AssetsJungleMission_9&quot;); width: 30px; height: 30px; align-items: auto; align-content: auto; justify-content: flex-start; flex-direction: row; margin-left: 30px;" />
+                    </engine:Label>
                     <engine:VisualElement class="column" style="width: 100px;">
-                        <engine:Label text="Pos" class="columnhead" />
+                        <engine:Label text="1" class="row0 pos row" />
+                        <engine:Label text="1" class="pos row1" />
+                        <engine:Label text="1" class="pos row2" />
+                        <engine:Label text="1" class="pos row3 row" />
+                        <engine:Label text="1" class="pos row3 row" />
                     </engine:VisualElement>
                     <engine:VisualElement class="column" style="flex-grow: 1;">
-                        <engine:Label text="Name" class="columnhead" />
+                        <engine:Label text="JuanC" class="row0 name row" />
+                        <engine:Label text="JuanC" class="name row1" />
+                        <engine:Label text="JuanC" class="name row2" />
+                        <engine:Label text="JuanC" class="name row3 row" />
+                        <engine:Label text="JuanC" class="name row3 row" />
                     </engine:VisualElement>
                     <engine:VisualElement class="column" style="width: 150px;">
-                        <engine:Label text="Points" class="columnhead" />
+                        <engine:Label text="500" class="row0 points row" />
+                        <engine:Label text="500" class="points row1" />
+                        <engine:Label text="500" class="points row2" />
+                        <engine:Label text="500" class="points row3 row" style="background-size: 200% 100%;" />
+                        <engine:Label text="500" class="points row3 row" style="background-size: 200% 100%;" />
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:Label text="Aún no hay registros" name="gameover_ranking_empty" />
