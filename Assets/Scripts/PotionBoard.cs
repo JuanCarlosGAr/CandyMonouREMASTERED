@@ -331,50 +331,90 @@ void InitializeBoard()
             }
         }
     }
-    private void RemoveAndRefill(List<Potion> _potionsToRemove)
+
+private IEnumerator ShakeAndDestroyPotions(List<Potion> potionsToRemove)
+{
+    float shakeDuration = 0.5f;
+    float shakeMagnitude = 10f;
+
+    foreach (Potion potion in potionsToRemove)
     {
-        //Removing the potion and clearing the board at that location
-        foreach (Potion potion in _potionsToRemove)
+        StartCoroutine(ShakePotion(potion, shakeDuration, shakeMagnitude));
+    }
+
+    // Esperar a que la animación de agitación termine
+    yield return new WaitForSeconds(shakeDuration);
+
+    foreach (Potion potion in potionsToRemove)
+    {
+        // Usar efecto personalizado si existe
+        GameObject effectPrefab = potion.customExplosionEffect != null ? 
+                                  potion.customExplosionEffect : 
+                                  explosionEffect;
+
+        GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
+        Destroy(effect, 0.5f);
+
+        // Limpiar efecto personalizado para futuras instancias
+        potion.customExplosionEffect = null;
+
+        if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
         {
-                    // Usar efecto personalizado si existe
-              GameObject effectPrefab = potion.customExplosionEffect != null ? 
-                                 potion.customExplosionEffect : 
-                                 explosionEffect;
-
-                 GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
-                  Destroy(effect, 0.5f);
-
-                // Limpiar efecto personalizado para futuras instancias
-                 potion.customExplosionEffect = null;
-            if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
-            {
             currentPowerUps--;
-            }
-            Destroy(effect, 0.5f);
-            Destroy(potion.gameObject);
-            //getting it's x and y indicies and storing them
-            int _xIndex = potion.xIndex;
-            int _yIndex = potion.yIndex;
-
-            //Destroy the potion
-            Destroy(potion.gameObject);
-
-            //Create a blank node on the potion board.
-            potionBoard[_xIndex, _yIndex] = new Node(true, null);
         }
 
-        for (int x=0; x < width; x++)
+        //getting it's x and y indicies and storing them
+        int _xIndex = potion.xIndex;
+        int _yIndex = potion.yIndex;
+
+        //Destroy the potion
+        Destroy(potion.gameObject);
+
+        //Create a blank node on the potion board.
+        potionBoard[_xIndex, _yIndex] = new Node(true, null);
+    }
+}
+
+private IEnumerator ShakePotion(Potion potion, float duration, float magnitude)
+{
+    Vector3 originalRotation = potion.transform.eulerAngles;
+    float elapsed = 0.0f;
+
+    while (elapsed < duration)
+    {
+        float z = Random.Range(-1f, 1f) * magnitude;
+        potion.transform.eulerAngles = new Vector3(originalRotation.x, originalRotation.y, originalRotation.z + z);
+
+        elapsed += Time.deltaTime;
+
+        yield return null;
+    }
+
+    potion.transform.eulerAngles = originalRotation;
+}
+
+// Modificar RemoveAndRefill para usar ShakeAndDestroyPotions
+private void RemoveAndRefill(List<Potion> _potionsToRemove)
+{
+    StartCoroutine(RemoveAndRefillCoroutine(_potionsToRemove));
+}
+
+private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
+{
+    yield return StartCoroutine(ShakeAndDestroyPotions(_potionsToRemove));
+
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
         {
-            for (int y=0; y <height; y++)
+            if (potionBoard[x, y].potion == null)
             {
-                if (potionBoard[x, y].potion == null)
-                {
-                    Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
-                    RefillPotion(x, y);
-                }
+                Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
+                RefillPotion(x, y);
             }
         }
     }
+}
 
     private void RefillPotion(int x, int y)
     {
