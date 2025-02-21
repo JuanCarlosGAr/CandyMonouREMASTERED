@@ -324,51 +324,32 @@ private void Explode(int x, int y, List<Potion> potionsList)
 private void DestroyRowOrColumn(int x, int y, List<Potion> potionsList)
 {
     SoundManager.Instance.PlayLightningSound();
-    
+
     // Destruir fila completa
-    StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, true));
+    for (int i = 0; i < width; i++)
+    {
+        if (i != x)
+        {
+            AddPotionToList(i, y, potionsList);
+            if (potionBoard[i, y].potion != null)
+            {
+                Potion potion = potionBoard[i, y].potion.GetComponent<Potion>();
+                potion.customExplosionEffect = explosionEffect; // Efecto de match normal
+            }
+        }
+    }
 
     // Destruir columna completa
-    StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, false));
-}
-
-private IEnumerator InstantiateLightningEffectInSequence(int x, int y, List<Potion> potionsList, bool isRow)
-{
-    int length = isRow ? width : height;
-    int start = isRow ? x : y;
-
-    for (int offset = 0; offset < length; offset++)
+    for (int j = 0; j < height; j++)
     {
-        int posX = isRow ? (start + offset) % length : x;
-        int posY = isRow ? y : (start + offset) % length;
-
-        if ((isRow && posX != x) || (!isRow && posY != y))
+        if (j != y)
         {
-            AddPotionToList(posX, posY, potionsList);
-            if (potionBoard[posX, posY].potion != null)
+            AddPotionToList(x, j, potionsList);
+            if (potionBoard[x, j].potion != null)
             {
-                Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
+                Potion potion = potionBoard[x, j].potion.GetComponent<Potion>();
                 potion.customExplosionEffect = explosionEffect; // Efecto de match normal
             }
-            // Instanciar el efecto de rayo en cada posición de la fila o columna
-            InstantiateLightningEffect(posX, posY);
-            yield return new WaitForSeconds(0.1f); // Esperar un poco antes de instanciar el siguiente efecto
-        }
-
-        posX = isRow ? (start - offset + length) % length : x;
-        posY = isRow ? y : (start - offset + length) % length;
-
-        if ((isRow && posX != x) || (!isRow && posY != y))
-        {
-            AddPotionToList(posX, posY, potionsList);
-            if (potionBoard[posX, posY].potion != null)
-            {
-                Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
-                potion.customExplosionEffect = explosionEffect; // Efecto de match normal
-            }
-            // Instanciar el efecto de rayo en cada posición de la fila o columna
-            InstantiateLightningEffect(posX, posY);
-            yield return new WaitForSeconds(0.1f); // Esperar un poco antes de instanciar el siguiente efecto
         }
     }
 
@@ -377,15 +358,7 @@ private IEnumerator InstantiateLightningEffectInSequence(int x, int y, List<Poti
     {
         Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
         powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Efecto de rayo
-        InstantiateLightningEffect(x, y);
     }
-}
-
-private void InstantiateLightningEffect(int x, int y)
-{
-    Vector3 position = new Vector3(x - spacingX, y - spacingY, 0);
-    GameObject effect = Instantiate(lightningExplosionEffect, position, Quaternion.identity);
-    Destroy(effect, 0.5f); // Destruir el efecto después de 0.5 segundos
 }
 
 private IEnumerator ShakeAndDestroyPotions(List<Potion> potionsToRemove)
