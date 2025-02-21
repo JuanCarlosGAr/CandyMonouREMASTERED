@@ -773,7 +773,32 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AssetsJungleMission_0: 5077222473624568360
+      AssetsJungleMission_1: -6346624642946160642
+      AssetsJungleMission_10: 4149220060453684154
+      AssetsJungleMission_11: -470989066068876683
+      AssetsJungleMission_12: 183175907159651613
+      AssetsJungleMission_13: -1304463641517283569
+      AssetsJungleMission_14: 1186460350966168710
+      AssetsJungleMission_15: -7337662166732280065
+      AssetsJungleMission_16: 8541838149233152576
+      AssetsJungleMission_17: 6190161492837254902
+      AssetsJungleMission_18: 2612736126571475039
+      AssetsJungleMission_19: 3085094838001635689
+      AssetsJungleMission_2: -1808107437953314924
+      AssetsJungleMission_20: -2972813531958190798
+      AssetsJungleMission_21: -5171883728468096734
+      AssetsJungleMission_22: -5578350543362469286
+      AssetsJungleMission_23: 6316850266847647224
+      AssetsJungleMission_24: -6935275656382341664
+      AssetsJungleMission_3: -2802281494249029300
+      AssetsJungleMission_4: -6732547576105049182
+      AssetsJungleMission_5: -4996040406991691181
+      AssetsJungleMission_6: -2672579707960746765
+      AssetsJungleMission_7: 8402897865190498904
+      AssetsJungleMission_8: 7411209919622785181
+      AssetsJungleMission_9: -4746810112206747960
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
