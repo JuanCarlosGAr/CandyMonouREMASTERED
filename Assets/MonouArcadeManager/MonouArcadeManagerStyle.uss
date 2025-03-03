@@ -63,27 +63,27 @@
     color: rgb(255, 255, 255);
     -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
     -unity-text-align: middle-center;
-    width: auto;
-    height: auto;
-    background-size: 85% 85%;
-    min-width: 60%;
-    min-height: 20%;
-    max-height: none;
-    max-width: none;
-    font-size: 30px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 50px;
+    background-size: 100% 100%;
+    font-size: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 0;
     margin-bottom: 0;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .unity-button:focus {
     background-image: url("project://database/Assets/Sprites/BotonP1.png?fileID=5789730394467427210&guid=f641750006637384aa11fa648a8672d0&type=3#BotonP1_0");
     width: 100%;
-    height: 20%;
+    height: 100%;
     font-size: 36px;
     -unity-font-definition: url("project://database/Assets/Fonts/fonnts.com-New_Nord_Wide_Heavy.otf?fileID=12800000&guid=b99a6d68e0abb3a43a95e78d530c07c8&type=3#fonnts.com-New_Nord_Wide_Heavy");
-    background-size: 50% 85%;
+    background-size: 100% 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 #tutorial {

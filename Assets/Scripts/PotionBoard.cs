@@ -4,54 +4,67 @@ using UnityEngine;
 
 public class PotionBoard : MonoBehaviour
 {
+    // Variables for UI elements and effects
     private GameObject comboTxt;
-    public GameObject bombExplosionEffect;  // Efecto para bombas
-    public GameObject lightningExplosionEffect; // Efecto para rayos
+    private GameObject SMatchtxt;
+    public GameObject bombExplosionEffect;  // Effect for bombs
+    public GameObject lightningExplosionEffect; // Effect for lightning
     [SerializeField] private int maxPowerUps = 4;
     private int currentPowerUps = 0;
     private bool hasPlayedNoMatchSound = false;
-    //define the size of the board
+
+    // Board dimensions
     public int width = 6;
     public int height = 8;
-    //define some spacing for the boardaja y como 
+
+    // Spacing for the board
     public float spacingX;
     public float spacingY;
-    //get a reference to our potion prefabs
+
+    // Potion prefabs and board references
     public GameObject[] potionPrefabs;
-    //get a reference to the collection nodes potionBoard + GO
     public Node[,] potionBoard;
     public GameObject potionBoardGO;
 
+    // List to keep track of potions to destroy
     public List<GameObject> potionsToDestroy = new();
     public GameObject potionParent;
 
+    // Selected potion and sound manager references
     [SerializeField]
     private Potion selectedPotion;
-    private SoundManager soundManager; // Referencia al SoundManager
+    private SoundManager soundManager;
 
+    // Flag to check if a move is being processed
     [SerializeField]
     private bool isProcessingMove;
 
+    // List of potions to remove
     [SerializeField]
     List<Potion> potionsToRemove = new();
 
-    //layoutArray
+    // Layout array for the board
     public ArrayLayout arrayLayout;
-    //public static of potionboard
+
+    // Singleton instance of PotionBoard
     public static PotionBoard Instance;
 
-    public GameObject explosionEffect; // Arrastra el prefab desde Unity
+    // Explosion effect prefab
+    public GameObject explosionEffect;
 
     private void Awake()
     {
+        // Set the singleton instance
         Instance = this;
     }
 
     void Start()
     {
+        // Initialize the board and find references
         InitializeBoard();
         soundManager = FindObjectOfType<SoundManager>();
         comboTxt = GameObject.Find("combo_txt");
+        SMatchtxt = GameObject.Find("SMatch_txt");
 
         if (comboTxt != null)
         {
@@ -61,15 +74,25 @@ public class PotionBoard : MonoBehaviour
         {
             Debug.LogError("No se encontró el objeto combo_txt en la jerarquía.");
         }
+        if (SMatchtxt != null)
+        {
+            SMatchtxt.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el objeto SMatchtxt en la jerarquía.");
+        }
 
         if (soundManager == null)
         {
             Debug.LogError("No se encontró el objeto SoundManager en la jerarquía.");
         }
+        
     }
 
     private IEnumerator ActivateAndDeactivateCoroutine(float delay)
     {
+        // Coroutine to activate and deactivate combo text
         if (comboTxt != null)
         {
             comboTxt.SetActive(true);
@@ -81,8 +104,23 @@ public class PotionBoard : MonoBehaviour
             Debug.LogError("comboTxt is null. Cannot activate or deactivate.");
         }
     }
+    private IEnumerator SMActivateAndDeactivateCoroutine(float delay)
+    {
+        // Coroutine to activate and deactivate combo text
+        if (SMatchtxt != null)
+        {
+            SMatchtxt.SetActive(true);
+            yield return new WaitForSeconds(delay);
+            SMatchtxt.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("SMatchtxt is null. Cannot activate or deactivate.");
+        }
+    }
     private void Update()
     {
+        // Handle mouse input for selecting potions
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -101,92 +139,96 @@ public class PotionBoard : MonoBehaviour
         }
     }
 
-private void InitializeBoard()
-{
-    currentPowerUps = 0;
-    DestroyPotions();
-    potionBoard = new Node[width, height];
-    spacingX = (float)((width) / 2.4);
-    spacingY = (float)((height) / 2.1);
-
-    List<Vector2Int> powerUpPositions = new List<Vector2Int>();
-
-    for (int y = 0; y < height; y++)
+    private void InitializeBoard()
     {
-        for (int x = 0; x < width; x++)
+        // Initialize the board with potions
+        currentPowerUps = 0;
+        DestroyPotions();
+        potionBoard = new Node[width, height];
+        spacingX = (float)((width) / 2.4);
+        spacingY = (float)((height) / 2.1);
+
+        List<Vector2Int> powerUpPositions = new List<Vector2Int>();
+
+        for (int y = 0; y < height; y++)
         {
-            Vector2 position = new Vector2(x - spacingX, y - spacingY);
-            if (arrayLayout.rows[y].row[x])
+            for (int x = 0; x < width; x++)
             {
-                potionBoard[x, y] = new Node(false, null);
-            }
-            else
-            {
-                int randomIndex = GetRandomPotionIndex(x, y, powerUpPositions);
-                GameObject potion = Instantiate(potionPrefabs[randomIndex], position, Quaternion.identity);
-                potion.transform.SetParent(potionParent.transform);
-                potion.GetComponent<Potion>().SetIndicies(x, y);
-                potionBoard[x, y] = new Node(true, potion);
-                potionsToDestroy.Add(potion);
-            }
-        }
-    }
-
-    if (CheckBoard())
-    {
-        Debug.Log("Re-generating board due to matches");
-        InitializeBoard();
-    }
-    else
-    {
-        GameManager.Instance.moves = 50;
-        Debug.Log("Board is valid. Starting game!");
-    }
-}
-
-private int GetRandomPotionIndex(int x, int y, List<Vector2Int> powerUpPositions)
-{
-    bool isNearPowerUp = IsNearPowerUp(x, y, powerUpPositions);
-    float powerUpChance = 0.05f;
-    bool canSpawnPowerUp = currentPowerUps < maxPowerUps 
-                          && !isNearPowerUp 
-                          && Random.value < powerUpChance 
-                          && potionPrefabs.Length > 6;
-
-    if (canSpawnPowerUp)
-    {
-        currentPowerUps++;
-        powerUpPositions.Add(new Vector2Int(x, y));
-        return Random.Range(5, 7);
-    }
-    else
-    {
-        return Random.Range(0, 5);
-    }
-}
-
-private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
-{
-    for (int dx = -2; dx <= 2; dx++)
-    {
-        for (int dy = -2; dy <= 2; dy++)
-        {
-            int checkX = x + dx;
-            int checkY = y + dy;
-            if (checkX >= 0 && checkX < width && checkY >= 0 && checkY < height)
-            {
-                if (powerUpPositions.Contains(new Vector2Int(checkX, checkY)))
+                Vector2 position = new Vector2(x - spacingX, y - spacingY);
+                if (arrayLayout.rows[y].row[x])
                 {
-                    return true;
+                    potionBoard[x, y] = new Node(false, null);
+                }
+                else
+                {
+                    int randomIndex = GetRandomPotionIndex(x, y, powerUpPositions);
+                    GameObject potion = Instantiate(potionPrefabs[randomIndex], position, Quaternion.identity);
+                    potion.transform.SetParent(potionParent.transform);
+                    potion.GetComponent<Potion>().SetIndicies(x, y);
+                    potionBoard[x, y] = new Node(true, potion);
+                    potionsToDestroy.Add(potion);
                 }
             }
         }
+
+        if (CheckBoard())
+        {
+            Debug.Log("Re-generating board due to matches");
+            InitializeBoard();
+        }
+        else
+        {
+            GameManager.Instance.moves = 50;
+            Debug.Log("Board is valid. Starting game!");
+        }
     }
-    return false;
-}
+
+    private int GetRandomPotionIndex(int x, int y, List<Vector2Int> powerUpPositions)
+    {
+        // Get a random potion index, considering power-up chances
+        bool isNearPowerUp = IsNearPowerUp(x, y, powerUpPositions);
+        float powerUpChance = 0.05f;
+        bool canSpawnPowerUp = currentPowerUps < maxPowerUps 
+                              && !isNearPowerUp 
+                              && Random.value < powerUpChance 
+                              && potionPrefabs.Length > 6;
+
+        if (canSpawnPowerUp)
+        {
+            currentPowerUps++;
+            powerUpPositions.Add(new Vector2Int(x, y));
+            return Random.Range(5, 7);
+        }
+        else
+        {
+            return Random.Range(0, 5);
+        }
+    }
+
+    private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
+    {
+        // Check if a position is near a power-up
+        for (int dx = -2; dx <= 2; dx++)
+        {
+            for (int dy = -2; dy <= 2; dy++)
+            {
+                int checkX = x + dx;
+                int checkY = y + dy;
+                if (checkX >= 0 && checkX < width && checkY >= 0 && checkY < height)
+                {
+                    if (powerUpPositions.Contains(new Vector2Int(checkX, checkY)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     private void DestroyPotions()
     {
+        // Destroy all potions in the list
         if (potionsToDestroy != null)
         {
             foreach (GameObject potion in potionsToDestroy)
@@ -199,6 +241,7 @@ private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
 
     public bool CheckBoard()
     {
+        // Check the board for matches
         if (GameManager.Instance.isGameEnded)
             return false;
         Debug.Log("Checking Board");
@@ -247,6 +290,7 @@ private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
 
     public IEnumerator ProcessTurnOnMatchedBoard(bool _subtractMoves, bool isPowerUpActivation = false)
     {
+        // Process the turn when there are matches on the board
         List<Potion> extraPotionsToRemove = new List<Potion>();
 
         foreach (Potion potionToRemove in potionsToRemove)
@@ -270,7 +314,7 @@ private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
 
         yield return StartCoroutine(ShakeAndDestroyPotions(potionsToRemove));
         GameManager.Instance.ProcessTurn(potionsToRemove.Count, _subtractMoves, false);
-        yield return new WaitForSeconds(0.2f); // Aumentar el tiempo de espera para asegurar que las animaciones de destrucción terminen
+        yield return new WaitForSeconds(0.2f); // Increase wait time to ensure destruction animations finish
 
         if (CheckBoard())
         {
@@ -282,289 +326,297 @@ private bool IsNearPowerUp(int x, int y, List<Vector2Int> powerUpPositions)
         }
     }
 
-private void AddPotionToList(int x, int y, List<Potion> potionsList)
-{
-    if (potionBoard[x, y].isUsable && potionBoard[x, y].potion != null)
+    private void AddPotionToList(int x, int y, List<Potion> potionsList)
     {
-        Potion potion = potionBoard[x, y].potion.GetComponent<Potion>();
-        if (!potionsList.Contains(potion) && !potion.isMatched)
+        // Add a potion to the list if it is usable and not already matched
+        if (potionBoard[x, y].isUsable && potionBoard[x, y].potion != null)
         {
-            potion.isMatched = true;
-            potionsList.Add(potion);
+            Potion potion = potionBoard[x, y].potion.GetComponent<Potion>();
+            if (!potionsList.Contains(potion) && !potion.isMatched)
+            {
+                potion.isMatched = true;
+                potionsList.Add(potion);
+            }
         }
     }
-}
 
-private void Explode(int x, int y, List<Potion> potionsList)
-{
-    SoundManager.Instance.PlayExplosionSound();
-    for (int i = x - 1; i <= x + 1; i++)
+    private void Explode(int x, int y, List<Potion> potionsList)
     {
-        for (int j = y - 1; j <= y + 1; j++)
+        // Handle explosion effect for bomb power-up
+        SoundManager.Instance.PlayExplosionSound();
+        for (int i = x - 1; i <= x + 1; i++)
         {
-            if (i >= 0 && i < width && j >= 0 && j < height)
+            for (int j = y - 1; j <= y + 1; j++)
             {
-                AddPotionToList(i, j, potionsList);
-                if (potionBoard[i, j].potion != null && !(i == x && j == y))
+                if (i >= 0 && i < width && j >= 0 && j < height)
                 {
-                    Potion potion = potionBoard[i, j].potion.GetComponent<Potion>();
-                    potion.customExplosionEffect = explosionEffect; // Efecto de match normal
+                    AddPotionToList(i, j, potionsList);
+                    if (potionBoard[i, j].potion != null && !(i == x && j == y))
+                    {
+                        Potion potion = potionBoard[i, j].potion.GetComponent<Potion>();
+                        potion.customExplosionEffect = explosionEffect; // Normal match effect
+                    }
                 }
             }
         }
-    }
-    // Aplicar el efecto de power-up en la ubicación del power-up
-    if (potionBoard[x, y].potion != null)
-    {
-        Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
-        powerUpPotion.customExplosionEffect = bombExplosionEffect; // Efecto de bomba
-    }
-}
-
-private void DestroyRowOrColumn(int x, int y, List<Potion> potionsList)
-{
-    SoundManager.Instance.PlayLightningSound();
-    
-    // Destruir fila completa
-    StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, true));
-
-    // Destruir columna completa
-    StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, false));
-}
-
-private IEnumerator InstantiateLightningEffectInSequence(int x, int y, List<Potion> potionsList, bool isRow)
-{
-    int length = isRow ? width : height;
-    int start = isRow ? x : y;
-
-    for (int offset = 0; offset < length; offset++)
-    {
-        int posX = isRow ? (start + offset) % length : x;
-        int posY = isRow ? y : (start + offset) % length;
-
-        if ((isRow && posX != x) || (!isRow && posY != y))
+        // Apply power-up effect at the power-up location
+        if (potionBoard[x, y].potion != null)
         {
-            AddPotionToList(posX, posY, potionsList);
-            if (potionBoard[posX, posY].potion != null)
-            {
-                Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
-                potion.customExplosionEffect = explosionEffect; // Efecto de match normal
-            }
-            // Instanciar el efecto de rayo en cada posición de la fila o columna
-            InstantiateLightningEffect(posX, posY);
-            yield return new WaitForSeconds(0.1f); // Esperar un poco antes de instanciar el siguiente efecto
-        }
-
-        posX = isRow ? (start - offset + length) % length : x;
-        posY = isRow ? y : (start - offset + length) % length;
-
-        if ((isRow && posX != x) || (!isRow && posY != y))
-        {
-            AddPotionToList(posX, posY, potionsList);
-            if (potionBoard[posX, posY].potion != null)
-            {
-                Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
-                potion.customExplosionEffect = explosionEffect; // Efecto de match normal
-            }
-            // Instanciar el efecto de rayo en cada posición de la fila o columna
-            InstantiateLightningEffect(posX, posY);
-            yield return new WaitForSeconds(0.1f); // Esperar un poco antes de instanciar el siguiente efecto
+            Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
+            powerUpPotion.customExplosionEffect = bombExplosionEffect; // Bomb effect
         }
     }
 
-    // Aplicar el efecto de power-up en la ubicación del power-up
-    if (potionBoard[x, y].potion != null)
+    private void DestroyRowOrColumn(int x, int y, List<Potion> potionsList)
     {
-        Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
-        powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Efecto de rayo
-        InstantiateLightningEffect(x, y);
-    }
-}
+        // Handle destruction effect for lightning power-up
+        SoundManager.Instance.PlayLightningSound();
+        
+        // Destroy entire row
+        StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, true));
 
-private void InstantiateLightningEffect(int x, int y)
-{
-    Vector3 position = new Vector3(x - spacingX, y - spacingY, 0);
-    GameObject effect = Instantiate(lightningExplosionEffect, position, Quaternion.identity);
-    Destroy(effect, 0.5f); // Destruir el efecto después de 0.5 segundos
-}
-
-private IEnumerator ShakeAndDestroyPotions(List<Potion> potionsToRemove)
-{
-    float shakeDuration = 0.2f;
-    float shakeMagnitude = 15f;
-
-    foreach (Potion potion in potionsToRemove)
-    {
-        if (potion != null)
-        {
-            StartCoroutine(ShakePotion(potion, shakeDuration, shakeMagnitude));
-        }
+        // Destroy entire column
+        StartCoroutine(InstantiateLightningEffectInSequence(x, y, potionsList, false));
     }
 
-    yield return new WaitForSeconds(shakeDuration);
-
-    foreach (Potion potion in potionsToRemove)
+    private IEnumerator InstantiateLightningEffectInSequence(int x, int y, List<Potion> potionsList, bool isRow)
     {
-        if (potion != null)
+        // Instantiate lightning effect in sequence for row or column
+        int length = isRow ? width : height;
+        int start = isRow ? x : y;
+
+        for (int offset = 0; offset < length; offset++)
         {
-            GameObject effectPrefab = potion.customExplosionEffect != null ? 
-                                      potion.customExplosionEffect : 
-                                      explosionEffect;
+            int posX = isRow ? (start + offset) % length : x;
+            int posY = isRow ? y : (start + offset) % length;
 
-            GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
-            Destroy(effect, 0.5f);
-
-            potion.customExplosionEffect = null;
-
-            if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
+            if ((isRow && posX != x) || (!isRow && posY != y))
             {
-                currentPowerUps--;
+                AddPotionToList(posX, posY, potionsList);
+                if (potionBoard[posX, posY].potion != null)
+                {
+                    Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
+                   // potion.customExplosionEffect = explosionEffect; // Normal match effect
+                }
+                // Instantiate the lightning effect with rotation based on row or column
+                InstantiateLightningEffect(posX, posY, !isRow);
+                yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
             }
 
-            int _xIndex = potion.xIndex;
-            int _yIndex = potion.yIndex;
+            posX = isRow ? (start - offset + length) % length : x;
+            posY = isRow ? y : (start - offset + length) % length;
 
-            Destroy(potion.gameObject);
+            if ((isRow && posX != x) || (!isRow && posY != y))
+            {
+                AddPotionToList(posX, posY, potionsList);
+                if (potionBoard[posX, posY].potion != null)
+                {
+                    Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
+                   // potion.customExplosionEffect = explosionEffect; // Normal match effect
+                }
+                // Instantiate the lightning effect with rotation based on row or column
+                InstantiateLightningEffect(posX, posY, !isRow);
+                yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
+            }
+        }
 
-            potionBoard[_xIndex, _yIndex] = new Node(true, null);
+        // Apply power-up effect at the power-up location
+        if (potionBoard[x, y].potion != null)
+        {
+            Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
+            powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Lightning effect
+            InstantiateLightningEffect(x, y, !isRow);
         }
     }
-}
 
-private IEnumerator ShakePotion(Potion potion, float duration, float magnitude)
-{
-    if (potion == null || potion.transform == null)
+    private void InstantiateLightningEffect(int x, int y, bool isVertical)
     {
-        yield break;
+        // Instantiate lightning effect at the given position
+        Vector3 position = new Vector3(x - spacingX, y - spacingY, 0);
+        GameObject effect = Instantiate(lightningExplosionEffect, position, Quaternion.identity);
+
+        if (isVertical)
+        {
+            effect.transform.Rotate(0, 0, 90); // Rotate the effect 90 degrees for vertical columns
+        }
+
+        Destroy(effect, 0.5f); // Destroy the effect after 0.5 seconds
     }
 
-    Vector3 originalRotation = potion.transform.eulerAngles;
-    float elapsed = 0.0f;
-
-    while (elapsed < duration)
+    private IEnumerator ShakeAndDestroyPotions(List<Potion> potionsToRemove)
     {
+        // Shake and destroy potions in the list
+        float shakeDuration = 0.2f;
+        float shakeMagnitude = 15f;
+
+        foreach (Potion potion in potionsToRemove)
+        {
+            if (potion != null)
+            {
+                StartCoroutine(ShakePotion(potion, shakeDuration, shakeMagnitude));
+            }
+        }
+
+        yield return new WaitForSeconds(shakeDuration);
+
+        foreach (Potion potion in potionsToRemove)
+        {
+            if (potion != null)
+            {
+                GameObject effectPrefab = null;
+
+                // Check if the potion has a custom explosion effect
+                if (potion.customExplosionEffect != null)
+                {
+                    effectPrefab = potion.customExplosionEffect;
+                }
+                else if (potion.potionType != PotionType.Bomb && potion.potionType != PotionType.Lightning)
+                {
+                    // Use normal match effect only if it's not a power-up
+                    effectPrefab = explosionEffect;
+                }
+
+                if (effectPrefab != null)
+                {
+                    GameObject effect = Instantiate(effectPrefab, potion.transform.position, Quaternion.identity);
+                    Destroy(effect, 0.5f);
+                }
+
+                potion.customExplosionEffect = null;
+
+                if (potion.potionType == PotionType.Bomb || potion.potionType == PotionType.Lightning)
+                {
+                    currentPowerUps--;
+                }
+
+                int _xIndex = potion.xIndex;
+                int _yIndex = potion.yIndex;
+
+                Destroy(potion.gameObject);
+
+                potionBoard[_xIndex, _yIndex] = new Node(true, null);
+            }
+        }
+    }
+
+    private IEnumerator ShakePotion(Potion potion, float duration, float magnitude)
+    {
+        // Shake a potion for a given duration and magnitude
         if (potion == null || potion.transform == null)
         {
             yield break;
         }
 
-        float z = Random.Range(-1.5f, 1.5f) * magnitude;
-        potion.transform.eulerAngles = new Vector3(originalRotation.x, originalRotation.y, originalRotation.z + z);
+        Vector3 originalRotation = potion.transform.eulerAngles;
+        float elapsed = 0.0f;
 
-        elapsed += Time.deltaTime;
-
-        yield return null;
-    }
-
-    if (potion != null && potion.transform != null)
-    {
-        potion.transform.eulerAngles = originalRotation;
-    }
-}
-
-// Modificar RemoveAndRefill para usar ShakeAndDestroyPotions
-private void RemoveAndRefill(List<Potion> _potionsToRemove)
-{
-    StartCoroutine(RemoveAndRefillCoroutine(_potionsToRemove));
-}
-
-private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
-{
-    yield return StartCoroutine(ShakeAndDestroyPotions(_potionsToRemove));
-
-    for (int x = 0; x < width; x++)
-    {
-        for (int y = 0; y < height; y++)
+        while (elapsed < duration)
         {
-            if (potionBoard[x, y].potion == null)
+            if (potion == null || potion.transform == null)
             {
-                Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
-                RefillPotion(x, y);
+                yield break;
             }
+
+            float z = Random.Range(-1f, 1f) * magnitude;
+            potion.transform.eulerAngles = new Vector3(originalRotation.x, originalRotation.y, originalRotation.z + z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        if (potion != null && potion.transform != null)
+        {
+            potion.transform.eulerAngles = originalRotation;
         }
     }
 
-    yield return new WaitForSeconds(0.2f); // Aumentar el tiempo de espera para asegurar que las animaciones de destrucción terminen
-
-    if (CheckBoard())
+    // Modify RemoveAndRefill to use ShakeAndDestroyPotions
+    private void RemoveAndRefill(List<Potion> _potionsToRemove)
     {
-        yield return StartCoroutine(ProcessTurnOnMatchedBoard(false));
+        StartCoroutine(RemoveAndRefillCoroutine(_potionsToRemove));
     }
-}
+
+    private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
+    {
+        // Coroutine to remove and refill potions
+        yield return StartCoroutine(ShakeAndDestroyPotions(_potionsToRemove));
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (potionBoard[x, y].potion == null)
+                {
+                    Debug.Log("The location X: " + x + " Y: " + y + " is empty, attempting to refill it.");
+                    RefillPotion(x, y);
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(0.2f); // Increase wait time to ensure destruction animations finish
+
+        if (CheckBoard())
+        {
+            yield return StartCoroutine(ProcessTurnOnMatchedBoard(false));
+        }
+    }
 
     private void RefillPotion(int x, int y)
     {
-        //y offset
+        // Refill a potion at the given position
         int yOffset = 1;
 
-        //while the cell above our current cell is null and we're below the height of the board
         while (y + yOffset < height && potionBoard[x,y + yOffset].potion == null)
         {
-            //increment y offset
-            Debug.Log("The potion above me is null, but i'm not at the top of the board yet, so add to my yOffset and try again. Current Offset is: " + yOffset + " I'm about to add 1.");
             yOffset++;
         }
 
-        //we've either hit the top of the board or we found a potion
-
         if (y + yOffset < height && potionBoard[x, y + yOffset].potion != null)
         {
-            //we've found a potion
-
             Potion potionAbove = potionBoard[x, y + yOffset].potion.GetComponent<Potion>();
 
-            //Move it to the correct location
             Vector3 targetPos = new Vector3(x - spacingX, y - spacingY, potionAbove.transform.position.z);
-            Debug.Log("I've found a potion when refilling the board and it was in the location: [" + x + "," + (y + yOffset) + "] we have moved it to the location: [" + x + "," + y + "]");
-            //Move to location
             potionAbove.MoveToTarget(targetPos);
-            //update indicies
             potionAbove.SetIndicies(x, y);
-            //update our potionBoard
             potionBoard[x, y] = potionBoard[x, y + yOffset];
-            //set the location the potion came from to null
             potionBoard[x, y + yOffset] = new Node(true, null);
         }
 
-        //if we've hit the top of the board without finding a potion
         if (y + yOffset == height)
         {
-            Debug.Log("I've reached the top of the board without finding a potion");
             SpawnPotionAtTop(x);
         }
-
     }
 
     private void SpawnPotionAtTop(int x)
     {
-    int randomIndex; // Declaración única
-    int index = FindIndexOfLowestNull(x);
+        // Spawn a new potion at the top of the board
+        int randomIndex;
+        int index = FindIndexOfLowestNull(x);
 
-    // Lógica para generar power-up
-    if (currentPowerUps < maxPowerUps && Random.value < 0.05f && potionPrefabs.Length > 5)
-    {
-        randomIndex = Random.Range(5, 7);
-        currentPowerUps++;
-    }
-    else
-    {
-        randomIndex = Random.Range(0, 5);
-    }
+        // Logic to generate power-up
+        if (currentPowerUps < maxPowerUps && Random.value < 0.05f && potionPrefabs.Length > 5)
+        {
+            randomIndex = Random.Range(5, 7);
+            currentPowerUps++;
+        }
+        else
+        {
+            randomIndex = Random.Range(0, 5);
+        }
         int locationToMoveTo = 8 - index;
-        Debug.Log("About to spawn a potion, ideally i'd like to put it in the index of: " + index);
         GameObject newPotion = Instantiate(potionPrefabs[randomIndex], new Vector2(x - spacingX, height - spacingY), Quaternion.identity);
         newPotion.transform.SetParent(potionParent.transform);
-        //set indicies
         newPotion.GetComponent<Potion>().SetIndicies(x, index);
-        //set it on the potion board
         potionBoard[x, index] = new Node(true, newPotion);
-        //move it to that location
         Vector3 targetPosition = new Vector3(newPotion.transform.position.x, newPotion.transform.position.y - locationToMoveTo, newPotion.transform.position.z);
         newPotion.GetComponent<Potion>().MoveToTarget(targetPosition);
     }
 
     private int FindIndexOfLowestNull(int x)
     {
+        // Find the lowest null index in the column
         int lowestNull = 99;
         for (int y = 7; y >= 0; y--)
         {
@@ -576,41 +628,28 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
         return lowestNull;
     }
 
-
-
-
     #region Cascading Potions
 
-
-    //
-
+    // Placeholder for cascading potions logic
 
     #endregion
 
     #region MatchingLogic
     private MatchResult SuperMatch(MatchResult _matchedResults)
     {
-        //if we have a horizontal or long horizontal match
+        // Check for super matches
         if (_matchedResults.direction == MatchDirection.Horizontal || _matchedResults.direction == MatchDirection.LongHorizontal)
         {
-            //for each potion...
             foreach (Potion pot in _matchedResults.connectedPotions)
             {
                 List<Potion> extraConnectedPotions = new();
-                //check up
                 CheckDirection(pot, new Vector2Int(0, 1), extraConnectedPotions);
-                //check down
                 CheckDirection(pot, new Vector2Int(0, -1), extraConnectedPotions);
 
-                //do we have 2 or more potions that have been matched against this current potion.
                 if (extraConnectedPotions.Count >= 2)
                 {
-                    Debug.Log("I have a super Horizontal Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
-
                     StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
-
-                    //return our super match
                     return new MatchResult
                     {
                         connectedPotions = extraConnectedPotions,
@@ -618,7 +657,6 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
                     };
                 }
             }
-            //we didn't have a super match, so return our normal match
             return new MatchResult
             {
                 connectedPotions = _matchedResults.connectedPotions,
@@ -627,24 +665,16 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
         }
         else if (_matchedResults.direction == MatchDirection.Vertical || _matchedResults.direction == MatchDirection.LongVertical)
         {
-            //for each potion...
             foreach (Potion pot in _matchedResults.connectedPotions)
             {
                 List<Potion> extraConnectedPotions = new();
-                //check right
                 CheckDirection(pot, new Vector2Int(1, 0), extraConnectedPotions);
-                //check left
                 CheckDirection(pot, new Vector2Int(-1, 0), extraConnectedPotions);
 
-                //do we have 2 or more potions that have been matched against this current potion.
                 if (extraConnectedPotions.Count >= 2)
                 {
-                    Debug.Log("I have a super Vertical Match");
                     extraConnectedPotions.AddRange(_matchedResults.connectedPotions);
-
                     StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
-
-                    //return our super match
                     return new MatchResult
                     {
                         connectedPotions = extraConnectedPotions,
@@ -652,95 +682,75 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
                     };
                 }
             }
-            //we didn't have a super match, so return our normal match
             return new MatchResult
             {
                 connectedPotions = _matchedResults.connectedPotions,
                 direction = _matchedResults.direction
             };
         }
-        //this shouldn't be possible, but a null return is required so the method is valid.
         return null;
     }
 
     MatchResult IsConnected(Potion potion)
     {
+        // Check if a potion is connected to others
         List<Potion> connectedPotions = new();
         PotionType potionType = potion.potionType;
 
         connectedPotions.Add(potion);
 
-        //check right
         CheckDirection(potion, new Vector2Int(1, 0), connectedPotions);
-        //check left
         CheckDirection(potion, new Vector2Int(-1, 0), connectedPotions);
         
-        //have we made a 3 match? (Horizontal Match)
         if (connectedPotions.Count == 3)
         {
-            Debug.Log("I have a normal horizontal match, the color of my match is: " + connectedPotions[0].potionType);
-
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
                 direction = MatchDirection.Horizontal
             };
         }
-        //checking for more than 3 (Long horizontal Match)
         else if (connectedPotions.Count > 3)
         {
             bool _addMoves = true;
-            Debug.Log("I have a Long horizontal match, the color of my match is: " + connectedPotions[0].potionType);
-        if (_addMoves)
-         GameManager.Instance.moves += 1;
+            if (_addMoves)
+                GameManager.Instance.moves += 1;
 
-                 // Activar y desactivar el texto combo_txt
-        StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
+            StartCoroutine(SMActivateAndDeactivateCoroutine(1.0f));
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
                 direction = MatchDirection.LongHorizontal
             };
         }
-        //clear out the connectedpotions
         connectedPotions.Clear();
-        //readd our initial potion
         connectedPotions.Add(potion);
 
-        //check up
         CheckDirection(potion, new Vector2Int(0, 1), connectedPotions);
-        //check down
         CheckDirection(potion, new Vector2Int(0,-1), connectedPotions);
 
-        //have we made a 3 match? (Vertical Match)
         if (connectedPotions.Count == 3)
         {
-            Debug.Log("I have a normal vertical match, the color of my match is: " + connectedPotions[0].potionType);
-
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
                 direction = MatchDirection.Vertical
             };
         }
-        //checking for more than 3 (Long Vertical Match)
         else if (connectedPotions.Count > 3)
         {
-        bool _addMoves = true;
-         Debug.Log("I have a Long vertical match, the color of my match is: " + connectedPotions[0].potionType);
-        if (_addMoves)
-         GameManager.Instance.moves += 1;
+            bool _addMoves = true;
+            if (_addMoves)
+                GameManager.Instance.moves += 1;
 
-            // Activar y desactivar el texto combo_txt
-            StartCoroutine(ActivateAndDeactivateCoroutine(1.0f));
-
+            StartCoroutine(SMActivateAndDeactivateCoroutine(1.0f));
             return new MatchResult
             {
                 connectedPotions = connectedPotions,
                 direction = MatchDirection.LongVertical
             };
         }
-         else
+        else
         {
             return new MatchResult
             {
@@ -752,14 +762,14 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
 
     void CheckDirection(Potion pot, Vector2Int direction, List<Potion> connectedPotions)
     {
-          if (pot.potionType == PotionType.Bomb || pot.potionType == PotionType.Lightning) {
-        return;
-    }
+        // Check for matches in a specific direction
+        if (pot.potionType == PotionType.Bomb || pot.potionType == PotionType.Lightning) {
+            return;
+        }
         PotionType potionType = pot.potionType;
         int x = pot.xIndex + direction.x;
         int y = pot.yIndex + direction.y;
 
-        //check that we're within the boundaries of the board
         while (x >= 0 && x < width && y >= 0 && y < height)
         {
             if (potionBoard[x, y].isUsable && potionBoard[x, y].potion != null)
@@ -767,11 +777,9 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
                 Potion neighbourPotion = potionBoard[x, y].potion?.GetComponent<Potion>();
                 if (neighbourPotion == null) break;
 
-                //does our potionType Match? it must also not be matched
                 if(!neighbourPotion.isMatched && neighbourPotion.potionType == potionType)
                 {
                     connectedPotions.Add(neighbourPotion);
-
                     x += direction.x;
                     y += direction.y;
                 }
@@ -791,40 +799,40 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
 
     #region Swapping Potions
 
-    //select potion
+    // Select a potion
     public void SelectPotion(Potion _potion)
-{
-    if (selectedPotion == null)
     {
-        Debug.Log(_potion);
-        selectedPotion = _potion;
-        selectedPotion.Select();
-        soundManager.PlaySound();
-    }
-    else if (selectedPotion == _potion)
-    {
-        selectedPotion.Deselect();
-        selectedPotion = null;
-        soundManager.PlayNoMatchSound();
-    }
-    else if (selectedPotion != _potion)
-    {
-        if (IsAdjacent(selectedPotion, _potion))
+        if (selectedPotion == null)
         {
-            selectedPotion.Deselect();
-            SwapPotion(selectedPotion, _potion);
-            selectedPotion = null;
-        }
-        else
-        {
-            selectedPotion.Deselect();
             selectedPotion = _potion;
             selectedPotion.Select();
             soundManager.PlaySound();
         }
+        else if (selectedPotion == _potion)
+        {
+            selectedPotion.Deselect();
+            selectedPotion = null;
+            soundManager.PlayNoMatchSound();
+        }
+        else if (selectedPotion != _potion)
+        {
+            if (IsAdjacent(selectedPotion, _potion))
+            {
+                selectedPotion.Deselect();
+                SwapPotion(selectedPotion, _potion);
+                selectedPotion = null;
+            }
+            else
+            {
+                selectedPotion.Deselect();
+                selectedPotion = _potion;
+                selectedPotion.Select();
+                soundManager.PlaySound();
+            }
+        }
     }
-}
-    //swap potion - logic
+
+    // Swap two potions
     private void SwapPotion(Potion _currentPotion, Potion _targetPotion)
     {
         if (!IsAdjacent(_currentPotion, _targetPotion))
@@ -839,7 +847,8 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
 
         StartCoroutine(ProcessMatches(_currentPotion, _targetPotion));
     }
-    //do swap
+
+    // Perform the swap
     private void DoSwap(Potion _currentPotion, Potion _targetPotion)
     {
         GameObject temp = potionBoard[_currentPotion.xIndex, _currentPotion.yIndex].potion;
@@ -847,7 +856,6 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
         potionBoard[_currentPotion.xIndex, _currentPotion.yIndex].potion = potionBoard[_targetPotion.xIndex, _targetPotion.yIndex].potion;
         potionBoard[_targetPotion.xIndex, _targetPotion.yIndex].potion = temp;
 
-        //update indicies.
         int tempXIndex = _currentPotion.xIndex;
         int tempYIndex = _currentPotion.yIndex;
         _currentPotion.xIndex = _targetPotion.xIndex;
@@ -859,62 +867,60 @@ private IEnumerator RemoveAndRefillCoroutine(List<Potion> _potionsToRemove)
         _targetPotion.MoveToTarget(potionBoard[_currentPotion.xIndex, _currentPotion.yIndex].potion.transform.position);
     }
 
-private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion) {
-    yield return new WaitForSeconds(0.2f);
+    private IEnumerator ProcessMatches(Potion _currentPotion, Potion _targetPotion) {
+        yield return new WaitForSeconds(0.2f);
 
-    bool isPowerUpMoved = _currentPotion.potionType == PotionType.Bomb || 
-                          _currentPotion.potionType == PotionType.Lightning ||
-                          _targetPotion.potionType == PotionType.Bomb || 
-                          _targetPotion.potionType == PotionType.Lightning;
+        bool isPowerUpMoved = _currentPotion.potionType == PotionType.Bomb || 
+                              _currentPotion.potionType == PotionType.Lightning ||
+                              _targetPotion.potionType == PotionType.Bomb || 
+                              _targetPotion.potionType == PotionType.Lightning;
 
-    if (isPowerUpMoved) {
-        List<Potion> powerUpEffects = new List<Potion>();
-        Potion movedPowerUp = _currentPotion.potionType == PotionType.Bomb || 
-                              _currentPotion.potionType == PotionType.Lightning ? 
-                              _currentPotion : _targetPotion;
+        if (isPowerUpMoved) {
+            List<Potion> powerUpEffects = new List<Potion>();
+            Potion movedPowerUp = _currentPotion.potionType == PotionType.Bomb || 
+                                  _currentPotion.potionType == PotionType.Lightning ? 
+                                  _currentPotion : _targetPotion;
 
-        ApplyPowerUpEffect(movedPowerUp, powerUpEffects);
+            ApplyPowerUpEffect(movedPowerUp, powerUpEffects);
 
-        powerUpEffects.Add(movedPowerUp);
-        yield return StartCoroutine(ShakeAndDestroyPotions(powerUpEffects)); // Asegurarse de que se complete ShakeAndDestroyPotions
-        yield return new WaitForSeconds(0.2f); // Aumentar el tiempo de espera para asegurar que las animaciones de destrucción terminen
-        yield return StartCoroutine(RemoveAndRefillCoroutine(powerUpEffects));
-        GameManager.Instance.ProcessTurn(powerUpEffects.Count, true, true);
+            powerUpEffects.Add(movedPowerUp);
+            yield return StartCoroutine(ShakeAndDestroyPotions(powerUpEffects)); // Asegurarse de que se complete ShakeAndDestroyPotions
+            yield return new WaitForSeconds(0.2f); // Aumentar el tiempo de espera para asegurar que las animaciones de destrucción terminen
+            yield return StartCoroutine(RemoveAndRefillCoroutine(powerUpEffects));
+            GameManager.Instance.ProcessTurn(powerUpEffects.Count, true, true);
 
-        if (CheckBoard()) {
-            yield return StartCoroutine(ProcessTurnOnMatchedBoard(false));
-        }
-    } 
-    else {
-        if (CheckBoard()) {
-            yield return StartCoroutine(ProcessTurnOnMatchedBoard(true));
+            if (CheckBoard()) {
+                yield return StartCoroutine(ProcessTurnOnMatchedBoard(false));
+            }
         } 
         else {
-            DoSwap(_currentPotion, _targetPotion);
-            soundManager.PlayNoMatchSound();
+            if (CheckBoard()) {
+                yield return StartCoroutine(ProcessTurnOnMatchedBoard(true));
+            } 
+            else {
+                DoSwap(_currentPotion, _targetPotion);
+                soundManager.PlayNoMatchSound();
+            }
+        }
+
+        isProcessingMove = false;
+    }
+
+    private void ApplyPowerUpEffect(Potion movedPowerUp, List<Potion> powerUpEffects)
+    {
+        if (movedPowerUp.potionType == PotionType.Bomb) {
+            Explode(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
+        } 
+        else if (movedPowerUp.potionType == PotionType.Lightning) {
+            DestroyRowOrColumn(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
         }
     }
 
-    isProcessingMove = false;
-}
-
-private void ApplyPowerUpEffect(Potion movedPowerUp, List<Potion> powerUpEffects)
-{
-    if (movedPowerUp.potionType == PotionType.Bomb) {
-        Explode(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
-    } 
-    else if (movedPowerUp.potionType == PotionType.Lightning) {
-        DestroyRowOrColumn(movedPowerUp.xIndex, movedPowerUp.yIndex, powerUpEffects);
-    }
-}
-
-    //IsAdjacent
+    // Check if two potions are adjacent
     private bool IsAdjacent(Potion _currentPotion, Potion _targetPotion)
     {
         return Mathf.Abs(_currentPotion.xIndex - _targetPotion.xIndex) + Mathf.Abs(_currentPotion.yIndex - _targetPotion.yIndex) == 1;
     }
-
-    //ProcessMatches
 
     #endregion
 
