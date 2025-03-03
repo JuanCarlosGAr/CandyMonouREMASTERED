@@ -160,7 +160,21 @@ void InitializeBoard()
                 }
                 else
                 {
+<<<<<<< Updated upstream
                     randomIndex = Random.Range(0, 5);
+=======
+                int randomIndex = GetRandomPotionIndex(x, y, powerUpPositions);
+                GameObject potion = Instantiate(potionPrefabs[randomIndex], position, Quaternion.identity);
+                potion.transform.SetParent(potionParent.transform);
+                Potion potionComponent = potion.GetComponent<Potion>();
+                potionComponent.SetIndicies(x, y);
+                potionBoard[x, y] = new Node(true, potion);
+                potionsToDestroy.Add(potion);
+                if (randomIndex >= 5) // Check if it's a power-up
+                {
+                    StartCoroutine(ShakePowerUp(potionComponent)); // Start shaking the power-up
+                }
+>>>>>>> Stashed changes
                 }
 
                 GameObject potion = Instantiate(potionPrefabs[randomIndex], position, Quaternion.identity);
@@ -172,7 +186,20 @@ void InitializeBoard()
         }
     }
 
+<<<<<<< Updated upstream
     if (CheckBoard())
+=======
+    private IEnumerator ShakePowerUp(Potion powerUp)
+{
+    while (powerUp != null && powerUp.gameObject != null)
+    {
+        yield return StartCoroutine(ShakePotion(powerUp, 1.5f, 10f)); // Shake for 1 second
+        yield return new WaitForSeconds(3.0f); // Wait for 3 seconds
+    }
+}
+
+    private int GetRandomPotionIndex(int x, int y, List<Vector2Int> powerUpPositions)
+>>>>>>> Stashed changes
     {
         Debug.Log("Re-generating board due to matches");
         InitializeBoard();
@@ -447,6 +474,10 @@ void InitializeBoard()
         //move it to that location
         Vector3 targetPosition = new Vector3(newPotion.transform.position.x, newPotion.transform.position.y - locationToMoveTo, newPotion.transform.position.z);
         newPotion.GetComponent<Potion>().MoveToTarget(targetPosition);
+            if (randomIndex >= 5) // Check if it's a power-up
+    {
+        StartCoroutine(ShakePowerUp(newPotion.GetComponent<Potion>())); // Start shaking the power-up
+    }
     }
 
     private int FindIndexOfLowestNull(int x)

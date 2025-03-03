@@ -90,5 +90,6 @@ public enum PotionType
     Green,
     White,
     Bomb,
-    Lightning 
+    Lightning,
+    DestroyRowOrColumn
 }
