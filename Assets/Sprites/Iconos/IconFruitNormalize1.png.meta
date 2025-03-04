@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IconFruitNormalize1_0: 6327069559102426636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

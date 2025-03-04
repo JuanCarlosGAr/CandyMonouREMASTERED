@@ -164,9 +164,15 @@ public class PotionBoard : MonoBehaviour
                     int randomIndex = GetRandomPotionIndex(x, y, powerUpPositions);
                     GameObject potion = Instantiate(potionPrefabs[randomIndex], position, Quaternion.identity);
                     potion.transform.SetParent(potionParent.transform);
-                    potion.GetComponent<Potion>().SetIndicies(x, y);
+                    Potion potionComponent = potion.GetComponent<Potion>();
+                    potionComponent.SetIndicies(x, y);
                     potionBoard[x, y] = new Node(true, potion);
                     potionsToDestroy.Add(potion);
+
+                    if (randomIndex >= 5) // Check if it's a power-up
+                    {
+                        StartCoroutine(ShakePowerUp(potionComponent)); // Start shaking the power-up
+                    }
                 }
             }
         }
@@ -531,6 +537,15 @@ public class PotionBoard : MonoBehaviour
         }
     }
 
+    private IEnumerator ShakePowerUp(Potion powerUp)
+    {
+        while (powerUp != null && powerUp.gameObject != null)
+        {
+            yield return StartCoroutine(ShakePotion(powerUp, 1.0f, 15f)); // Shake for 1 second
+            yield return new WaitForSeconds(3.0f); // Wait for 3 seconds
+        }
+    }
+
     // Modify RemoveAndRefill to use ShakeAndDestroyPotions
     private void RemoveAndRefill(List<Potion> _potionsToRemove)
     {
@@ -612,6 +627,11 @@ public class PotionBoard : MonoBehaviour
         potionBoard[x, index] = new Node(true, newPotion);
         Vector3 targetPosition = new Vector3(newPotion.transform.position.x, newPotion.transform.position.y - locationToMoveTo, newPotion.transform.position.z);
         newPotion.GetComponent<Potion>().MoveToTarget(targetPosition);
+
+        if (randomIndex >= 5) // Check if it's a power-up
+        {
+            StartCoroutine(ShakePowerUp(newPotion.GetComponent<Potion>())); // Start shaking the power-up
+        }
     }
 
     private int FindIndexOfLowestNull(int x)
