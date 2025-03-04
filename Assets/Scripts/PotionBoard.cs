@@ -9,6 +9,7 @@ public class PotionBoard : MonoBehaviour
     private GameObject SMatchtxt;
     public GameObject bombExplosionEffect;  // Effect for bombs
     public GameObject lightningExplosionEffect; // Effect for lightning
+    public GameObject explosionEffect; // Explosion effect prefab
     [SerializeField] private int maxPowerUps = 4;
     private int currentPowerUps = 0;
     private bool hasPlayedNoMatchSound = false;
@@ -48,9 +49,6 @@ public class PotionBoard : MonoBehaviour
 
     // Singleton instance of PotionBoard
     public static PotionBoard Instance;
-
-    // Explosion effect prefab
-    public GameObject explosionEffect;
 
     private void Awake()
     {
