@@ -3333,6 +3333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombExplosionEffect: {fileID: 5396587829054132777, guid: 0aa51143887ee264a9b6f6af5489e555, type: 3}
   lightningExplosionEffect: {fileID: 8877543699353537981, guid: 2e9e8c634ca468d4aa8898f18f7c5d3e, type: 3}
+  explosionEffect: {fileID: 966808790988323759, guid: f56ecfbe58ebff34aa623a20f8655c1a, type: 3}
   maxPowerUps: 2
   width: 6
   height: 8
@@ -3362,4 +3363,3 @@ MonoBehaviour:
     - row: 000000000000
     - row: 000000000000
     - row: 000000000000
-  explosionEffect: {fileID: 966808790988323759, guid: f56ecfbe58ebff34aa623a20f8655c1a, type: 3}

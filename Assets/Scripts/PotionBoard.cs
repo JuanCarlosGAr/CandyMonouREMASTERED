@@ -400,10 +400,10 @@ public class PotionBoard : MonoBehaviour
                 if (potionBoard[posX, posY].potion != null)
                 {
                     Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
-                   // potion.customExplosionEffect = explosionEffect; // Normal match effect
+                    // potion.customExplosionEffect = explosionEffect; // Normal match effect
                 }
                 // Instantiate the lightning effect with rotation based on row or column
-                InstantiateLightningEffect(posX, posY, !isRow);
+                InstantiateLightningEffect(posX, posY, !isRow, posX - x, posY - y);
                 yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
             }
 
@@ -416,10 +416,10 @@ public class PotionBoard : MonoBehaviour
                 if (potionBoard[posX, posY].potion != null)
                 {
                     Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
-                   // potion.customExplosionEffect = explosionEffect; // Normal match effect
+                    // potion.customExplosionEffect = explosionEffect; // Normal match effect
                 }
                 // Instantiate the lightning effect with rotation based on row or column
-                InstantiateLightningEffect(posX, posY, !isRow);
+                InstantiateLightningEffect(posX, posY, !isRow, posX - x, posY - y);
                 yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
             }
         }
@@ -429,19 +429,34 @@ public class PotionBoard : MonoBehaviour
         {
             Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
             powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Lightning effect
-            InstantiateLightningEffect(x, y, !isRow);
+            InstantiateLightningEffect(x, y, !isRow, 0, 0);
         }
     }
 
-    private void InstantiateLightningEffect(int x, int y, bool isVertical)
+    private void InstantiateLightningEffect(int x, int y, bool isVertical, int offsetX, int offsetY)
     {
         // Instantiate lightning effect at the given position
         Vector3 position = new Vector3(x - spacingX, y - spacingY, 0);
         GameObject effect = Instantiate(lightningExplosionEffect, position, Quaternion.identity);
 
+        // Determine rotation based on offset direction
         if (isVertical)
         {
-            effect.transform.Rotate(0, 0, 90); // Rotate the effect 90 degrees for vertical columns
+            if (offsetY > 0)
+            {
+                effect.transform.Rotate(0, 0, 90); // Rotate 90 degrees for positive vertical
+            }
+            else if (offsetY < 0)
+            {
+                effect.transform.Rotate(0, 0, 270); // Rotate 270 degrees for negative vertical
+            }
+        }
+        else
+        {
+            if (offsetX < 0)
+            {
+                effect.transform.Rotate(0, 0, 180); // Rotate 180 degrees for negative horizontal
+            }
         }
 
         Destroy(effect, 0.5f); // Destroy the effect after 0.5 seconds
