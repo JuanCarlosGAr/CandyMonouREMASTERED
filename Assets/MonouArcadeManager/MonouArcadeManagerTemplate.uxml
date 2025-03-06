@@ -69,7 +69,7 @@
                     </engine:VisualElement>
                     <engine:Label text="Aún no hay registros" name="alReady_ranking_empty" style="display: none;" />
                 </engine:VisualElement>
-                <engine:Label text="Bolsa de Premios" style="font-size: 24px; padding-top: 24px; padding-bottom: 16px; margin-bottom: 50px;" />
+                <engine:Label text="BOLSA DE PREMIOS" style="font-size: 24px; padding-top: 24px; padding-bottom: 16px; margin-bottom: 50px;" />
                 <engine:VisualElement name="alReady_rewards" style="width: 100%; flex-direction: column; justify-content: center; flex-shrink: 0;">
                     <engine:VisualElement name="firstReward" class="reward" style="background-image: url(&quot;project://database/Assets/MonouArcadeManager/icn_cup_oro.png?fileID=2800000&amp;guid=e16a22c7b49e84644801ddc392c7e850&amp;type=3#icn_cup_oro&quot;); background-size: 85px 114px; background-position-x: right 16px; margin-top: 20px;">
                         <engine:Label text="1er Lugar" />

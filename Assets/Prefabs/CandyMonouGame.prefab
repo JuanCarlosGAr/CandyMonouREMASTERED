@@ -606,7 +606,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 6cecff113d41bff4086a60ac45d1a4af, type: 3}
   m_Resource: {fileID: 8300000, guid: 6cecff113d41bff4086a60ac45d1a4af, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.063
+  m_Volume: 0.52
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1069,7 +1069,7 @@ RectTransform:
   m_GameObject: {fileID: 1710562121933998739}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -7}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 2.9475486}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 2.9475486}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4612355818746892410}
@@ -1123,12 +1123,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1761402977381646493, guid: 9a3c8b48973bd7d418e2fabd493a46ad, type: 3}
+  m_Sprite: {fileID: -1562495992, guid: c774afa40ccbf17439b72aefef14f9bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 8.75, y: 3.73}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Points: xxxx'
+  m_text: 'POINTS: xxxx'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
   m_sharedMaterial: {fileID: -4081446668615213263, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
@@ -2940,7 +2940,7 @@ RectTransform:
   m_GameObject: {fileID: 7815218783916546220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -7}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 2.9475486}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4612355818746892410}
@@ -2994,12 +2994,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1266881246577901816, guid: be02309298eca6343bb1fef6c35c342e, type: 3}
+  m_Sprite: {fileID: 1266881246577901816, guid: c2b162500aa2b4340b981ed6275c713c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 3.36, y: 0.79}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3070,7 +3070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Moves: xxxx'
+  m_text: 'MOVES: xxxx'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
   m_sharedMaterial: {fileID: -4081446668615213263, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
@@ -3193,7 +3193,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 9
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -3286,7 +3286,7 @@ MonoBehaviour:
   destroySound: {fileID: 8300000, guid: 0c14bccbbb5ceda43b94c11b04212ef5, type: 3}
   zapSound: {fileID: 8300000, guid: 0260c5c8017c3c74bba3d036b1bc2015, type: 3}
   explosionSound: {fileID: 8300000, guid: 54574f432c162d440bf2eb4d2a63de40, type: 3}
-  lightningSound: {fileID: 8300000, guid: a8dc9cd38ac8e2940acaec1d407b96eb, type: 3}
+  lightningSound: {fileID: 8300000, guid: ef8286fa9da02e34687367e965c481ba, type: 3}
 --- !u!1 &8924285347347566270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3345,6 +3345,7 @@ MonoBehaviour:
   - {fileID: 5930547338441292345, guid: 6c597d806bad704419da251730356785, type: 3}
   - {fileID: 5930547338441292345, guid: 61115a64e51418341b0800b4e4d9c3fc, type: 3}
   - {fileID: 5930547338441292345, guid: 7a91c599a653c2c45a44e6484b0a6f74, type: 3}
+  - {fileID: 5930547338441292345, guid: 3c43de5b871550e418a215c5f686a310, type: 3}
   - {fileID: 5930547338441292345, guid: ec1de2ab3350db64cbf3d5053aa2e209, type: 3}
   - {fileID: 5930547338441292345, guid: 0bbfa76894675ed4d9b2584acb8d1e4b, type: 3}
   potionBoardGO: {fileID: 8924285347347566270}

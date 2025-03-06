@@ -167,7 +167,7 @@ public class PotionBoard : MonoBehaviour
                     potionBoard[x, y] = new Node(true, potion);
                     potionsToDestroy.Add(potion);
 
-                    if (randomIndex >= 5) // Check if it's a power-up
+                    if (randomIndex >= 6) // Check if it's a power-up
                     {
                         StartCoroutine(ShakePowerUp(potionComponent)); // Start shaking the power-up
                     }
@@ -182,7 +182,7 @@ public class PotionBoard : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.moves = 50;
+            GameManager.Instance.moves = 10;
             Debug.Log("Board is valid. Starting game!");
         }
     }
@@ -195,13 +195,13 @@ public class PotionBoard : MonoBehaviour
         bool canSpawnPowerUp = currentPowerUps < maxPowerUps 
                               && !isNearPowerUp 
                               && Random.value < powerUpChance 
-                              && potionPrefabs.Length > 6;
+                              && potionPrefabs.Length > 7;
 
         if (canSpawnPowerUp)
         {
             currentPowerUps++;
             powerUpPositions.Add(new Vector2Int(x, y));
-            return Random.Range(5, 7);
+            return Random.Range(6, 8);
         }
         else
         {
@@ -385,15 +385,25 @@ public class PotionBoard : MonoBehaviour
 
     private IEnumerator InstantiateLightningEffectInSequence(int x, int y, List<Potion> potionsList, bool isRow)
     {
-        // Instantiate lightning effect in sequence for row or column
-        int length = isRow ? width : height;
-        int start = isRow ? x : y;
+     // Apply power-up effect at the power-up location at the beginning
+    if (potionBoard[x, y].potion != null)
+    {
+        Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
+        powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Lightning effect
+        InstantiateLightningEffect(x, y, !isRow, 0, 0);
+    }
 
-        for (int offset = 0; offset < length; offset++)
+    int length = isRow ? width : height;
+    int start = isRow ? x : y;
+
+    for (int offset = 0; offset < length; offset++)
+    {
+        // Positive direction
+        int posX = isRow ? start + offset : x;
+        int posY = isRow ? y : start + offset;
+
+        if ((isRow && posX < width) || (!isRow && posY < height))
         {
-            int posX = isRow ? (start + offset) % length : x;
-            int posY = isRow ? y : (start + offset) % length;
-
             if ((isRow && posX != x) || (!isRow && posY != y))
             {
                 AddPotionToList(posX, posY, potionsList);
@@ -402,14 +412,16 @@ public class PotionBoard : MonoBehaviour
                     Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
                     // potion.customExplosionEffect = explosionEffect; // Normal match effect
                 }
-                // Instantiate the lightning effect with rotation based on row or column
                 InstantiateLightningEffect(posX, posY, !isRow, posX - x, posY - y);
-                yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
             }
+        }
 
-            posX = isRow ? (start - offset + length) % length : x;
-            posY = isRow ? y : (start - offset + length) % length;
+        // Negative direction
+        posX = isRow ? start - offset : x;
+        posY = isRow ? y : start - offset;
 
+        if ((isRow && posX >= 0) || (!isRow && posY >= 0))
+        {
             if ((isRow && posX != x) || (!isRow && posY != y))
             {
                 AddPotionToList(posX, posY, potionsList);
@@ -418,19 +430,15 @@ public class PotionBoard : MonoBehaviour
                     Potion potion = potionBoard[posX, posY].potion.GetComponent<Potion>();
                     // potion.customExplosionEffect = explosionEffect; // Normal match effect
                 }
-                // Instantiate the lightning effect with rotation based on row or column
                 InstantiateLightningEffect(posX, posY, !isRow, posX - x, posY - y);
-                yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
             }
         }
 
-        // Apply power-up effect at the power-up location
-        if (potionBoard[x, y].potion != null)
-        {
-            Potion powerUpPotion = potionBoard[x, y].potion.GetComponent<Potion>();
-            powerUpPotion.customExplosionEffect = lightningExplosionEffect; // Lightning effect
-            InstantiateLightningEffect(x, y, !isRow, 0, 0);
-        }
+        yield return new WaitForSeconds(0.1f); // Wait a bit before instantiating the next effect
+    }
+
+    // Destroy potions after the effects
+    yield return StartCoroutine(ShakeAndDestroyPotions(potionsList));
     }
 
     private void InstantiateLightningEffect(int x, int y, bool isVertical, int offsetX, int offsetY)
@@ -624,14 +632,14 @@ public class PotionBoard : MonoBehaviour
         int index = FindIndexOfLowestNull(x);
 
         // Logic to generate power-up
-        if (currentPowerUps < maxPowerUps && Random.value < 0.05f && potionPrefabs.Length > 5)
+        if (currentPowerUps < maxPowerUps && Random.value < 0.05f && potionPrefabs.Length > 6)
         {
-            randomIndex = Random.Range(5, 7);
+            randomIndex = Random.Range(6, 8);
             currentPowerUps++;
         }
         else
         {
-            randomIndex = Random.Range(0, 5);
+            randomIndex = Random.Range(0, 6);
         }
         int locationToMoveTo = 8 - index;
         GameObject newPotion = Instantiate(potionPrefabs[randomIndex], new Vector2(x - spacingX, height - spacingY), Quaternion.identity);
@@ -641,7 +649,7 @@ public class PotionBoard : MonoBehaviour
         Vector3 targetPosition = new Vector3(newPotion.transform.position.x, newPotion.transform.position.y - locationToMoveTo, newPotion.transform.position.z);
         newPotion.GetComponent<Potion>().MoveToTarget(targetPosition);
 
-        if (randomIndex >= 5) // Check if it's a power-up
+        if (randomIndex >= 6) // Check if it's a power-up
         {
             StartCoroutine(ShakePowerUp(newPotion.GetComponent<Potion>())); // Start shaking the power-up
         }
