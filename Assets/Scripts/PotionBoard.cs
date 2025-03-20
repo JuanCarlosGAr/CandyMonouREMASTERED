@@ -49,6 +49,11 @@ public class PotionBoard : MonoBehaviour
 
     // Singleton instance of PotionBoard
     public static PotionBoard Instance;
+    
+    //swipe
+    private Vector2 startTouchPosition;
+    private Vector2 endTouchPosition;
+    private bool isDragging = false;
 
     private void Awake()
     {
@@ -118,8 +123,41 @@ public class PotionBoard : MonoBehaviour
     }
     private void Update()
     {
-        // Handle mouse input for selecting potions
-        if (Input.GetMouseButtonDown(0))
+    // Handle mouse input for selecting potions
+    if (Input.GetMouseButtonDown(0))
+    {
+        startTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        isDragging = true;
+    }
+
+    if (Input.GetMouseButtonUp(0) && isDragging)
+    {
+        endTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = endTouchPosition - startTouchPosition;
+
+        if (direction.magnitude > 0.1f) // Minimum swipe distance
+        {
+            RaycastHit2D startHit = Physics2D.Raycast(startTouchPosition, Vector2.zero);
+            RaycastHit2D endHit = Physics2D.Raycast(endTouchPosition, Vector2.zero);
+
+            if (startHit.collider != null && startHit.collider.gameObject.GetComponent<Potion>() &&
+                endHit.collider != null && endHit.collider.gameObject.GetComponent<Potion>())
+            {
+                Potion startPotion = startHit.collider.gameObject.GetComponent<Potion>();
+                Potion endPotion = endHit.collider.gameObject.GetComponent<Potion>();
+
+                if (IsAdjacent(startPotion, endPotion))
+                {
+                    SelectPotion(startPotion);
+                    SelectPotion(endPotion);
+                }
+                else
+                {
+                    soundManager.PlayNoMatchSound();
+                }
+            }
+        }
+        else
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -130,11 +168,14 @@ public class PotionBoard : MonoBehaviour
                     return;
 
                 Potion potion = hit.collider.gameObject.GetComponent<Potion>();
-                Debug.Log("I have a clicked a potion it is: " + potion.gameObject);
+                Debug.Log("I have clicked a potion it is: " + potion.gameObject);
 
                 SelectPotion(potion);
             }
         }
+
+        isDragging = false;
+    }
     }
 
     private void InitializeBoard()

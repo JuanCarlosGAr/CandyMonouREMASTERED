@@ -150,7 +150,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 517
+        width: 818
         height: 326
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -166,55 +166,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: GameOver23x_1
-      rect:
-        serializedVersion: 2
-        x: 518
-        y: 2
-        width: 130
-        height: 321
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e5a7783b4bac62860800000000000000
-      internalID: 7504908706514434654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOver23x_2
-      rect:
-        serializedVersion: 2
-        x: 648
-        y: 2
-        width: 170
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a4e177a75840b00e0800000000000000
-      internalID: -2302741813138088374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 13e72f2ffd2f6b64eab8185a4df57149
     internalID: 0
     vertices: []
     indices: 
@@ -225,8 +181,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       GameOver23x_0: 7930224729700389528
-      GameOver23x_1: 7504908706514434654
-      GameOver23x_2: -2302741813138088374
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

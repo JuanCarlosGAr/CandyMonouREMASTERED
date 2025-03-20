@@ -121,7 +121,9 @@ public class GameManager : MonoBehaviour
         losePanel.SetActive(true);
 
         string loseMessage = $"Ya no tienes más movimientos. lograste {points} puntos! sigue partisipando.";
-        try { Monou.MonouArcadeManager.inst.Success(points); } catch { }
+        //try { 
+        Monou.MonouArcadeManager.inst.Success(points); 
+        //} catch { }
 
         var loseTxt = GameObject.FindGameObjectWithTag("loseText");
         if (loseTxt != null)

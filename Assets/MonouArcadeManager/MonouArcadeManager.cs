@@ -40,6 +40,7 @@ namespace Monou
 
         public string api;
         public string userId;
+        public string game;
         public string slug;
         // public Texture splashTexture;
         // public Texture bgTexture;
@@ -106,6 +107,7 @@ namespace Monou
         private bool isDemo = false;
         private GameObject gameInstance;
         private string logId;
+        private string table;
 
         private string[] HEADTITLES = new string[3]{"Pos", "Name", "Points"};
 
@@ -229,20 +231,7 @@ namespace Monou
             CheckStatus();
             HideButtonsForWebGL();
         }
-        void Update(){
-            if(gameInstance == null && tournametId != ""){
-                if(
-                    (gameoverDemo.style.display == DisplayStyle.Flex ||
-                    notReady.style.display == DisplayStyle.Flex) &&
-                    timestandStart<=0
-                ) ShowAlReady();
-                if(
-                    (alReady.style.display == DisplayStyle.Flex ||
-                    gameover.style.display == DisplayStyle.Flex) && 
-                    timestandFinish<=0
-                ) ShowFinished();
-            }
-        }
+
 
         public string advanceInterval = "";
         public int tangananicaOffset = 0;
@@ -373,12 +362,13 @@ namespace Monou
             finishButton.style.display = nextTutorialIndex>=tutorialList.Count-1? DisplayStyle.Flex: DisplayStyle.None;
             foreach(var item in tutorialList) item.style.display = DisplayStyle.None;
             tutorialList[nextTutorialIndex].style.display = DisplayStyle.Flex;
+            tutorialIndex = nextTutorialIndex;
         }
         private void CloseTutorial(){
             tutorialViewer.style.display = DisplayStyle.None;
         }
         private void PlayDemo(){
-            ShowModal("Entiendo que ésta es una partida de práctica, que no representa ningún tipo de premio", "¡A Jugar!", "", ()=>{
+            ShowModal("Entiendo que ésta es una partida de práctica, que no representa ningún tipo de premio", "¡A JUGAR!", "", ()=>{
                 //demoHint.style.display = DisplayStyle.Flex;
                 isDemo= true; StartGame();
             });
@@ -525,6 +515,7 @@ namespace Monou
         }
 
         private void SaveScore(Action onSuccess){
+            Debug.Log("SaveScore");
             ArcadeScore data = new ArcadeScore();
             data.place = 99;
             data.team_id = teamId;
@@ -557,7 +548,8 @@ namespace Monou
         private void StartLog(){
             var data = new GameArcadeLog();
             data.type = "start";
-            data.table = "tetrix_monou";
+            data.game = game;
+            data.table = table;
             data.slug = slug;
             data.user_id = userId;
             data.tipo = isDemo? "practica": "juego";
@@ -567,7 +559,7 @@ namespace Monou
         private void FinishLog(){
             var data = new GameArcadeLog();
             data.type = "finish";
-            data.table = "tetrix_monou";
+            data.table = table;
             data.id = logId;
             data.user_id = userId;
             data.points = score;
@@ -602,15 +594,19 @@ namespace Monou
             switch (api){
                 case "https://dev-torneos-fe.monou.gg/":
                     api = "https://pwpawoqa3p63hwi9un57qb2wz.monou.gg/api/";
+                    table = "tetrix_monou_stg";
                     break;
                 case "https://stg-torneos-fe.monou.gg/":
                     api = "https://e6e6j0v1xah51y9eec0p2f12h.monou.gg/api/";
+                    table = "tetrix_monou_stg";
                     break;
                 case "https://rel-torneos-fe.monou.gg/":
                     api = "https://keyu65uwekgf21rjs23fgjkds.monou.gg/api/";
+                    table = "tetrix_monou_stg";
                     break;
                 case "https://monou.gg/":
                     api = "https://dgu2evhs9qmnap4nqu9dhmcw1.monou.gg/api/";
+                    table = "tetrix_monou"; //prod
                     break;
             }
 #endif
@@ -734,6 +730,7 @@ namespace Monou
         public string type;
         public string table;
         public string id;
+        public string game;
         public string slug;
         public string user_id;
         public int points;
