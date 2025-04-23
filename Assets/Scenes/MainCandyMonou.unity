@@ -151,14 +151,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   api: https://e6e6j0v1xah51y9eec0p2f12h.monou.gg/api/
   userId: 144017
-  game: JungleMission
-  slug: mtesto01-3
-  gamePrefab: {fileID: 2338745100768701638, guid: bbf24faef74f0cc4aa7417719b2c83d7, type: 3}
+  slug: torneo-rechido-de-abril
   termsUrl: 
   maxRankingRows: 8
-  timeZoneOffset: 6
-  advanceInterval: 
-  tangananicaOffset: 0
+  game: JungleMission
+  gamePrefab: {fileID: 2338745100768701638, guid: bbf24faef74f0cc4aa7417719b2c83d7, type: 3}
 --- !u!114 &1868813322
 MonoBehaviour:
   m_ObjectHideFlags: 0

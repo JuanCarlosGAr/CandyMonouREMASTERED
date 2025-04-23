@@ -38,19 +38,32 @@ namespace Monou
         private const string TANGANANICA = "bqkcgomgha";
         private const string TANGANANA = "mvsdftbwrt";
 
+        [Header("Configuración de Torneo")]
+        [Tooltip("URL del api de plataforma Monou.gg. Se auto sobreesribe en producción")]
         public string api;
+        [Tooltip("Id del jugador de plataforma Monou.gg. Se auto sobreesribe en producción")]
         public string userId;
-        public string game;
+        [Tooltip("Slug del torneo generado en plataforma Monou.gg. Se auto sobreesribe en producción")]
         public string slug;
+
+        [Header("Configuración la interfaz")]
+        [Tooltip("Url del link de los términos y condiciones de Monou.gg")]
+        public string termsUrl;
+        [Tooltip("Cantidad de registros mostrados del ranking")]
+        public int maxRankingRows = 5;
+
         // public Texture splashTexture;
         // public Texture bgTexture;
         // public Color textColor;
         // public Texture bgButton;
         // public Color textButtonColor;
+        [Header("Configuración de Juego")]
+        [Tooltip("Nombre de juego. Obligatorio")]
+        public string game;
+        [Tooltip("Prefab del juego. Solo la parte jugable. Sin menu comenzar o volver a jugar, etc.")]
         public GameObject gamePrefab;
-        public string termsUrl;
-        public int maxRankingRows = 5;
-        public int timeZoneOffset = 5;
+
+        private int timeZoneOffset = 6;
 
         private UIDocument ui;
         private VisualElement root;
@@ -66,6 +79,8 @@ namespace Monou
         private VisualElement alReady;
         private Label alReady_timerText;
         private Button alReady_playButton;
+        private Button alReady_registerButton;
+        private Label alReady_registredText;
         private VisualElement alReady_ranking;
         private Label alReady_ranking_empty;
         private VisualElement finished;
@@ -100,14 +115,16 @@ namespace Monou
         private Label demoHint;
 
         private string tournametId = "";
-        private int timestandStart = 0;
-        private int timestandFinish = 0;
+        private DateTime timestandStart;
+        private DateTime timestandFinish;
         private int score = 0;
         private string teamId = "";
         private bool isDemo = false;
         private GameObject gameInstance;
         private string logId;
-        private string table;
+        private bool junglePass = false;
+        private string frontApi = "";
+        private string table = "tetrix_monou_stg";
 
         private string[] HEADTITLES = new string[3]{"Pos", "Name", "Points"};
 
@@ -138,6 +155,9 @@ namespace Monou
             alReady_timerText = root.Query<Label>("alReady_timerText").First();
             alReady_playButton = root.Query<Button>("alReady_playButton").First();
             alReady_playButton.RegisterCallback<MouseUpEvent>(ev => Play());
+            alReady_registerButton = root.Query<Button>("alReady_registerButton").First();
+            alReady_registerButton.RegisterCallback<MouseUpEvent>(ev => Register(alReady_registerButton));
+            alReady_registredText = root.Query<Label>("alReady_registredText").First();
             alReady_ranking = root.Query<VisualElement>("alReady_ranking").First();
             alReady_ranking_empty = root.Query<Label>("alReady_ranking_empty").First();
             finished = root.Query<VisualElement>("finished").First();
@@ -181,23 +201,19 @@ namespace Monou
             modalCancel.RegisterCallback<MouseUpEvent>(ev => hideModal());
             demoHint = root.Query<Label>("demoHint").First();
 
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            timeZoneOffset = (int)localZone.BaseUtcOffset.TotalHours;
+
             content.schedule.Execute(() => {
-                if(timestandStart!=0){
-                    timestandStart--;
-                    string timeleft = _GetTimer(timestandStart);
-                    notReady_timerText.text = timeleft;
-                    gameoverDemo_timerText.text = timeleft;
-                }else{
+                int toStart = (int)(timestandStart - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
+                string timeleft = _GetTimer(toStart);
+                notReady_timerText.text = timeleft;
+                gameoverDemo_timerText.text = timeleft;
 
-                }
-                if(timestandFinish!=0){
-                    timestandFinish--;
-                    string timetoend = _GetTimer(timestandFinish);
-                    alReady_timerText.text = timetoend;
-                    gameover_timerText.text = timetoend;
-                }else{
-
-                }
+                int toFinish = (int)(timestandFinish - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
+                string timetoend = _GetTimer(toFinish);
+                alReady_timerText.text = timetoend;
+                gameover_timerText.text = timetoend;
             }).Every(1000);
             ForceUpdate(content);
 
@@ -229,12 +245,25 @@ namespace Monou
             ShowSplash();
             ExtractDataFromWebGL();
             CheckStatus();
-            HideButtonsForWebGL();
+            //HideButtonsForWebGL();
+        }
+        void Update(){
+            /*if(gameInstance == null && tournametId != ""){
+                if(
+                    (gameoverDemo.style.display == DisplayStyle.Flex ||
+                    notReady.style.display == DisplayStyle.Flex) &&
+                    timestandStart<=0
+                ) ShowAlReady();
+                if(
+                    (alReady.style.display == DisplayStyle.Flex ||
+                    gameover.style.display == DisplayStyle.Flex) && 
+                    timestandFinish<=0
+                ) ShowFinished();
+            }*/
         }
 
-
-        public string advanceInterval = "";
-        public int tangananicaOffset = 0;
+        private string advanceInterval = "";
+        private int tangananicaOffset = 0;
         private void ResetAdvanceLog(){
             tangananicaOffset = (int)((Time.time *100)%48);
             advanceInterval = "" + TANGANANICANANA[tangananicaOffset];
@@ -368,7 +397,7 @@ namespace Monou
             tutorialViewer.style.display = DisplayStyle.None;
         }
         private void PlayDemo(){
-            ShowModal("Entiendo que ésta es una partida de práctica, que no representa ningún tipo de premio", "¡A JUGAR!", "", ()=>{
+            ShowModal("Entiendo que ésta es una partida de práctica, que no representa ningún tipo de premio", "¡A Jugar!", "", ()=>{
                 //demoHint.style.display = DisplayStyle.Flex;
                 isDemo= true; StartGame();
             });
@@ -382,17 +411,45 @@ namespace Monou
                 ArcadeRegisterPostData data = new ArcadeRegisterPostData(userId, teamId, tournametId);
                 Post(api + "inscription-tournament-decision-fast/", JsonUtility.ToJson(data), success =>{
                     notReady_registredText.style.display = DisplayStyle.Flex;
+                    //alReady_registredText.style.display = DisplayStyle.Flex;
+                    alReady_playButton.style.display = DisplayStyle.Flex;
                     gameoverDemo_registredText.style.display = DisplayStyle.Flex;
                     notReady_registerButton.style.display = DisplayStyle.None;
+                    alReady_registerButton.style.display = DisplayStyle.None;
                     gameoverDemo_registerButton.style.display = DisplayStyle.None;
-                    HideButtonsForWebGL();
+                    //HideButtonsForWebGL();
                 }, err=>{
-                    ShowModal(
-                        "Ups! Parece que no tienes mounedas suficientes para participar. Pero no te preocupes, puedes adquirir más.",
-                        "Comprar Mounedas",
-                        "Cancelar",
-                        ()=>Goto("MonouMounedas")
-                    );
+#if UNITY_WEBGL && !UNITY_EDITOR
+                    if(junglePass){
+                        ShowModal(
+                            "Ups! Para ingresar a este torneo, necesitas renovar tu Jungle Pass.",
+                            "Adquirir JunglePass",
+                            "Cancelar",
+                            ()=>Application.OpenURL(frontApi + "JunglePass?returnUrl=/torneo/"+slug+"/informacion")
+                        );
+                    }else
+                        ShowModal(
+                            "Ups! Parece que no tienes Mounedas suficientes para participar en este Torneo.",
+                            "Obten Mounedas",
+                            "Cancelar",
+                            ()=>Application.OpenURL(frontApi + "tokens?returnUrl=/torneo/"+slug+"/informacion")
+                        );                        
+#else
+                    if(junglePass){
+                        ShowModal(
+                            "Ups! Para ingresar a este torneo, necesitas renovar tu Jungle Pass.",
+                            "Adquirir JunglePass",
+                            "Cancelar",
+                            ()=>Goto("MonouJunglePass")
+                        );
+                    }else
+                        ShowModal(
+                            "Ups! Parece que no tienes Mounedas suficientes para participar en este Torneo.",
+                            "Obten Mounedas",
+                            "Cancelar",
+                            ()=>Goto("MonouMounedas")
+                        );
+#endif
                     btn.SetEnabled(true);
                 });
             },err=>{});
@@ -442,14 +499,13 @@ namespace Monou
         private void CheckStatus(){
             Get(api + "tournamentBySlug/" + slug, success=>{
                 JSONNode td = JSON.Parse(success);
+                junglePass = td["data"][0][0][0]["tournament"]["type_visibility"] == "Suscrip";
                 string m_statusTornament = td["data"][0][0][0]["tournament"]["tournament_status"];
                 string m_start = td["data"][0][0][0]["tournament"]["date_start"]+" "+td["data"][0][0][0]["tournament"]["time_start"];
                 string m_finish = td["data"][0][0][0]["tournament"]["date_end"]+" "+td["data"][0][0][0]["tournament"]["time_end"];
                 tournametId = td["data"][0][0][0]["tournament"]["id"];
-                DateTime startDateTime = DateTime.ParseExact(m_start, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-                timestandStart = (int)(startDateTime - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
-                //timestandFinish = (int)(DateTime.ParseExact(m_finish, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) - DateTime.UtcNow).TotalSeconds + 21600;
-                timestandFinish = (int)(startDateTime.AddDays(2) - DateTime.UtcNow).TotalSeconds + timeZoneOffset *60*60;
+                timestandStart = DateTime.ParseExact(m_start, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                timestandFinish = DateTime.ParseExact(m_finish, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
                 // Debug.Log(">>>t "+tournametId);
                 // Debug.Log(">>>t "+m_statusTornament);
                 // Debug.Log(">>>s "+m_start);
@@ -467,27 +523,35 @@ namespace Monou
         }
 
         private void CheckRegistered(){
+            Debug.Log("CheckRegistered>>>");
             Get(api + "tournament/" + tournametId +"/teams/?current_page=1&per_page=1000", success=>{
                 bool isRegistered = false;
-                JSONNode node = JSON.Parse(success);
+                JSONNode node = JSON.Parse(success); Debug.Log(success);
                 for(int i = 0; i < node["data"][0][0][0]["teams"].Count; i++)
                     if(String.Equals(node["data"][0][0][0]["teams"][i]["creador"]["id"], userId)){
                         isRegistered = true;
                         teamId = node["data"][0][0][0]["teams"][i]["id"];
                         break;
                     }
+                Debug.Log(isRegistered);
                 if(isRegistered){
                     notReady_registredText.style.display = DisplayStyle.Flex;
+                    //alReady_registredText.style.display = DisplayStyle.Flex;
+                    alReady_playButton.style.display = DisplayStyle.Flex;
                     gameoverDemo_registredText.style.display = DisplayStyle.Flex;
                     notReady_registerButton.style.display = DisplayStyle.None;
+                    alReady_registerButton.style.display = DisplayStyle.None;
                     gameoverDemo_registerButton.style.display = DisplayStyle.None;
                 }else{
                     notReady_registredText.style.display = DisplayStyle.None;
+                    alReady_registredText.style.display = DisplayStyle.None;
+                    alReady_playButton.style.display = DisplayStyle.None;
                     gameoverDemo_registredText.style.display = DisplayStyle.None;
                     notReady_registerButton.style.display = DisplayStyle.Flex;
+                    alReady_registerButton.style.display = DisplayStyle.Flex;
                     gameoverDemo_registerButton.style.display = DisplayStyle.Flex;
                 }
-                HideButtonsForWebGL();
+                //HideButtonsForWebGL();
             }, err=>{ Debug.Log("err ArcadeGame CheckRegistered"); });
         }
 
@@ -498,16 +562,16 @@ namespace Monou
                 Debug.Log(cols.Count);
                 for(int i=0; i<cols.Count; i++){
                     cols[i].Clear();
-                   // Label head = new Label();
-                   // head.AddToClassList("columnhead");
-                  //  head.text = HEADTITLES[i];
-                   // cols[i].Add(head);
+                    Label head = new Label();
+                    head.AddToClassList("columnhead");
+                    head.text = HEADTITLES[i];
+                    cols[i].Add(head);
                 }
                 int counter=0;
                 foreach (JSONNode player in data["data"]){
-                    Label pos = new Label(); pos.text = player["place"]; cols[0].Add(pos);pos.AddToClassList("pos"); pos.AddToClassList("row"+counter.ToString());pos.AddToClassList("row");
-                    Label name = new Label(); name.text = player["name"]; cols[1].Add(name);name.AddToClassList("name"); name.AddToClassList("row"+counter.ToString());name.AddToClassList("row");
-                    Label points = new Label(); points.text = player["kills"]; cols[2].Add(points);points.AddToClassList("points"); points.AddToClassList("row"+counter.ToString());points.AddToClassList("row");
+                    Label pos = new Label(); pos.text = player["place"]; cols[0].Add(pos); pos.AddToClassList("pos"); pos.AddToClassList("row"+counter.ToString());pos.AddToClassList("row");
+                    Label name = new Label(); name.text = player["name"]; cols[1].Add(name); name.AddToClassList("name"); name.AddToClassList("row"+counter.ToString());pos.AddToClassList("row");
+                    Label points = new Label(); points.text = player["kills"]; cols[2].Add(points); points.AddToClassList("points"); points.AddToClassList("row"+counter.ToString());pos.AddToClassList("row");
                     counter++; if(counter>=maxRankingRows) break;
                 }
                 emptyText.style.display = counter>0? DisplayStyle.None: DisplayStyle.Flex;
@@ -515,7 +579,6 @@ namespace Monou
         }
 
         private void SaveScore(Action onSuccess){
-            Debug.Log("SaveScore");
             ArcadeScore data = new ArcadeScore();
             data.place = 99;
             data.team_id = teamId;
@@ -548,7 +611,6 @@ namespace Monou
         private void StartLog(){
             var data = new GameArcadeLog();
             data.type = "start";
-            data.game = game;
             data.table = table;
             data.slug = slug;
             data.user_id = userId;
@@ -559,6 +621,7 @@ namespace Monou
         private void FinishLog(){
             var data = new GameArcadeLog();
             data.type = "finish";
+            data.table = game;
             data.table = table;
             data.id = logId;
             data.user_id = userId;
@@ -606,7 +669,7 @@ namespace Monou
                     break;
                 case "https://monou.gg/":
                     api = "https://dgu2evhs9qmnap4nqu9dhmcw1.monou.gg/api/";
-                    table = "tetrix_monou"; //prod
+                    table = "tetrix_monou"; //<-- prod
                     break;
             }
 #endif

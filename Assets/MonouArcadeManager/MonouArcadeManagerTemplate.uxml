@@ -62,6 +62,8 @@
                         <engine:Label text="Descripción" name="thirdReward_description" class="reward_description" />
                     </engine:VisualElement>
                 </engine:VisualElement>
+                <engine:Button text="Button" name="alReady_registerButton" />
+                <engine:Label text="Label" name="alReady_registredText" />
             </engine:VisualElement>
             <engine:VisualElement name="finished" class="container" style="flex-grow: 1; display: none; justify-content: space-between; margin-bottom: 40px;">
                 <engine:Label text="¡EL TORNEO HA" style="font-size: 26px; padding-top: 16px; padding-bottom: 16px; width: 414px; margin-bottom: -10px; -unity-text-align: upper-center; margin-top: 10px;" />
@@ -149,7 +151,7 @@
             <engine:VisualElement name="tutorial" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/MT1.png?fileID=2800000&amp;guid=592b720330e858b44acb925c19b10580&amp;type=3#MT1&quot;);" />
         </engine:VisualElement>
         <engine:VisualElement name="tutorialControls" style="flex-direction: row; justify-content: flex-start; margin-top: -50px; margin-bottom: 30px; align-items: stretch; margin-right: 50px; margin-left: 50px; padding-bottom: 50px;">
-            <engine:Button style="background-image: url(&quot;project://database/Assets/Flecha4Back.png?fileID=2800000&amp;guid=fd66eeae61506fb41aa04198db955ce2&amp;type=3#Flecha4Back&quot;); display: flex; padding-left: 90px; padding-right: 90px; padding-top: 35px; padding-bottom: 35px; margin-left: 0; margin-right: 0;" />
+            <engine:Button name="prevButton" style="background-image: url(&quot;project://database/Assets/Flecha4Back.png?fileID=2800000&amp;guid=fd66eeae61506fb41aa04198db955ce2&amp;type=3#Flecha4Back&quot;); display: flex; padding-left: 90px; padding-right: 90px; padding-top: 35px; padding-bottom: 35px; margin-left: 0; margin-right: 0;" />
             <engine:Button name="nextButton" style="background-image: url(&quot;project://database/Assets/Flecha4Next.png?fileID=2800000&amp;guid=7f33caab602852d429655f01b4d64aff&amp;type=3#Flecha4Next&quot;); display: flex; padding-top: 35px; padding-bottom: 35px; padding-right: 90px; padding-left: 90px; margin-left: 0; margin-right: 0;" />
             <engine:Button text="LISTO" name="finishButton" style="padding-left: 35px; padding-right: 35px; display: none; visibility: visible; padding-top: 0; margin-left: -40px; padding-bottom: 0;" />
         </engine:VisualElement>
