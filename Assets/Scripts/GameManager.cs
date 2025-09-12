@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
         points += _pointsToGain;
-        try{ Monou.MonouArcadeManager.inst.Advance(_pointsToGain); } catch {}
+       // try{ Monou.MonouArcadeManager.inst.Advance(_pointsToGain); } catch {}
         if (_subtractMoves)
             moves--;
 
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             var congratulationsTxt = GameObject.FindGameObjectWithTag("congratulationsTxt");
    
             string winMessage = $"fELICIDADES! You won in {moves} moves and scored {points} points!";
-           try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
+          // try{ Monou.MonouArcadeManager.inst.Success(points); } catch {}
 
             if (congratulationsTxt != null)
             {
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
         string loseMessage = $"Ya no tienes más movimientos. lograste {points} puntos! sigue partisipando.";
         //try { 
-        Monou.MonouArcadeManager.inst.Success(points); 
+      //  Monou.MonouArcadeManager.inst.Success(points); 
         //} catch { }
 
         var loseTxt = GameObject.FindGameObjectWithTag("loseText");

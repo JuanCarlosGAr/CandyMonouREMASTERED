@@ -55,6 +55,8 @@ public class PotionBoard : MonoBehaviour
     private Vector2 endTouchPosition;
     private bool isDragging = false;
 
+    public bool isStarted = false;
+
     private void Awake()
     {
         // Set the singleton instance
@@ -178,14 +180,15 @@ public class PotionBoard : MonoBehaviour
     }
     }
 
-    private void InitializeBoard()
+    public void InitializeBoard()
     {
+        if (isStarted == false) return;
         // Initialize the board with potions
         currentPowerUps = 0;
         DestroyPotions();
         potionBoard = new Node[width, height];
-        spacingX = (float)((width) / 2.4);
-        spacingY = (float)((height) / 2.1);
+        spacingX = (float)((width) / 2.7);
+        spacingY = (float)((height) / 1.6);
 
         List<Vector2Int> powerUpPositions = new List<Vector2Int>();
 
