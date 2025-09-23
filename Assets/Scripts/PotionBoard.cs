@@ -137,7 +137,7 @@ public class PotionBoard : MonoBehaviour
         endTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = endTouchPosition - startTouchPosition;
 
-        if (direction.magnitude > 0.1f) // Minimum swipe distance
+        if (direction.magnitude > 0.05f) // Minimum swipe distance
         {
             RaycastHit2D startHit = Physics2D.Raycast(startTouchPosition, Vector2.zero);
             RaycastHit2D endHit = Physics2D.Raycast(endTouchPosition, Vector2.zero);

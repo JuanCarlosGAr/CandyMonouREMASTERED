@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject backgroundPanel; 
     public GameObject victoryPanel;
     public GameObject losePanel;
+    public TMP_Text victoryText;
 
     public int goal; 
     public int moves; 
@@ -47,9 +48,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        pointsTxt.text = "Points: " + points.ToString();
-        movesTxt.text = "Moves: " + moves.ToString();
+        pointsTxt.text = "Puntos: " + points.ToString();
+        movesTxt.text = "Movidas: " + moves.ToString();
         goalTxt.text = "Goal: " + goal.ToString();
+        victoryText.text = points.ToString();
     }
         private IEnumerator ActivateAndDeactivateOverCoroutine(float delay)
     {
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour
             isGameEnded = true;
             backgroundPanel.SetActive(true);
             victoryPanel.SetActive(true);
-
+            victoryText.text = points.ToString();
             // actualizamos los textos
             var congratulationsTxt = GameObject.FindGameObjectWithTag("congratulationsTxt");
    

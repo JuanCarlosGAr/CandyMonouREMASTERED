@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Menus : MonoBehaviour
 {
-    // Declara dos variables públicas para arrastrar tus Canvas desde el editor
+    // Declara dos variables pï¿½blicas para arrastrar tus Canvas desde el editor
     public GameObject menuCanvas;
     public GameObject juegoCanvas;
     public GameObject finishCanvas; 
@@ -11,13 +11,13 @@ public class Menus : MonoBehaviour
     [SerializeField] private PotionBoard potionBoard;
     [SerializeField] private GameManager gameManager;
 
-    // Esta función se llamará cuando se presione el botón
+    // Esta funciï¿½n se llamarï¿½ cuando se presione el botï¿½n
     public void IniciarJuego()
     {
-        // Apaga el canvas del menú
+        // Apaga el canvas del menï¿½
         menuCanvas.SetActive(false);
-        potionBoard.isStarted = true; // Indica que el juego está activo
-        StartCoroutine(LoadingBoard()); // Inicia la corrutina para cargar el tablero después de un retraso
+        potionBoard.isStarted = true; // Indica que el juego estï¿½ activo
+        StartCoroutine(LoadingBoard()); // Inicia la corrutina para cargar el tablero despuï¿½s de un retraso
         // Prende el canvas del tablero de juego
         juegoCanvas.SetActive(true);
         // potions.SetActive(true);
@@ -37,8 +37,5 @@ public class Menus : MonoBehaviour
         // Recarga la escena actual para reiniciar el juego
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
-    public void Finishgame()
-    {
-        gameManager.ShowGameOverAfterDelay();
-    }
+
 }
