@@ -10,6 +10,7 @@ public class Menus : MonoBehaviour
     //public GameObject potions;
     [SerializeField] private PotionBoard potionBoard;
     [SerializeField] private GameManager gameManager;
+    public GameObject scorePanel;
 
     // Esta funci�n se llamar� cuando se presione el bot�n
     public void IniciarJuego()
@@ -18,13 +19,14 @@ public class Menus : MonoBehaviour
         menuCanvas.SetActive(false);
         potionBoard.isStarted = true; // Indica que el juego est� activo
         StartCoroutine(LoadingBoard()); // Inicia la corrutina para cargar el tablero despu�s de un retraso
+        scorePanel.SetActive(true);
         // Prende el canvas del tablero de juego
         juegoCanvas.SetActive(true);
         // potions.SetActive(true);
 
-       Debug.Log("IniciarJuego() called - Menu canvas deactivated, Juego canvas activated");
-       Debug.Log(menuCanvas.activeSelf);
- 
+        Debug.Log("IniciarJuego() called - Menu canvas deactivated, Juego canvas activated");
+        Debug.Log(menuCanvas.activeSelf);
+
     }
 
     private IEnumerator LoadingBoard()

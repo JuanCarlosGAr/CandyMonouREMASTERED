@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; 
 
     private GameObject OverTxt;
+    public GameObject scorePanel;
 
     public GameObject backgroundPanel; 
     public GameObject victoryPanel;
@@ -48,10 +50,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        pointsTxt.text = "Puntos: " + points.ToString();
-        movesTxt.text = "Movidas: " + moves.ToString();
-        goalTxt.text = "Goal: " + goal.ToString();
-        victoryText.text = points.ToString();
+        if (scorePanel.activeSelf)
+        {
+            pointsTxt.text = "Puntos: " + points.ToString();
+            movesTxt.text = "Movidas: " + moves.ToString();
+            goalTxt.text = "Goal: " + goal.ToString();
+            victoryText.text = points.ToString();
+        }
+        else return;
     }
         private IEnumerator ActivateAndDeactivateOverCoroutine(float delay)
     {
