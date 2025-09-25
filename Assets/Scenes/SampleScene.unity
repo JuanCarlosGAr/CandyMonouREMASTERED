@@ -618,7 +618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Reiniciar
+  m_text: 'Play Again
 
 '
   m_isRightToLeft: 0
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jugar
+  m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8364764d30015a4f949687b6973f506, type: 2}
   m_sharedMaterial: {fileID: -5779839706036144299, guid: f8364764d30015a4f949687b6973f506, type: 2}
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Movidas: \n10"
+  m_text: 'Moves: 10'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
   m_sharedMaterial: {fileID: -4081446668615213263, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
@@ -4696,7 +4696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Puntos: 0'
+  m_text: 'Points: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}
   m_sharedMaterial: {fileID: -4081446668615213263, guid: c5893bbe1e1893a49a41bb3c0c1e03ee, type: 2}

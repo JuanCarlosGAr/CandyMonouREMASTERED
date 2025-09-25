@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
     {
         if (scorePanel.activeSelf)
         {
-            pointsTxt.text = "Puntos: " + points.ToString();
-            movesTxt.text = "Movidas: " + moves.ToString();
+            pointsTxt.text = "Points: " + points.ToString();
+            movesTxt.text = "Moves: " + moves.ToString();
             goalTxt.text = "Goal: " + goal.ToString();
             victoryText.text = points.ToString();
         }
