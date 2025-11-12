@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 5a54dbc1d301c7541bd271829434a70b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainCandyMonou.unity
     guid: 79e16e6eae4a06449906e19d5a665820
   m_configObjects:

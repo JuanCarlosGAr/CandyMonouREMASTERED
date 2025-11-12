@@ -15,6 +15,7 @@ public class Menus : MonoBehaviour
     // Esta funci�n se llamar� cuando se presione el bot�n
     public void IniciarJuego()
     {
+        Monou.GameScraper.Starts();
         // Apaga el canvas del men�
         menuCanvas.SetActive(false);
         potionBoard.isStarted = true; // Indica que el juego est� activo

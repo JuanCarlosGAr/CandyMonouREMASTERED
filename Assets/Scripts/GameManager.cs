@@ -66,11 +66,12 @@ public class GameManager : MonoBehaviour
         OverTxt.SetActive(false);
     }
     
-    public void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool _addMoves, bool isPowerUpActivation = false)
+    public async void ProcessTurn(int _pointsToGain, bool _subtractMoves, bool _addMoves, bool isPowerUpActivation = false)
     {
         Debug.Log($"isPowerUpActivation: {isPowerUpActivation}");
         points += _pointsToGain;
        // try{ Monou.MonouArcadeManager.inst.Advance(_pointsToGain); } catch {}
+       Monou.GameScraper.Advance(points);
         if (_subtractMoves)
             moves--;
 
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(ActivateAndDeactivateOverCoroutine(1.0f));
             StartCoroutine(ShowGameOverAfterDelay());
+            await Monou.GameScraper.Advertise();
         }
     }
 
@@ -142,7 +144,7 @@ public class GameManager : MonoBehaviour
                 textComp.text = loseMessage;
             }
         }
-
+        Monou.GameScraper.Finish(points);
         PotionBoard.Instance.potionParent.SetActive(false);
     }
 
